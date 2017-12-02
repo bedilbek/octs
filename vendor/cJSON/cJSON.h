@@ -122,7 +122,7 @@ then using the CJSON_API_VISIBILITY flag to "export" the same symbols the way CJ
 #endif
 #endif
 
-/* Limits how deeply nested arrays/objects can be before cJSON rejects to parse them.
+/* Limits how deeply nested arrays/models can be before cJSON rejects to parse them.
  * This is to prevent stack overflows. */
 #ifndef CJSON_NESTING_LIMIT
 #define CJSON_NESTING_LIMIT 1000
@@ -286,7 +286,7 @@ CJSON_PUBLIC(double) cJSON_SetNumberHelper(cJSON *object, double number);
 /* Macro for iterating over an array or object */
 #define cJSON_ArrayForEach(element, array) for(element = (array != NULL) ? (array)->child : NULL; element != NULL; element = element->next)
 
-/* malloc/free objects using the malloc/free functions that have been set with cJSON_InitHooks */
+/* malloc/free models using the malloc/free functions that have been set with cJSON_InitHooks */
 CJSON_PUBLIC(void *)cJSON_malloc(size_t size);
 
 CJSON_PUBLIC(void) cJSON_free(void *object);

@@ -9,7 +9,7 @@
 #include <assert.h>
 #include <stdarg.h>
 #include <string.h>
-#include "vendor/cJSON/cJSON.h"
+#include "cJSON.h"
 
 #define typename(x) _Generic((x), \
     int:    "int", \
@@ -18,20 +18,6 @@
     double:"double", \
     default:"char")
 
-extern const void *String;
-extern const void *Dict;
-
-struct Dict {
-    const void *class;
-    char *key;
-    char *value;
-    cJSON *data;
-};
-
-struct String {
-    const void *class;
-    char *text;
-};
 
 /**
  * Class definition for oop principles
@@ -48,6 +34,8 @@ struct Class {
     int (*differ)(const void *self, const void *b);
 
     void (*set)(void *self, char *field, void *value);
+
+    void *(*get)(void *self, char *field);
 
     char *(*toJson)(void *self);
 };
@@ -70,6 +58,8 @@ void *new(const void *__class, ...);
 extern void delete(void *self);
 
 void set(void *self, char *field, void *value);
+
+void *get(void *self, char *field);
 
 char *toJson(void *self);
 

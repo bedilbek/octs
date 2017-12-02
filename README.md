@@ -1,29 +1,39 @@
 # README #
 
-This README would normally document whatever steps are necessary to get your application up and running.
+Here are the steps for installation process of client-server app written in c
 
-### What is this repository for? ###
+### Installation process of server-side app ###
 
-* Quick summary
-* Version
-* [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo)
+* Installing PostgreSQL Database
+* Configuring PostgreSQL
+* Linking libpq libraries for PostgreSQL in C
 
-### How do I get set up? ###
+#### 1. Installing PostgreSQL? ####
 
-* Summary of set up
-* Configuration
-* Dependencies
-* Database configuration
-* How to run tests
-* Deployment instructions
+First we will start with installing PostgreSQL
 
-### Contribution guidelines ###
+Open terminal:
 
-* Writing tests
-* Code review
-* Other guidelines
+```
+sudo apt install postgresql-9.6 postgresql-client-9.6  postgresql-client-common libpq-dev postgresql-common postgresql-contrib-9.6 postgresql-server-dev-9.6 postgresql-doc-9.6
+```
+#### 2. Cofiguring PostgreSQL? ####
+After installation, execute following commands in terminal
+```
+sudo su postgres
+psql
+CREATE DATABASE OCTS;
+CREATE USER octs WITH PASSWORD 'OCTSIUTOSPROJECT2017';
+ALTER USER WITH SUPERUSER;
+```
+#### 3. Linking process with PostgreSQL ####
 
-### Who do I talk to? ###
+Open the project source directory and you will see cmake file
+`CMakeLists.txt`. Build this file with cmake, if you are using CLion, 
+then open `CMake` _tool window_ and click `Reload CMake Project`
 
-* Repo owner or admin
-* Other community or team contact
+#### 4. Database hint ####
+
+If you want to better manipulate your database instances, install DataGrip by JetBrains.
+
+##### Now your server-side app is ready to be compiled and executed ####

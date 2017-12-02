@@ -220,7 +220,7 @@ typedef struct {
     const unsigned char *content;
     size_t length;
     size_t offset;
-    size_t depth; /* How deeply nested (in arrays/objects) is the input at the current offset. */
+    size_t depth; /* How deeply nested (in arrays/models) is the input at the current offset. */
     internal_hooks hooks;
 } parse_buffer;
 
@@ -2235,7 +2235,7 @@ CJSON_PUBLIC(cJSON_bool) cJSON_Compare(const cJSON *const a, const cJSON *const 
             return false;
     }
 
-    /* identical objects are equal */
+    /* identical models are equal */
     if (a == b) {
         return true;
     }
