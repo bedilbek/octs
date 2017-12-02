@@ -1,16 +1,18 @@
 #include <stdio.h>
 #include "helpers.h"
 #include "DataBase.h"
+#include "lib/lib.h"
 
 int main() {
 
-    //struct String* a = new(String, "text A");
-    //struct String* b = clone(a);
+    struct String *a = new(String, "text A");
+    struct String *b = clone(a);
 
     struct Dict *keyPair = new(Dict, "info", "man");
     //set(keyPair->data, "info", "as");
     set(keyPair, "info", "as");
-    printf(toJson(keyPair));
+    printf("hello %s", toJson(keyPair));
+    printf("bye %s", toJson(a));
 
 //    void* b = new(String, "text B");
 //

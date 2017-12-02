@@ -18,20 +18,7 @@
     double:"double", \
     default:"char")
 
-extern const void *String;
-extern const void *Dict;
 
-struct Dict {
-    const void *class;
-    char *key;
-    char *value;
-    cJSON *data;
-};
-
-struct String {
-    const void *class;
-    char *text;
-};
 
 /**
  * Class definition for oop principles
