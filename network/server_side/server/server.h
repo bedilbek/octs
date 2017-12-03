@@ -5,7 +5,6 @@
 #ifndef OS_PROJECT_SERVER_H
 #define OS_PROJECT_SERVER_H
 
-#include <evrpc.h>
 #include <stdio.h>
 #include <assert.h>
 #include <stdlib.h>
@@ -13,9 +12,16 @@
 #include <string.h>
 #include <sys/socket.h>
 #include <netinet/in.h>
+#include "../cJSON/cJSON.h"
+#include "../cJSON/cJSON.c"
 
-#define PORT 8000
+
+#define SERVER_SEND_PORT 8001
+#define SERVER_LISTEN_PORT 8000
 #define MAX_NUM_CLIENT 20
+#define TRUE 1
+#define FALSE 0
+#define LENGTH_OF_MESSAGE 1024
 
 
 struct Server {
