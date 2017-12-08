@@ -5,9 +5,7 @@
 # Reference: https://intellij-support.jetbrains.com/hc/en-us/articles/206544839
 
 # User-specific stuff:
-.idea/**/workspace.xml
 .idea/**/tasks.xml
-.idea/dictionaries
 
 # Sensitive or high-churn files:
 .idea/**/dataSources/
@@ -60,5 +58,9 @@ fabric.properties
 
 .idea/
 cmake-build-debug/
+
+client/cmake-build-debug/
+client/cmake-build-release/
+
 
 # End of https://www.gitignore.io/api/clion+all
