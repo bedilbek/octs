@@ -60,6 +60,16 @@ char *toJson(void *self) {
     return "";
 }
 
+void *cJSON_parser(cJSON *item) {
+    if (cJSON_IsBool(item))
+        return item->valueint;
+    if (cJSON_IsNumber(item))
+        return item->valueint;
+    if (cJSON_IsString(item))
+        return item->valuestring;
+    return "";
+}
+
 size_t sizeOf(const void *self) {
     const struct Class *const *cp = self;
     assert(self && *cp);

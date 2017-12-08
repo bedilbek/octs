@@ -5,10 +5,17 @@
 #ifndef POSTGRES_TEST_OOPDESIGNPATTERNS_H
 #define POSTGRES_TEST_OOPDESIGNPATTERNS_H
 
+#include <memory.h>
 #include <stdlib.h>
 #include <assert.h>
-#include <stdarg.h>
 #include <string.h>
+#include <stdarg.h>
+#include <stdio.h>
+#include <unistd.h>
+#include <sys/socket.h>
+#include <arpa/inet.h>
+#include <netinet/in.h>
+
 #include "cJSON.h"
 
 #define typename(x) _Generic((x), \
@@ -62,6 +69,8 @@ void set(void *self, char *field, void *value);
 void *get(void *self, char *field);
 
 char *toJson(void *self);
+
+void *cJSON_parser(cJSON *item);
 
 /**
  * Checks whether given two entities differ from each other or not

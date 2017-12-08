@@ -8,6 +8,12 @@
 #define UPDATE_QUERY "Update"
 #define SELECTION_QUERY "Selection"
 
+#define TYPE_VARCHAR 1043
+#define TYPE_TIMESTAMP 1114
+#define TYPE_INTEGER 23
+#define TYPE_BOOL 16
+#define TYPE_TEXT 25
+
 cJSON *parseResult(PGresult *pgResult);
 
 cJSON *execute_query(struct Database *db, char *cmd);
@@ -143,21 +149,7 @@ void check_pg_result(struct Database *db, cJSON *result, char *query_type) {
 }
 
 cJSON *execute_query(struct Database *db, char *cmd) {
-
-    cJSON *result = cJSON_CreateObject();
-
-    cJSON_AddNumberToObject(result, "status", 505);
-    cJSON_AddStringToObject(result, "message", "Connection to database failed");
-    cJSON_AddItemToObject(result, "data", NULL);
-
-    if (!db->pgConn)
-        return result;
-
-    if (db->pgResult)
-        PQclear(db->pgResult);
-
-    db->pgResult = PQexec(db->pgConn, cmd);
-
+    cJSON *result = execute_query_params(db, cmd, 0, NULL);
     return result;
 }
 
@@ -175,7 +167,7 @@ cJSON *execute_query_params(struct Database *db, char *cmd, int num_of_params, c
     if (db->pgResult)
         PQclear(db->pgResult);
 
-    db->pgResult = PQexecParams(db->pgConn, cmd, num_of_params, NULL, paramValues, NULL, NULL, 0);
+    db->pgResult = PQexecParams(db->pgConn, cmd, num_of_params, NULL, paramValues, NULL, NULL, 1);
 
     return result;
 }
@@ -192,8 +184,35 @@ cJSON *parseResult(PGresult *pgResult) {
 
     for (i = 0; i < nTuples; i++) {
         cJSON *object = cJSON_CreateObject();
-        for (j = 0; j < nFields; j++)
-            cJSON_AddStringToObject(object, PQfname(pgResult, j), PQgetvalue(pgResult, i, j));
+        for (j = 0; j < nFields; j++) {
+            if (PQgetisnull(pgResult, i, j)) {
+                cJSON_AddNullToObject(object, PQfname(pgResult, j));
+            } else {
+                int length = PQgetlength(pgResult, i, j);
+                char *value = PQgetvalue(pgResult, i, j);
+
+                switch (PQftype(pgResult, j)) {
+                    case TYPE_BOOL:
+                        cJSON_AddBoolToObject(object, PQfname(pgResult, j), ntohl(*((uint32_t *) value)));
+                        break;
+                    case TYPE_INTEGER:
+                        cJSON_AddNumberToObject(object, PQfname(pgResult, j), ntohl(*((uint32_t *) value)));
+                        break;
+                    case TYPE_TEXT:
+                        cJSON_AddStringToObject(object, PQfname(pgResult, j), value);
+                        break;
+                    case TYPE_TIMESTAMP:
+                        cJSON_AddStringToObject(object, PQfname(pgResult, j), value);
+                        break;
+                    case TYPE_VARCHAR:
+                        cJSON_AddStringToObject(object, PQfname(pgResult, j), value);
+                        break;
+                    default:
+                        cJSON_AddStringToObject(object, PQfname(pgResult, j), value);
+                        break;
+                }
+            }
+        }
         cJSON_AddItemToArray(data, object);
     }
 

@@ -12,6 +12,8 @@
 #define USER_USERNAME "username"
 #define USER_PASSWORD "password"
 #define USER_EMAIL "email"
+#define USER_CREATED_AT "created_at"
+#define USER_UPDATED_AT "updated_at
 
 static void *user_ctor(void *_self, va_list *arguments) {
     struct User *self = _self;
@@ -35,8 +37,7 @@ static void *user_ctor(void *_self, va_list *arguments) {
         delete(self);
         return NULL;
     }
-    long user_id = strtol((cJSON_GetObjectItem(cJSON_GetArrayItem(cJSON_GetObjectItem(create_usr_msg, "data"), 0),
-                                               "id"))->valuestring, NULL, 10);
+    int user_id = cJSON_GetObjectItem(cJSON_GetArrayItem(cJSON_GetObjectItem(create_usr_msg, "data"), 0), "id");
 
     cJSON_AddNumberToObject(self->data, "id", user_id);
 
@@ -62,7 +63,8 @@ cJSON *create_user_char(char *fname, char *lname, char *username, char *password
     struct Database *db = new(Database);
     char insert_sql[1024];
 
-    sprintf(insert_sql, "INSERT INTO users VALUES (DEFAULT, \'%s\', \'%s\', \'%s\', \'%s\', \'%s\') RETURNING id",
+    sprintf(insert_sql,
+            "INSERT INTO users VALUES (DEFAULT, \'%s\', \'%s\', \'%s\', \'%s\', \'%s\', DEFAULT, DEFAULT) RETURNING id",
             fname, lname, username, password, email);
     cJSON *msg = insert_query(db, insert_sql);
     delete(db);
@@ -130,7 +132,7 @@ static void user_set(struct User *_self, char *field, void *value) {
     char update_sql[1024];
 
     //update user in db;
-    sprintf(update_sql, "UPDATE users SET %s=\'%s\' WHERE username=\'%s\'", field, value, username);
+    sprintf(update_sql, "UPDATE users SET %s=$1 WHERE username=\'%s\'", field, username);
     cJSON *msg = update_query(db, update_sql);
     delete(db);
     if ((cJSON_GetObjectItem(msg, "status"))->valueint != 201) {

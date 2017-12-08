@@ -1,39 +1,10 @@
-#include <stdio.h>
-#include "lib.h"
-#include "model.h"
+////
+//// Created by Tolqinbek Isoqov on 12/3/17.
+////
+#include "server.h"
 
 int main() {
 
-    //struct String *a = new(String, "text A");
-    //printf("%s", toJson(a));
-    //struct String *b = clone(a);
-
-    //struct Dict *keyPair = new(Dict, "info", "man");
-    //set(keyPair->data, "info", "as");
-    //set(keyPair, "info", "as");
-    //printf("hello %s", toJson(keyPair));
-
-//    void* b = new(String, "text B");
-//
-//    if (!differ(a, aa))
-//        printf("yeees\n");
-//    printf("%s\n", a->text);
-//    printf("%s => %s\n", keyPair->key, keyPair->value);
-    struct Database *db = new(Database);
-    cJSON *dbData = select_query(db, "SELECT * FROM users");
-//printf(cJSON_Print(dbData));
-    delete(db);
-    //delete(a),
-    //delete(b), delete(keyPair);
-    cJSON *usrJSON = cJSON_Parse(
-            "{\"fname\":\"tom\",\"lname\":\"isaak\",\"username\":\"ttom\",\"password\":\"tom\",\"email\":\"ttom@gmail.com\"}");
-    struct User *usr = new(User, usrJSON);
-    printf(toJson(usr));
-    set(usr, "fname", "bediko");
-    printf(get(usr, "fname"));
-    printf(get(usr, "username"));
-    delete(usr);
-    return 0;
-
-
+    struct Server *server = new(Server);
+    server_listen(server);
 }
