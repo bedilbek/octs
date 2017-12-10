@@ -5,7 +5,7 @@
 #ifndef POSTGRES_TEST_DATABASE_H
 #define POSTGRES_TEST_DATABASE_H
 
-#include "libpq-fe.h"
+#include "postgresql/libpq-fe.h"
 #include "DB_CONFIG.h"
 #include "helpers.h"
 

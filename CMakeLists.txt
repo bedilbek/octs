@@ -14,12 +14,15 @@ include(server/pgsqlFind.cmake)
 add_library(lib lib/helpers.c lib/dictionary.c lib/_string.c)
 add_library(db lib/DataBase.c)
 add_library(vendor vendor/cJSON/cJSON.c)
-add_library(model server/models/user.c server/models/problem.c server/models/category.c)
+add_library(model server/models/user.c server/models/problem.c server/models/category.c server/models/contest.c server/models/contest_problem.c server/models/problem_result.c server/models/test_case.c server/models/user_contest_result.c)
 add_library(server server/server/server.c)
 add_library(client client/client/client.c)
 add_library(contollers server/controllers/login.c)
 
 link_libraries(lib db vendor model server contollers)
+
+
+link_libraries(lib db vendor model server client)
 
 add_executable(os_project_server ${SERVER_SOURCE_FILES})
 add_executable(os_project_client ${CLIENT_SOURCE_FILES})

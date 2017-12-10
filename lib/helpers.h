@@ -16,7 +16,7 @@
 #include <arpa/inet.h>
 #include <netinet/in.h>
 
-#include "cJSON.h"
+#include "vendor.h"
 
 #define typename(x) _Generic((x), \
     int:    "int", \

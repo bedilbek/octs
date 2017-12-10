@@ -96,7 +96,8 @@ static void *category_ctor(void *_self, va_list *arguments) {
         return NULL;
     }
 
-    int category_id = cJSON_GetObjectItem(cJSON_GetArrayItem(cJSON_GetObjectItem(create_ctgr_msg, "data"), 0), "id");
+    int category_id = cJSON_parser(
+            cJSON_GetObjectItem(cJSON_GetArrayItem(cJSON_GetObjectItem(create_ctgr_msg, "data"), 0), "id"));
 
     cJSON_AddNumberToObject(self->data, "id", category_id);
 
