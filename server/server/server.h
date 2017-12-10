@@ -11,7 +11,7 @@
 #define TRUE 1
 #define FALSE 0
 #define MAX_NUM_CLIENT 20
-#define SERVER_SEND_PORT 8001
+#define FILE_SERVER_LISTEN_PORT 8001
 #define SERVER_LISTEN_PORT 8000
 #define MAX_LENGTH_OF_MESSAGE 1024
 
@@ -30,10 +30,18 @@ struct Server {
     int server_file_descriptor, new_socket, val_read;
 };
 
-static void dispatch(int socket);
+struct Request {
+    int socket;
+    int method;
+    cJSON *data;
+};
+
+static void dispatch(struct Request *request);
 
 cJSON *get_attr(cJSON *data, char *field);
 
 void server_listen(struct Server *self);
+
+void file_server_listen(struct Server *self);
 
 #endif //OS_PROJECT_SERVER_H

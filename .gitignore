@@ -59,5 +59,6 @@ fabric.properties
 # See https://github.com/joeblau/gitignore.io/issues/186 and https://github.com/joeblau/gitignore.io/issues/360
 
 .idea/
+cmake-build-debug/
 
 # End of https://www.gitignore.io/api/clion+all

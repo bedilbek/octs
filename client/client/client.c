@@ -4,7 +4,9 @@
 
 #include "client.h"
 
-static void *client_ctor(struct Client *_self) {
+
+static void *client_ctor(struct Client *_self, va_list *arguments) {
+    const int port = va_arg(*arguments, const int);
     struct Client *self = _self;
     self->sock = 0;
     if ((self->sock = socket(AF_INET, SOCK_STREAM, 0)) < 0) {
@@ -13,7 +15,7 @@ static void *client_ctor(struct Client *_self) {
     }
     memset(&self->serv_addr, '0', sizeof(self->serv_addr));
     self->serv_addr.sin_family = AF_INET;
-    self->serv_addr.sin_port = htons(CLIENT_SEND_PORT);
+    self->serv_addr.sin_port = htons(port);
 
     if (inet_pton(AF_INET, SERVER, &self->serv_addr.sin_addr) <= 0) {
         perror("\nInvalid address/ Address not supported \n");
@@ -42,6 +44,10 @@ void *send_message(struct Client *client, char *method, cJSON *params) {
         exit(-1);
     }
     return client_listen(client);
+}
+
+void *send_file(struct Client *client) {
+
 }
 
 static const struct Class _Client = {

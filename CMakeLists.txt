@@ -3,10 +3,10 @@ project(os_project)
 
 set(CMAKE_C_STANDARD 11)
 
-set(SERVER_SOURCE_FILES server/main.c)
+set(SERVER_SOURCE_FILES server/main.c server/controllers/login.c server/controllers/save_file.c)
 set(CLIENT_SOURCE_FILES client/main.c)
 
-include_directories(lib server/models vendor/cJSON config server/server client/client)
+include_directories(lib server/models vendor/cJSON config server/server client/client server/controllers)
 include_directories(vendor)
 
 include(server/pgsqlFind.cmake)
@@ -17,12 +17,13 @@ add_library(vendor vendor/cJSON/cJSON.c)
 add_library(model server/models/user.c server/models/problem.c server/models/category.c)
 add_library(server server/server/server.c)
 add_library(client client/client/client.c)
+add_library(contollers server/controllers/login.c)
 
-link_libraries(lib db vendor model server)
+link_libraries(lib db vendor model server contollers)
 
 add_executable(os_project_server ${SERVER_SOURCE_FILES})
 add_executable(os_project_client ${CLIENT_SOURCE_FILES})
 
-target_link_libraries(os_project_server lib db vendor model server)
+target_link_libraries(os_project_server lib db vendor model server contollers)
 target_link_libraries(os_project_server ${PostgreSQL_LIBRARIES})
 target_link_libraries(os_project_client lib vendor client)
