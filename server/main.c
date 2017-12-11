@@ -2,8 +2,13 @@
 #include "lib.h"
 #include "model.h"
 #include "server.h"
-
+#include "migrations.h"
 int main() {
+
+    struct Database *db = new(Database);
+
+    run_migrations(db);
+
     //struct String *a = new(String, "text A");
     //printf("%s", toJson(a));
     //struct String *b = clone(a);
@@ -43,7 +48,7 @@ int main() {
     delete(usr);
 
     //creating a category
-    cJSON *ctgryJSON = cJSON_Parse("{\"name\":\"Good category\","
+    cJSON *ctgryJSON = cJSON_Parse("{\"name\":\"Awesome category\","
                                            "\"description\":\"Very good category\"}");
     struct Category *ctgry = new(Category, ctgryJSON);
     printf("%s\n", toJson(ctgry));
@@ -63,7 +68,7 @@ int main() {
                                              "\"max_points\": 5}");
 
     struct Problem *problem = new(Problem, problemJSON);
-    printf("%s\n", cJSON_Print(problem->data));
+    printf("%s\n", toJson(problem));
     set(problem, "description", "Very Bad problem");
     printf("%s\n", get(problem, "description"));
     printf("%s\n", get(problem, "output_format"));
@@ -79,7 +84,7 @@ int main() {
                                                "\"is_sample\": 1 }");
 
     struct TestCase *test_case = new(TestCase, test_caseJSON);
-    printf("%s\n", cJSON_Print(test_case->data));
+    printf("%s\n", toJson(test_case));
     set(test_case, "explanation", "this is bad test_case explanation");
     printf("%s\n", get(test_case, "explanation"));
     printf("%s\n", get(test_case, "output_file_name"));
@@ -94,7 +99,7 @@ int main() {
                                              "\"description\":\"Very good description\"}");
 
     struct Contest *contest = new(Contest, contestJSON);
-    printf("%s\n", cJSON_Print(contest->data));
+    printf("%s\n", toJson(contest));
     set(contest, "description", "Very bad description");
     printf("%s\n", get(contest, "description"));
     printf("%s\n", get(contest, "starts_at"));
