@@ -22,9 +22,9 @@ After installation, execute following commands in terminal
 ```
 sudo su postgres
 psql
-CREATE DATABASE OCTS;
+CREATE DATABASE "OCTS";
 CREATE USER octs WITH PASSWORD 'OCTSIUTOSPROJECT2017';
-ALTER USER WITH SUPERUSER;
+ALTER USER octs WITH SUPERUSER;
 ```
 #### 3. Linking process with PostgreSQL ####
 
@@ -32,6 +32,9 @@ Open the project source directory and you will see cmake file
 `CMakeLists.txt`. Build this file with cmake, if you are using CLion, 
 then open `CMake` _tool window_ and click `Reload CMake Project`
 
+When you are executing server application first time, call `run_migrations()` function to create all table relations of the project.
+
+Also if you look inside `CMakeLists.txt` file, there are two executable files for client and server execution, so if you configure running configuration correctly, you can run both client-server inside one project.
 #### 4. Database hint ####
 
 If you want to better manipulate your database instances, install DataGrip by JetBrains.
