@@ -15,6 +15,7 @@
 #include <sys/socket.h>
 #include <arpa/inet.h>
 #include <netinet/in.h>
+#include <stdbool.h>
 
 #include "vendor.h"
 
@@ -91,5 +92,16 @@ size_t sizeOf(const void *self);
 
 void *clone(const void *self);
 
+/*
+ * Sets status for response
+ *
+ * */
+void setStatus(cJSON *, char *);
+
+/*
+ * Sets message for response
+ *
+ * */
+void setErrMsg(cJSON *, char *);
 
 #endif //POSTGRES_TEST_OOPDESIGNPATTERNS_H

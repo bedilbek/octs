@@ -1,0 +1,1 @@
+/usr/bin/cc    CMakeFiles/os_project_server.dir/server/main.c.o  -o os_project_server liblib.a libdb.a libvendor.a libmodel.a libserver.a libcontollers.a libclient.a -lpthread liblib.a libdb.a libvendor.a libmodel.a libserver.a libcontollers.a /usr/lib/x86_64-linux-gnu/libpq.so 

@@ -6,6 +6,7 @@
 #define OS_PROJECT_SERVER_H
 
 #include "lib.h"
+#include <pthread.h>
 
 #define TRUE 1
 #define FALSE 0

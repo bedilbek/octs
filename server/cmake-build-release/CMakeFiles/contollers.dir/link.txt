@@ -1,0 +1,2 @@
+/usr/bin/ar qc libcontollers.a  CMakeFiles/contollers.dir/server/controllers/login.c.o CMakeFiles/contollers.dir/server/controllers/save_file.c.o
+/usr/bin/ranlib libcontollers.a

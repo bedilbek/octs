@@ -1,0 +1,744 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6"/>
+	<Project>
+		<Option title="os_project"/>
+		<Option makefile_is_custom="1"/>
+		<Option compiler="gcc"/>
+		<Option virtualFolders="CMake Files\;CMake Files\server\;"/>
+		<Build>
+			<Target title="all">
+				<Option working_dir="/home/bedilbek/CLionProjects/os_project/server/cmake-build-release"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/home/bedilbek/CLionProjects/os_project/server/cmake-build-release/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/bedilbek/CLionProjects/os_project/server/cmake-build-release/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/home/bedilbek/CLionProjects/os_project/server/cmake-build-release/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/home/bedilbek/CLionProjects/os_project/server/cmake-build-release/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="lib">
+				<Option output="/home/bedilbek/CLionProjects/os_project/server/cmake-build-release/liblib.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/bedilbek/CLionProjects/os_project/server/cmake-build-release"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/bedilbek/CLionProjects/os_project/lib"/>
+					<Add directory="/home/bedilbek/CLionProjects/os_project/server/models"/>
+					<Add directory="/home/bedilbek/CLionProjects/os_project/vendor/cJSON"/>
+					<Add directory="/home/bedilbek/CLionProjects/os_project/config"/>
+					<Add directory="/home/bedilbek/CLionProjects/os_project/server/server"/>
+					<Add directory="/home/bedilbek/CLionProjects/os_project/client/client"/>
+					<Add directory="/home/bedilbek/CLionProjects/os_project/server/controllers"/>
+					<Add directory="/home/bedilbek/CLionProjects/os_project/server/migration"/>
+					<Add directory="/home/bedilbek/CLionProjects/os_project/vendor"/>
+					<Add directory="/usr/include/c++/5"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/5"/>
+					<Add directory="/usr/include/c++/5/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/home/bedilbek/CLionProjects/os_project/server/cmake-build-release/Makefile&quot;  VERBOSE=1 lib"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/bedilbek/CLionProjects/os_project/server/cmake-build-release/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/home/bedilbek/CLionProjects/os_project/server/cmake-build-release/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/home/bedilbek/CLionProjects/os_project/server/cmake-build-release/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="lib/fast">
+				<Option output="/home/bedilbek/CLionProjects/os_project/server/cmake-build-release/liblib.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/bedilbek/CLionProjects/os_project/server/cmake-build-release"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/bedilbek/CLionProjects/os_project/lib"/>
+					<Add directory="/home/bedilbek/CLionProjects/os_project/server/models"/>
+					<Add directory="/home/bedilbek/CLionProjects/os_project/vendor/cJSON"/>
+					<Add directory="/home/bedilbek/CLionProjects/os_project/config"/>
+					<Add directory="/home/bedilbek/CLionProjects/os_project/server/server"/>
+					<Add directory="/home/bedilbek/CLionProjects/os_project/client/client"/>
+					<Add directory="/home/bedilbek/CLionProjects/os_project/server/controllers"/>
+					<Add directory="/home/bedilbek/CLionProjects/os_project/server/migration"/>
+					<Add directory="/home/bedilbek/CLionProjects/os_project/vendor"/>
+					<Add directory="/usr/include/c++/5"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/5"/>
+					<Add directory="/usr/include/c++/5/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/home/bedilbek/CLionProjects/os_project/server/cmake-build-release/Makefile&quot;  VERBOSE=1 lib/fast"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/bedilbek/CLionProjects/os_project/server/cmake-build-release/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/home/bedilbek/CLionProjects/os_project/server/cmake-build-release/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/home/bedilbek/CLionProjects/os_project/server/cmake-build-release/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="contollers">
+				<Option output="/home/bedilbek/CLionProjects/os_project/server/cmake-build-release/libcontollers.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/bedilbek/CLionProjects/os_project/server/cmake-build-release"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/bedilbek/CLionProjects/os_project/lib"/>
+					<Add directory="/home/bedilbek/CLionProjects/os_project/server/models"/>
+					<Add directory="/home/bedilbek/CLionProjects/os_project/vendor/cJSON"/>
+					<Add directory="/home/bedilbek/CLionProjects/os_project/config"/>
+					<Add directory="/home/bedilbek/CLionProjects/os_project/server/server"/>
+					<Add directory="/home/bedilbek/CLionProjects/os_project/client/client"/>
+					<Add directory="/home/bedilbek/CLionProjects/os_project/server/controllers"/>
+					<Add directory="/home/bedilbek/CLionProjects/os_project/server/migration"/>
+					<Add directory="/home/bedilbek/CLionProjects/os_project/vendor"/>
+					<Add directory="/usr/include/c++/5"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/5"/>
+					<Add directory="/usr/include/c++/5/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/home/bedilbek/CLionProjects/os_project/server/cmake-build-release/Makefile&quot;  VERBOSE=1 contollers"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/bedilbek/CLionProjects/os_project/server/cmake-build-release/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/home/bedilbek/CLionProjects/os_project/server/cmake-build-release/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/home/bedilbek/CLionProjects/os_project/server/cmake-build-release/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="contollers/fast">
+				<Option output="/home/bedilbek/CLionProjects/os_project/server/cmake-build-release/libcontollers.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/bedilbek/CLionProjects/os_project/server/cmake-build-release"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/bedilbek/CLionProjects/os_project/lib"/>
+					<Add directory="/home/bedilbek/CLionProjects/os_project/server/models"/>
+					<Add directory="/home/bedilbek/CLionProjects/os_project/vendor/cJSON"/>
+					<Add directory="/home/bedilbek/CLionProjects/os_project/config"/>
+					<Add directory="/home/bedilbek/CLionProjects/os_project/server/server"/>
+					<Add directory="/home/bedilbek/CLionProjects/os_project/client/client"/>
+					<Add directory="/home/bedilbek/CLionProjects/os_project/server/controllers"/>
+					<Add directory="/home/bedilbek/CLionProjects/os_project/server/migration"/>
+					<Add directory="/home/bedilbek/CLionProjects/os_project/vendor"/>
+					<Add directory="/usr/include/c++/5"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/5"/>
+					<Add directory="/usr/include/c++/5/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/home/bedilbek/CLionProjects/os_project/server/cmake-build-release/Makefile&quot;  VERBOSE=1 contollers/fast"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/bedilbek/CLionProjects/os_project/server/cmake-build-release/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/home/bedilbek/CLionProjects/os_project/server/cmake-build-release/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/home/bedilbek/CLionProjects/os_project/server/cmake-build-release/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="db">
+				<Option output="/home/bedilbek/CLionProjects/os_project/server/cmake-build-release/libdb.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/bedilbek/CLionProjects/os_project/server/cmake-build-release"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/bedilbek/CLionProjects/os_project/lib"/>
+					<Add directory="/home/bedilbek/CLionProjects/os_project/server/models"/>
+					<Add directory="/home/bedilbek/CLionProjects/os_project/vendor/cJSON"/>
+					<Add directory="/home/bedilbek/CLionProjects/os_project/config"/>
+					<Add directory="/home/bedilbek/CLionProjects/os_project/server/server"/>
+					<Add directory="/home/bedilbek/CLionProjects/os_project/client/client"/>
+					<Add directory="/home/bedilbek/CLionProjects/os_project/server/controllers"/>
+					<Add directory="/home/bedilbek/CLionProjects/os_project/server/migration"/>
+					<Add directory="/home/bedilbek/CLionProjects/os_project/vendor"/>
+					<Add directory="/usr/include/c++/5"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/5"/>
+					<Add directory="/usr/include/c++/5/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/home/bedilbek/CLionProjects/os_project/server/cmake-build-release/Makefile&quot;  VERBOSE=1 db"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/bedilbek/CLionProjects/os_project/server/cmake-build-release/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/home/bedilbek/CLionProjects/os_project/server/cmake-build-release/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/home/bedilbek/CLionProjects/os_project/server/cmake-build-release/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="db/fast">
+				<Option output="/home/bedilbek/CLionProjects/os_project/server/cmake-build-release/libdb.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/bedilbek/CLionProjects/os_project/server/cmake-build-release"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/bedilbek/CLionProjects/os_project/lib"/>
+					<Add directory="/home/bedilbek/CLionProjects/os_project/server/models"/>
+					<Add directory="/home/bedilbek/CLionProjects/os_project/vendor/cJSON"/>
+					<Add directory="/home/bedilbek/CLionProjects/os_project/config"/>
+					<Add directory="/home/bedilbek/CLionProjects/os_project/server/server"/>
+					<Add directory="/home/bedilbek/CLionProjects/os_project/client/client"/>
+					<Add directory="/home/bedilbek/CLionProjects/os_project/server/controllers"/>
+					<Add directory="/home/bedilbek/CLionProjects/os_project/server/migration"/>
+					<Add directory="/home/bedilbek/CLionProjects/os_project/vendor"/>
+					<Add directory="/usr/include/c++/5"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/5"/>
+					<Add directory="/usr/include/c++/5/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/home/bedilbek/CLionProjects/os_project/server/cmake-build-release/Makefile&quot;  VERBOSE=1 db/fast"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/bedilbek/CLionProjects/os_project/server/cmake-build-release/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/home/bedilbek/CLionProjects/os_project/server/cmake-build-release/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/home/bedilbek/CLionProjects/os_project/server/cmake-build-release/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="vendor">
+				<Option output="/home/bedilbek/CLionProjects/os_project/server/cmake-build-release/libvendor.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/bedilbek/CLionProjects/os_project/server/cmake-build-release"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/bedilbek/CLionProjects/os_project/lib"/>
+					<Add directory="/home/bedilbek/CLionProjects/os_project/server/models"/>
+					<Add directory="/home/bedilbek/CLionProjects/os_project/vendor/cJSON"/>
+					<Add directory="/home/bedilbek/CLionProjects/os_project/config"/>
+					<Add directory="/home/bedilbek/CLionProjects/os_project/server/server"/>
+					<Add directory="/home/bedilbek/CLionProjects/os_project/client/client"/>
+					<Add directory="/home/bedilbek/CLionProjects/os_project/server/controllers"/>
+					<Add directory="/home/bedilbek/CLionProjects/os_project/server/migration"/>
+					<Add directory="/home/bedilbek/CLionProjects/os_project/vendor"/>
+					<Add directory="/usr/include/c++/5"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/5"/>
+					<Add directory="/usr/include/c++/5/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/home/bedilbek/CLionProjects/os_project/server/cmake-build-release/Makefile&quot;  VERBOSE=1 vendor"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/bedilbek/CLionProjects/os_project/server/cmake-build-release/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/home/bedilbek/CLionProjects/os_project/server/cmake-build-release/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/home/bedilbek/CLionProjects/os_project/server/cmake-build-release/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="vendor/fast">
+				<Option output="/home/bedilbek/CLionProjects/os_project/server/cmake-build-release/libvendor.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/bedilbek/CLionProjects/os_project/server/cmake-build-release"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/bedilbek/CLionProjects/os_project/lib"/>
+					<Add directory="/home/bedilbek/CLionProjects/os_project/server/models"/>
+					<Add directory="/home/bedilbek/CLionProjects/os_project/vendor/cJSON"/>
+					<Add directory="/home/bedilbek/CLionProjects/os_project/config"/>
+					<Add directory="/home/bedilbek/CLionProjects/os_project/server/server"/>
+					<Add directory="/home/bedilbek/CLionProjects/os_project/client/client"/>
+					<Add directory="/home/bedilbek/CLionProjects/os_project/server/controllers"/>
+					<Add directory="/home/bedilbek/CLionProjects/os_project/server/migration"/>
+					<Add directory="/home/bedilbek/CLionProjects/os_project/vendor"/>
+					<Add directory="/usr/include/c++/5"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/5"/>
+					<Add directory="/usr/include/c++/5/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/home/bedilbek/CLionProjects/os_project/server/cmake-build-release/Makefile&quot;  VERBOSE=1 vendor/fast"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/bedilbek/CLionProjects/os_project/server/cmake-build-release/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/home/bedilbek/CLionProjects/os_project/server/cmake-build-release/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/home/bedilbek/CLionProjects/os_project/server/cmake-build-release/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="os_project_client">
+				<Option output="/home/bedilbek/CLionProjects/os_project/server/cmake-build-release/os_project_client" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/bedilbek/CLionProjects/os_project/server/cmake-build-release"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/bedilbek/CLionProjects/os_project/lib"/>
+					<Add directory="/home/bedilbek/CLionProjects/os_project/server/models"/>
+					<Add directory="/home/bedilbek/CLionProjects/os_project/vendor/cJSON"/>
+					<Add directory="/home/bedilbek/CLionProjects/os_project/config"/>
+					<Add directory="/home/bedilbek/CLionProjects/os_project/server/server"/>
+					<Add directory="/home/bedilbek/CLionProjects/os_project/client/client"/>
+					<Add directory="/home/bedilbek/CLionProjects/os_project/server/controllers"/>
+					<Add directory="/home/bedilbek/CLionProjects/os_project/server/migration"/>
+					<Add directory="/home/bedilbek/CLionProjects/os_project/vendor"/>
+					<Add directory="/usr/include/c++/5"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/5"/>
+					<Add directory="/usr/include/c++/5/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/home/bedilbek/CLionProjects/os_project/server/cmake-build-release/Makefile&quot;  VERBOSE=1 os_project_client"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/bedilbek/CLionProjects/os_project/server/cmake-build-release/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/home/bedilbek/CLionProjects/os_project/server/cmake-build-release/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/home/bedilbek/CLionProjects/os_project/server/cmake-build-release/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="os_project_client/fast">
+				<Option output="/home/bedilbek/CLionProjects/os_project/server/cmake-build-release/os_project_client" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/bedilbek/CLionProjects/os_project/server/cmake-build-release"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/bedilbek/CLionProjects/os_project/lib"/>
+					<Add directory="/home/bedilbek/CLionProjects/os_project/server/models"/>
+					<Add directory="/home/bedilbek/CLionProjects/os_project/vendor/cJSON"/>
+					<Add directory="/home/bedilbek/CLionProjects/os_project/config"/>
+					<Add directory="/home/bedilbek/CLionProjects/os_project/server/server"/>
+					<Add directory="/home/bedilbek/CLionProjects/os_project/client/client"/>
+					<Add directory="/home/bedilbek/CLionProjects/os_project/server/controllers"/>
+					<Add directory="/home/bedilbek/CLionProjects/os_project/server/migration"/>
+					<Add directory="/home/bedilbek/CLionProjects/os_project/vendor"/>
+					<Add directory="/usr/include/c++/5"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/5"/>
+					<Add directory="/usr/include/c++/5/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/home/bedilbek/CLionProjects/os_project/server/cmake-build-release/Makefile&quot;  VERBOSE=1 os_project_client/fast"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/bedilbek/CLionProjects/os_project/server/cmake-build-release/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/home/bedilbek/CLionProjects/os_project/server/cmake-build-release/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/home/bedilbek/CLionProjects/os_project/server/cmake-build-release/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="server">
+				<Option output="/home/bedilbek/CLionProjects/os_project/server/cmake-build-release/libserver.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/bedilbek/CLionProjects/os_project/server/cmake-build-release"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/bedilbek/CLionProjects/os_project/lib"/>
+					<Add directory="/home/bedilbek/CLionProjects/os_project/server/models"/>
+					<Add directory="/home/bedilbek/CLionProjects/os_project/vendor/cJSON"/>
+					<Add directory="/home/bedilbek/CLionProjects/os_project/config"/>
+					<Add directory="/home/bedilbek/CLionProjects/os_project/server/server"/>
+					<Add directory="/home/bedilbek/CLionProjects/os_project/client/client"/>
+					<Add directory="/home/bedilbek/CLionProjects/os_project/server/controllers"/>
+					<Add directory="/home/bedilbek/CLionProjects/os_project/server/migration"/>
+					<Add directory="/home/bedilbek/CLionProjects/os_project/vendor"/>
+					<Add directory="/usr/include/c++/5"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/5"/>
+					<Add directory="/usr/include/c++/5/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/home/bedilbek/CLionProjects/os_project/server/cmake-build-release/Makefile&quot;  VERBOSE=1 server"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/bedilbek/CLionProjects/os_project/server/cmake-build-release/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/home/bedilbek/CLionProjects/os_project/server/cmake-build-release/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/home/bedilbek/CLionProjects/os_project/server/cmake-build-release/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="server/fast">
+				<Option output="/home/bedilbek/CLionProjects/os_project/server/cmake-build-release/libserver.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/bedilbek/CLionProjects/os_project/server/cmake-build-release"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/bedilbek/CLionProjects/os_project/lib"/>
+					<Add directory="/home/bedilbek/CLionProjects/os_project/server/models"/>
+					<Add directory="/home/bedilbek/CLionProjects/os_project/vendor/cJSON"/>
+					<Add directory="/home/bedilbek/CLionProjects/os_project/config"/>
+					<Add directory="/home/bedilbek/CLionProjects/os_project/server/server"/>
+					<Add directory="/home/bedilbek/CLionProjects/os_project/client/client"/>
+					<Add directory="/home/bedilbek/CLionProjects/os_project/server/controllers"/>
+					<Add directory="/home/bedilbek/CLionProjects/os_project/server/migration"/>
+					<Add directory="/home/bedilbek/CLionProjects/os_project/vendor"/>
+					<Add directory="/usr/include/c++/5"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/5"/>
+					<Add directory="/usr/include/c++/5/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/home/bedilbek/CLionProjects/os_project/server/cmake-build-release/Makefile&quot;  VERBOSE=1 server/fast"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/bedilbek/CLionProjects/os_project/server/cmake-build-release/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/home/bedilbek/CLionProjects/os_project/server/cmake-build-release/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/home/bedilbek/CLionProjects/os_project/server/cmake-build-release/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="client">
+				<Option output="/home/bedilbek/CLionProjects/os_project/server/cmake-build-release/libclient.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/bedilbek/CLionProjects/os_project/server/cmake-build-release"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/bedilbek/CLionProjects/os_project/lib"/>
+					<Add directory="/home/bedilbek/CLionProjects/os_project/server/models"/>
+					<Add directory="/home/bedilbek/CLionProjects/os_project/vendor/cJSON"/>
+					<Add directory="/home/bedilbek/CLionProjects/os_project/config"/>
+					<Add directory="/home/bedilbek/CLionProjects/os_project/server/server"/>
+					<Add directory="/home/bedilbek/CLionProjects/os_project/client/client"/>
+					<Add directory="/home/bedilbek/CLionProjects/os_project/server/controllers"/>
+					<Add directory="/home/bedilbek/CLionProjects/os_project/server/migration"/>
+					<Add directory="/home/bedilbek/CLionProjects/os_project/vendor"/>
+					<Add directory="/usr/include/c++/5"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/5"/>
+					<Add directory="/usr/include/c++/5/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/home/bedilbek/CLionProjects/os_project/server/cmake-build-release/Makefile&quot;  VERBOSE=1 client"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/bedilbek/CLionProjects/os_project/server/cmake-build-release/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/home/bedilbek/CLionProjects/os_project/server/cmake-build-release/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/home/bedilbek/CLionProjects/os_project/server/cmake-build-release/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="client/fast">
+				<Option output="/home/bedilbek/CLionProjects/os_project/server/cmake-build-release/libclient.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/bedilbek/CLionProjects/os_project/server/cmake-build-release"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/bedilbek/CLionProjects/os_project/lib"/>
+					<Add directory="/home/bedilbek/CLionProjects/os_project/server/models"/>
+					<Add directory="/home/bedilbek/CLionProjects/os_project/vendor/cJSON"/>
+					<Add directory="/home/bedilbek/CLionProjects/os_project/config"/>
+					<Add directory="/home/bedilbek/CLionProjects/os_project/server/server"/>
+					<Add directory="/home/bedilbek/CLionProjects/os_project/client/client"/>
+					<Add directory="/home/bedilbek/CLionProjects/os_project/server/controllers"/>
+					<Add directory="/home/bedilbek/CLionProjects/os_project/server/migration"/>
+					<Add directory="/home/bedilbek/CLionProjects/os_project/vendor"/>
+					<Add directory="/usr/include/c++/5"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/5"/>
+					<Add directory="/usr/include/c++/5/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/home/bedilbek/CLionProjects/os_project/server/cmake-build-release/Makefile&quot;  VERBOSE=1 client/fast"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/bedilbek/CLionProjects/os_project/server/cmake-build-release/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/home/bedilbek/CLionProjects/os_project/server/cmake-build-release/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/home/bedilbek/CLionProjects/os_project/server/cmake-build-release/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="rebuild_cache">
+				<Option working_dir="/home/bedilbek/CLionProjects/os_project/server/cmake-build-release"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/home/bedilbek/CLionProjects/os_project/server/cmake-build-release/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/bedilbek/CLionProjects/os_project/server/cmake-build-release/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/home/bedilbek/CLionProjects/os_project/server/cmake-build-release/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/home/bedilbek/CLionProjects/os_project/server/cmake-build-release/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="os_project_server">
+				<Option output="/home/bedilbek/CLionProjects/os_project/server/cmake-build-release/os_project_server" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/bedilbek/CLionProjects/os_project/server/cmake-build-release"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/bedilbek/CLionProjects/os_project/lib"/>
+					<Add directory="/home/bedilbek/CLionProjects/os_project/server/models"/>
+					<Add directory="/home/bedilbek/CLionProjects/os_project/vendor/cJSON"/>
+					<Add directory="/home/bedilbek/CLionProjects/os_project/config"/>
+					<Add directory="/home/bedilbek/CLionProjects/os_project/server/server"/>
+					<Add directory="/home/bedilbek/CLionProjects/os_project/client/client"/>
+					<Add directory="/home/bedilbek/CLionProjects/os_project/server/controllers"/>
+					<Add directory="/home/bedilbek/CLionProjects/os_project/server/migration"/>
+					<Add directory="/home/bedilbek/CLionProjects/os_project/vendor"/>
+					<Add directory="/usr/include/c++/5"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/5"/>
+					<Add directory="/usr/include/c++/5/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/home/bedilbek/CLionProjects/os_project/server/cmake-build-release/Makefile&quot;  VERBOSE=1 os_project_server"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/bedilbek/CLionProjects/os_project/server/cmake-build-release/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/home/bedilbek/CLionProjects/os_project/server/cmake-build-release/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/home/bedilbek/CLionProjects/os_project/server/cmake-build-release/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="os_project_server/fast">
+				<Option output="/home/bedilbek/CLionProjects/os_project/server/cmake-build-release/os_project_server" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/bedilbek/CLionProjects/os_project/server/cmake-build-release"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/bedilbek/CLionProjects/os_project/lib"/>
+					<Add directory="/home/bedilbek/CLionProjects/os_project/server/models"/>
+					<Add directory="/home/bedilbek/CLionProjects/os_project/vendor/cJSON"/>
+					<Add directory="/home/bedilbek/CLionProjects/os_project/config"/>
+					<Add directory="/home/bedilbek/CLionProjects/os_project/server/server"/>
+					<Add directory="/home/bedilbek/CLionProjects/os_project/client/client"/>
+					<Add directory="/home/bedilbek/CLionProjects/os_project/server/controllers"/>
+					<Add directory="/home/bedilbek/CLionProjects/os_project/server/migration"/>
+					<Add directory="/home/bedilbek/CLionProjects/os_project/vendor"/>
+					<Add directory="/usr/include/c++/5"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/5"/>
+					<Add directory="/usr/include/c++/5/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/home/bedilbek/CLionProjects/os_project/server/cmake-build-release/Makefile&quot;  VERBOSE=1 os_project_server/fast"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/bedilbek/CLionProjects/os_project/server/cmake-build-release/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/home/bedilbek/CLionProjects/os_project/server/cmake-build-release/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/home/bedilbek/CLionProjects/os_project/server/cmake-build-release/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="model">
+				<Option output="/home/bedilbek/CLionProjects/os_project/server/cmake-build-release/libmodel.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/bedilbek/CLionProjects/os_project/server/cmake-build-release"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/bedilbek/CLionProjects/os_project/lib"/>
+					<Add directory="/home/bedilbek/CLionProjects/os_project/server/models"/>
+					<Add directory="/home/bedilbek/CLionProjects/os_project/vendor/cJSON"/>
+					<Add directory="/home/bedilbek/CLionProjects/os_project/config"/>
+					<Add directory="/home/bedilbek/CLionProjects/os_project/server/server"/>
+					<Add directory="/home/bedilbek/CLionProjects/os_project/client/client"/>
+					<Add directory="/home/bedilbek/CLionProjects/os_project/server/controllers"/>
+					<Add directory="/home/bedilbek/CLionProjects/os_project/server/migration"/>
+					<Add directory="/home/bedilbek/CLionProjects/os_project/vendor"/>
+					<Add directory="/usr/include/c++/5"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/5"/>
+					<Add directory="/usr/include/c++/5/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/home/bedilbek/CLionProjects/os_project/server/cmake-build-release/Makefile&quot;  VERBOSE=1 model"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/bedilbek/CLionProjects/os_project/server/cmake-build-release/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/home/bedilbek/CLionProjects/os_project/server/cmake-build-release/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/home/bedilbek/CLionProjects/os_project/server/cmake-build-release/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="model/fast">
+				<Option output="/home/bedilbek/CLionProjects/os_project/server/cmake-build-release/libmodel.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/bedilbek/CLionProjects/os_project/server/cmake-build-release"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/bedilbek/CLionProjects/os_project/lib"/>
+					<Add directory="/home/bedilbek/CLionProjects/os_project/server/models"/>
+					<Add directory="/home/bedilbek/CLionProjects/os_project/vendor/cJSON"/>
+					<Add directory="/home/bedilbek/CLionProjects/os_project/config"/>
+					<Add directory="/home/bedilbek/CLionProjects/os_project/server/server"/>
+					<Add directory="/home/bedilbek/CLionProjects/os_project/client/client"/>
+					<Add directory="/home/bedilbek/CLionProjects/os_project/server/controllers"/>
+					<Add directory="/home/bedilbek/CLionProjects/os_project/server/migration"/>
+					<Add directory="/home/bedilbek/CLionProjects/os_project/vendor"/>
+					<Add directory="/usr/include/c++/5"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/5"/>
+					<Add directory="/usr/include/c++/5/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/home/bedilbek/CLionProjects/os_project/server/cmake-build-release/Makefile&quot;  VERBOSE=1 model/fast"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/bedilbek/CLionProjects/os_project/server/cmake-build-release/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/home/bedilbek/CLionProjects/os_project/server/cmake-build-release/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/home/bedilbek/CLionProjects/os_project/server/cmake-build-release/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="edit_cache">
+				<Option working_dir="/home/bedilbek/CLionProjects/os_project/server/cmake-build-release"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/home/bedilbek/CLionProjects/os_project/server/cmake-build-release/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/bedilbek/CLionProjects/os_project/server/cmake-build-release/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/home/bedilbek/CLionProjects/os_project/server/cmake-build-release/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/home/bedilbek/CLionProjects/os_project/server/cmake-build-release/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="/home/bedilbek/CLionProjects/os_project/client/client/client.c">
+			<Option target="client"/>
+		</Unit>
+		<Unit filename="/home/bedilbek/CLionProjects/os_project/client/client/client.h">
+			<Option target="client"/>
+		</Unit>
+		<Unit filename="/home/bedilbek/CLionProjects/os_project/client/client/send_file.c">
+			<Option target="client"/>
+		</Unit>
+		<Unit filename="/home/bedilbek/CLionProjects/os_project/client/client/send_message.c">
+			<Option target="client"/>
+		</Unit>
+		<Unit filename="/home/bedilbek/CLionProjects/os_project/client/main.c">
+			<Option target="os_project_client"/>
+		</Unit>
+		<Unit filename="/home/bedilbek/CLionProjects/os_project/lib/DataBase.c">
+			<Option target="db"/>
+		</Unit>
+		<Unit filename="/home/bedilbek/CLionProjects/os_project/lib/DataBase.h">
+			<Option target="db"/>
+		</Unit>
+		<Unit filename="/home/bedilbek/CLionProjects/os_project/lib/_string.c">
+			<Option target="lib"/>
+		</Unit>
+		<Unit filename="/home/bedilbek/CLionProjects/os_project/lib/_string.h">
+			<Option target="lib"/>
+		</Unit>
+		<Unit filename="/home/bedilbek/CLionProjects/os_project/lib/dictionary.c">
+			<Option target="lib"/>
+		</Unit>
+		<Unit filename="/home/bedilbek/CLionProjects/os_project/lib/dictionary.h">
+			<Option target="lib"/>
+		</Unit>
+		<Unit filename="/home/bedilbek/CLionProjects/os_project/lib/helpers.c">
+			<Option target="lib"/>
+		</Unit>
+		<Unit filename="/home/bedilbek/CLionProjects/os_project/lib/helpers.h">
+			<Option target="lib"/>
+		</Unit>
+		<Unit filename="/home/bedilbek/CLionProjects/os_project/server/controllers/login.c">
+			<Option target="contollers"/>
+		</Unit>
+		<Unit filename="/home/bedilbek/CLionProjects/os_project/server/controllers/save_file.c">
+			<Option target="contollers"/>
+		</Unit>
+		<Unit filename="/home/bedilbek/CLionProjects/os_project/server/main.c">
+			<Option target="os_project_server"/>
+		</Unit>
+		<Unit filename="/home/bedilbek/CLionProjects/os_project/server/migration/migrations.c">
+			<Option target="db"/>
+		</Unit>
+		<Unit filename="/home/bedilbek/CLionProjects/os_project/server/migration/migrations.h">
+			<Option target="db"/>
+		</Unit>
+		<Unit filename="/home/bedilbek/CLionProjects/os_project/server/models/category.c">
+			<Option target="model"/>
+		</Unit>
+		<Unit filename="/home/bedilbek/CLionProjects/os_project/server/models/category.h">
+			<Option target="model"/>
+		</Unit>
+		<Unit filename="/home/bedilbek/CLionProjects/os_project/server/models/contest.c">
+			<Option target="model"/>
+		</Unit>
+		<Unit filename="/home/bedilbek/CLionProjects/os_project/server/models/contest.h">
+			<Option target="model"/>
+		</Unit>
+		<Unit filename="/home/bedilbek/CLionProjects/os_project/server/models/contest_problem.c">
+			<Option target="model"/>
+		</Unit>
+		<Unit filename="/home/bedilbek/CLionProjects/os_project/server/models/contest_problem.h">
+			<Option target="model"/>
+		</Unit>
+		<Unit filename="/home/bedilbek/CLionProjects/os_project/server/models/problem.c">
+			<Option target="model"/>
+		</Unit>
+		<Unit filename="/home/bedilbek/CLionProjects/os_project/server/models/problem.h">
+			<Option target="model"/>
+		</Unit>
+		<Unit filename="/home/bedilbek/CLionProjects/os_project/server/models/problem_result.c">
+			<Option target="model"/>
+		</Unit>
+		<Unit filename="/home/bedilbek/CLionProjects/os_project/server/models/problem_result.h">
+			<Option target="model"/>
+		</Unit>
+		<Unit filename="/home/bedilbek/CLionProjects/os_project/server/models/test_case.c">
+			<Option target="model"/>
+		</Unit>
+		<Unit filename="/home/bedilbek/CLionProjects/os_project/server/models/test_case.h">
+			<Option target="model"/>
+		</Unit>
+		<Unit filename="/home/bedilbek/CLionProjects/os_project/server/models/user.c">
+			<Option target="model"/>
+		</Unit>
+		<Unit filename="/home/bedilbek/CLionProjects/os_project/server/models/user.h">
+			<Option target="model"/>
+		</Unit>
+		<Unit filename="/home/bedilbek/CLionProjects/os_project/server/models/user_contest_result.c">
+			<Option target="model"/>
+		</Unit>
+		<Unit filename="/home/bedilbek/CLionProjects/os_project/server/models/user_contest_result.h">
+			<Option target="model"/>
+		</Unit>
+		<Unit filename="/home/bedilbek/CLionProjects/os_project/server/server/file_server.c">
+			<Option target="server"/>
+		</Unit>
+		<Unit filename="/home/bedilbek/CLionProjects/os_project/server/server/message_server.c">
+			<Option target="server"/>
+		</Unit>
+		<Unit filename="/home/bedilbek/CLionProjects/os_project/server/server/server.c">
+			<Option target="server"/>
+		</Unit>
+		<Unit filename="/home/bedilbek/CLionProjects/os_project/server/server/server.h">
+			<Option target="server"/>
+		</Unit>
+		<Unit filename="/home/bedilbek/CLionProjects/os_project/vendor/cJSON/cJSON.c">
+			<Option target="vendor"/>
+		</Unit>
+		<Unit filename="/home/bedilbek/CLionProjects/os_project/vendor/cJSON/cJSON.h">
+			<Option target="vendor"/>
+		</Unit>
+		<Unit filename="/home/bedilbek/CLionProjects/os_project/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+		<Unit filename="/home/bedilbek/CLionProjects/os_project/server/pgsqlFind.cmake">
+			<Option virtualFolder="CMake Files\server\"/>
+		</Unit>
+	</Project>
+</CodeBlocks_project_file>

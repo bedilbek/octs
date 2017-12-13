@@ -1,0 +1,1 @@
+/usr/bin/cc    CMakeFiles/os_project_client.dir/client/main.c.o  -o os_project_client liblib.a libdb.a libvendor.a libmodel.a libserver.a libcontollers.a libclient.a -lpthread liblib.a libvendor.a libclient.a 
