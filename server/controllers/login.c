@@ -14,12 +14,12 @@ cJSON *login(cJSON *data) {
 
     cJSON *user_query_result = exist_user(username, password);
 
-    if (user_query_result->count == 1) {
+    if (cJSON_GetObjectItem(user_query_result, "count")->valueint == 1) {
         cJSON_AddStringToObject(response, "status", "200");
         cJSON_AddStringToObject(response, "token", "asdhjbeJFVElakdjkABDKBAlkjbdfasd=");
 
     } else {
-        cJSON_AddStringToObject(response, "status", user_query_result->status);
+        cJSON_AddStringToObject(response, "status", cJSON_GetObjectItem(user_query_result, "status")->valuestring);
     }
 
     return response;

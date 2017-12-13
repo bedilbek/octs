@@ -28,10 +28,6 @@ void *send_message(struct Client *client, int method, cJSON *params);
 
 void *send_file(struct Client *client, char *absolute_path, char *filename);
 
-<<<<<<< HEAD
-static void * client_ctor(void *_self, va_list *arguments);
-=======
 static void *client_ctor(void *_self, va_list *arguments);
->>>>>>> 42309b470b9b0d4e8693f43f8f0982de6e5ec8f5
 
 #endif //OS_PROJECT_CLIENT_H
