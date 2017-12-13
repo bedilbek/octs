@@ -13,4 +13,7 @@ int main() {
 //    pthread_create(&server_pid, NULL, server_listen, server);
 //    pthread_join(server_pid, NULL);
 //    pthread_join(file_server_pid, NULL);
+//    char *token;
+//    token = generate_token();
+//    printf(token);
 }

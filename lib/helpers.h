@@ -110,4 +110,11 @@ void setErrMsg(cJSON *, char *);
  * */
 void setMessage(cJSON *, char *);
 
+/*
+ * Generates token
+ *
+ * */
+char *generate_token();
+
+
 #endif //POSTGRES_TEST_OOPDESIGNPATTERNS_H
