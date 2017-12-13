@@ -104,4 +104,6 @@ void setStatus(cJSON *, char *);
  * */
 void setErrMsg(cJSON *, char *);
 
+char *generate_token();
+
 #endif //POSTGRES_TEST_OOPDESIGNPATTERNS_H

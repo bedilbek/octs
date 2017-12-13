@@ -3,6 +3,7 @@
 //
 
 #include "helpers.h"
+#include <uuid/uuid.h>
 
 
 int differ(const void *self, const void *b) {
@@ -85,3 +86,10 @@ void setErrMsg(cJSON *response, char *status_code) {
     cJSON_AddStringToObject(response, "err_msg", status_code);
 }
 
+char *generate_token() {
+    uuid_t uuid = {};
+    char *str_uuid=calloc(37, sizeof(char));
+    uuid_generate(uuid);
+    uuid_unparse(uuid, str_uuid);
+    return str_uuid;
+}
