@@ -11,7 +11,8 @@
 typedef cJSON *(*function)(cJSON *);
 
 const function methods[10] = {
-        login,
         save_file,
+        login,
+        signup,
 };
 #endif //OS_PROJECT_CONTROLLERS_H

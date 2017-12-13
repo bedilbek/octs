@@ -4,6 +4,7 @@
 
 #include "helpers.h"
 
+
 int differ(const void *self, const void *b) {
     const struct Class *const *cp = self;
     assert(self && *cp && (*cp)->differ);
@@ -74,5 +75,13 @@ size_t sizeOf(const void *self) {
     const struct Class *const *cp = self;
     assert(self && *cp);
     return (*cp)->size;
+}
+
+void setStatus(cJSON *response, char *status_code) {
+    cJSON_AddStringToObject(response, "status", status_code);
+}
+
+void setErrMsg(cJSON *response, char *status_code) {
+    cJSON_AddStringToObject(response, "err_msg", status_code);
 }
 
