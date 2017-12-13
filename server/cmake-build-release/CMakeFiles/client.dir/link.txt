@@ -1,0 +1,2 @@
+/usr/bin/ar qc libclient.a  CMakeFiles/client.dir/client/client/client.c.o CMakeFiles/client.dir/client/client/send_message.c.o CMakeFiles/client.dir/client/client/send_file.c.o
+/usr/bin/ranlib libclient.a
