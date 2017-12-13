@@ -5,6 +5,6 @@
 #ifndef OS_PROJECT_VENDOR_H
 #define OS_PROJECT_VENDOR_H
 
-#include "cJSON/cJSON.h"
+#include "cJSON.h"
 
 #endif //OS_PROJECT_VENDOR_H

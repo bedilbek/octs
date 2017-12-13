@@ -20,46 +20,6 @@ cJSON *execute_query(struct Database *db, char *cmd);
 
 cJSON *execute_query_params(struct Database *db, char *cmd, int num_of_params, const char *const *paramValues);
 
-void check_pg_result(struct Database *db, cJSON *result, char *query_type) {
-    if (!db->pgResult)
-        return;
-
-    if (PQresultStatus(db->pgResult) != PGRES_COMMAND_OK) {
-        char message[1024];
-
-        cJSON_DeleteItemFromObject(result, "status");
-        cJSON_DeleteItemFromObject(result, "message");
-
-        cJSON_AddNumberToObject(result, "status", 506);
-        sprintf(message, "Execution of %s query failed: %s", INSERTION_QUERY, PQerrorMessage(db->pgConn));
-        cJSON_AddStringToObject(result, "message", message);
-    }
-
-    if (PQresultStatus(db->pgResult) == PGRES_TUPLES_OK) {
-        cJSON_DeleteItemFromObject(result, "status");
-        cJSON_DeleteItemFromObject(result, "message");
-
-        cJSON_AddNumberToObject(result, "status", 200);
-        cJSON_AddStringToObject(result, "message", "OK");
-
-        cJSON *data = parseResult(db->pgResult);
-
-        cJSON_AddItemToObject(result, "data", data);
-
-        cJSON_AddNumberToObject(result, "count", PQntuples(db->pgResult));
-    }
-
-    if (PQresultStatus(db->pgResult) == PGRES_COMMAND_OK) {
-        cJSON_DeleteItemFromObject(result, "status");
-        cJSON_DeleteItemFromObject(result, "message");
-
-        cJSON_AddNumberToObject(result, "status", 201);
-        cJSON_AddStringToObject(result, "message", "OK");
-    }
-
-    PQclear(db->pgResult);
-}
-
 static void *Database_ctor(void *_self, va_list *arguments) {
     struct Database *self = _self;
     char connInfo[250];
@@ -111,6 +71,47 @@ static const struct Class _Database = {
 };
 
 const void *Database = &_Database;
+
+void check_pg_result(struct Database *db, cJSON *result, char *query_type) {
+    if (!db->pgResult)
+        return;
+
+    if (PQresultStatus(db->pgResult) != PGRES_COMMAND_OK) {
+        char message[1024];
+
+        cJSON_DeleteItemFromObject(result, "status");
+        cJSON_DeleteItemFromObject(result, "message");
+
+        cJSON_AddNumberToObject(result, "status", 506);
+        sprintf(message, "Execution of %s query failed: %s", INSERTION_QUERY, PQerrorMessage(db->pgConn));
+        cJSON_AddStringToObject(result, "message", message);
+    }
+
+    if (PQresultStatus(db->pgResult) == PGRES_TUPLES_OK) {
+        cJSON_DeleteItemFromObject(result, "status");
+        cJSON_DeleteItemFromObject(result, "message");
+
+        cJSON_AddNumberToObject(result, "status", 200);
+        cJSON_AddStringToObject(result, "message", "OK");
+
+        cJSON *data = parseResult(db->pgResult);
+
+        cJSON_AddItemToObject(result, "data", data);
+
+        cJSON_AddNumberToObject(result, "count", PQntuples(db->pgResult));
+    }
+
+    if (PQresultStatus(db->pgResult) == PGRES_COMMAND_OK) {
+        cJSON_DeleteItemFromObject(result, "status");
+        cJSON_DeleteItemFromObject(result, "message");
+
+        cJSON_AddNumberToObject(result, "status", 201);
+        cJSON_AddStringToObject(result, "message", "OK");
+    }
+
+    PQclear(db->pgResult);
+    db->pgResult = NULL;
+}
 
 cJSON *insert_query(struct Database *db, char *cmd) {
     cJSON *result = execute_query(db, cmd);
@@ -168,7 +169,7 @@ cJSON *execute_query_params(struct Database *db, char *cmd, int num_of_params, c
     if (db->pgResult)
         PQclear(db->pgResult);
 
-    db->pgResult = PQexecParams(db->pgConn, cmd, num_of_params, NULL, paramValues, NULL, NULL, 1);
+    db->pgResult = PQexecParams(db->pgConn, cmd, num_of_params, NULL, paramValues, NULL, NULL, 0);
 
     return result;
 }
@@ -194,10 +195,10 @@ cJSON *parseResult(PGresult *pgResult) {
 
                 switch (PQftype(pgResult, j)) {
                     case TYPE_BOOL:
-                        cJSON_AddBoolToObject(object, PQfname(pgResult, j), ntohl(*((uint32_t *) value)));
+                        cJSON_AddBoolToObject(object, PQfname(pgResult, j), (int) strtol(value, NULL, 10));
                         break;
                     case TYPE_INTEGER:
-                        cJSON_AddNumberToObject(object, PQfname(pgResult, j), ntohl(*((uint32_t *) value)));
+                        cJSON_AddNumberToObject(object, PQfname(pgResult, j), (int) strtol(value, NULL, 10));
                         break;
                     case TYPE_TEXT:
                         cJSON_AddStringToObject(object, PQfname(pgResult, j), value);

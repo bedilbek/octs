@@ -106,7 +106,8 @@ static void *problem_ctor(void *_self, va_list *arguments) {
         delete(self);
         return NULL;
     }
-    int problem_id = cJSON_GetObjectItem(cJSON_GetArrayItem(cJSON_GetObjectItem(create_prblm_msg, "data"), 0), "id");
+    int problem_id = cJSON_parser(
+            cJSON_GetObjectItem(cJSON_GetArrayItem(cJSON_GetObjectItem(create_prblm_msg, "data"), 0), "id"));
 
     cJSON_AddNumberToObject(self->data, "id", problem_id);
 
@@ -123,7 +124,7 @@ static void problem_set(struct Problem *_self, char *field, void *value) {
     assert(_self && _self->data);
     if (cJSON_GetObjectItem(_self->data, field) != cJSON_NULL)
         cJSON_DeleteItemFromObject(_self->data, field);
-    int problem_id = (cJSON_GetObjectItem(_self->data, PROBLEM_ID))->valueint;
+    int problem_id = cJSON_parser(cJSON_GetObjectItem(_self->data, PROBLEM_ID));
     assert(problem_id);
 
     struct Database *db = new(Database);

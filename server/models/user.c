@@ -37,7 +37,8 @@ static void *user_ctor(void *_self, va_list *arguments) {
         delete(self);
         return NULL;
     }
-    int user_id = cJSON_GetObjectItem(cJSON_GetArrayItem(cJSON_GetObjectItem(create_usr_msg, "data"), 0), "id");
+    int user_id = cJSON_parser(
+            cJSON_GetObjectItem(cJSON_GetArrayItem(cJSON_GetObjectItem(create_usr_msg, "data"), 0), "id"));
 
     cJSON_AddNumberToObject(self->data, "id", user_id);
 
@@ -130,10 +131,10 @@ static void user_set(struct User *_self, char *field, void *value) {
 
     struct Database *db = new(Database);
     char update_sql[1024];
-
+    char *param_values[] = {value};
     //update user in db;
     sprintf(update_sql, "UPDATE users SET %s=$1 WHERE username=\'%s\'", field, username);
-    cJSON *msg = update_query(db, update_sql);
+    cJSON *msg = update_query_params(db, update_sql, 1, param_values);
     delete(db);
     if ((cJSON_GetObjectItem(msg, "status"))->valueint != 201) {
         fprintf(stderr, "%s", (cJSON_GetObjectItem(msg, "message"))->valuestring);
@@ -142,9 +143,9 @@ static void user_set(struct User *_self, char *field, void *value) {
     cJSON_AddStringToObject(_self->data, field, value);
 }
 
-static char *user_get(struct User *_self, char *field, void *value) {
+static char *user_get(struct User *_self, char *field) {
     assert(_self && _self->data);
-    return (cJSON_GetObjectItem(_self->data, field))->valuestring;
+    return cJSON_parser(cJSON_GetObjectItem(_self->data, field));
 }
 
 static int user_differ(const void *_self, const void *_b) {

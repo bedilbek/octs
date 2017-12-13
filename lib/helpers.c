@@ -49,7 +49,7 @@ void *get(void *self, char *field) {
     const struct Class *const *cp = self;
     if (self && *cp && (*cp)->get)
         return (*cp)->get(self, field);
-    return NULL;
+    return "";
 }
 
 
