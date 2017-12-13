@@ -1,8 +1,7 @@
-#include <stdio.h>
 #include "lib.h"
 #include "model.h"
 #include "server.h"
-#include "migrations.h"
+#include "migration/migrations.h"
 
 int main() {
 

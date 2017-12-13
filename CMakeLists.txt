@@ -4,7 +4,7 @@ project(os_project)
 set(CMAKE_C_STANDARD 11)
 
 set(SERVER_SOURCE_FILES server/main.c)
-set(CLIENT_SOURCE_FILES client/main.c)
+set(CLIENT_SOURCE_FILES client/main.c main_test.c)
 
 include_directories(lib server/models vendor/cJSON config server/server client/client server/controllers server/migration)
 include_directories(vendor)
