@@ -101,7 +101,7 @@ char *get_full_path(char *file_name) {
 }
 
 void receive_file(int peer_socket) {
-    ////init variables
+    //init variables
     int len;
     int file_size = 0;
     FILE *received_file;
@@ -109,13 +109,13 @@ void receive_file(int peer_socket) {
 
     recv(peer_socket, buffer, MAX_LENGTH_OF_MESSAGE, 0); ////receive metadata about coming file
 
-    ////separate request into datum
+    //separate request into datum
     cJSON *message = cJSON_Parse(buffer);
     cJSON *token = get_attr(message, "token");
     cJSON *length = get_attr(message, "length");
     cJSON *file_name = get_attr(message, "file_name");
 
-    ////Create file
+    //Create file
     file_size = length->valueint;
     const char *absolute_file_path = get_full_path(file_name->valuestring);
     received_file = fopen(absolute_file_path, "w");
@@ -149,7 +149,7 @@ void file_server_listen(struct Server *self) {
     }
 }
 
-//// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 static const struct Class _Server = {
         sizeof(struct Server),
