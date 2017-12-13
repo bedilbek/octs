@@ -3,7 +3,6 @@
 //
 
 #include "server.h"
-#include <pthread.h>
 #include "controllers.h"
 
 cJSON *get_attr(cJSON *data, char *field) {

@@ -13,6 +13,7 @@ typedef cJSON *(*function)(cJSON *);
 const function methods[10] = {
         save_file,
         login,
-        signup,
+//        signup,
+        get_contest_problems,
 };
 #endif //OS_PROJECT_CONTROLLERS_H

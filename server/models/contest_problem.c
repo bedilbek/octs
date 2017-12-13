@@ -41,12 +41,12 @@ cJSON *get_contests_by_problem_id(int problem_id) {
     return msg;
 }
 
-cJSON *get_problems_by_contest_id(int contest_id) {
+cJSON *get_problems_by_contest_id(int contest_id, char *order) {
     struct Database *db = new(Database);
     char select_sql[1024];
 
-    sprintf(select_sql, "SELECT problem.* FROM problem join contest_problem on id=problem_id where contest_id=%d",
-            contest_id);
+    sprintf(select_sql, "SELECT problem.* FROM problem join contest_problem on id=problem_id where contest_id=%d ORDER "
+            "BY id %s", contest_id, order);
 
     cJSON *msg = select_query(db, select_sql);
     delete(db);
