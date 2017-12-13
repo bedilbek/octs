@@ -109,6 +109,8 @@ const char *migrations[] = {"CREATE SEQUENCE users_id_seq INCREMENT BY 1 MINVALU
                             NULL
 };
 
+/** TODO
+ * contest-fields: title, reg_start_time, reg_end_time **/
 int run_migrations(struct Database *db) {
     int created = 1;
     if (!exist_migration_table(db))

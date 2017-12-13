@@ -1,0 +1,11 @@
+/home/bedilbek/CLionProjects/os_project/server/cmake-build-release/CMakeFiles/lib.dir
+/home/bedilbek/CLionProjects/os_project/server/cmake-build-release/CMakeFiles/contollers.dir
+/home/bedilbek/CLionProjects/os_project/server/cmake-build-release/CMakeFiles/db.dir
+/home/bedilbek/CLionProjects/os_project/server/cmake-build-release/CMakeFiles/vendor.dir
+/home/bedilbek/CLionProjects/os_project/server/cmake-build-release/CMakeFiles/os_project_client.dir
+/home/bedilbek/CLionProjects/os_project/server/cmake-build-release/CMakeFiles/server.dir
+/home/bedilbek/CLionProjects/os_project/server/cmake-build-release/CMakeFiles/client.dir
+/home/bedilbek/CLionProjects/os_project/server/cmake-build-release/CMakeFiles/rebuild_cache.dir
+/home/bedilbek/CLionProjects/os_project/server/cmake-build-release/CMakeFiles/os_project_server.dir
+/home/bedilbek/CLionProjects/os_project/server/cmake-build-release/CMakeFiles/model.dir
+/home/bedilbek/CLionProjects/os_project/server/cmake-build-release/CMakeFiles/edit_cache.dir
