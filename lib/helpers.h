@@ -99,9 +99,15 @@ void *clone(const void *self);
 void setStatus(cJSON *, char *);
 
 /*
- * Sets message for response
+ * Sets error message for response if any
  *
  * */
 void setErrMsg(cJSON *, char *);
+
+/*
+ * Sets message for response
+ *
+ * */
+void setMessage(cJSON *, char *);
 
 #endif //POSTGRES_TEST_OOPDESIGNPATTERNS_H

@@ -81,7 +81,11 @@ void setStatus(cJSON *response, char *status_code) {
     cJSON_AddStringToObject(response, "status", status_code);
 }
 
-void setErrMsg(cJSON *response, char *status_code) {
-    cJSON_AddStringToObject(response, "err_msg", status_code);
+void setErrMsg(cJSON *response, char *message) {
+    cJSON_AddStringToObject(response, "err_msg", message);
+}
+
+void setMessage(cJSON *response, char *message) {
+    cJSON_AddStringToObject(response, "message", message);
 }
 
