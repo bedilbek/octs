@@ -7,6 +7,6 @@ int main() {
     struct Client *client = new(Client, SERVER_LISTEN_PORT);
     cJSON *params = cJSON_CreateObject();
     cJSON_AddStringToObject(params, "name", "Tom");
-    cJSON *response = (cJSON *) send_message(client, "get_user", params);
+    cJSON *response = (cJSON *) send_message(client, 0, params);
     printf(cJSON_Print(response));
 }

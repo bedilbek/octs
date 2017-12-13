@@ -2,10 +2,16 @@
 // Created by Tolqinbek Isoqov on 12/3/17.
 //
 
+#include <fcntl.h>
 #include "client.h"
 
+cJSON *client_listen(struct Client *client) {
+    char response[1024];
+    read(client->sock, response, 1024);
+    return cJSON_Parse(response);
+}
 
-static void *client_ctor(struct Client *_self, va_list *arguments) {
+static void *client_ctor(void *_self, va_list *arguments) {
     const int port = va_arg(*arguments, const int);
     struct Client *self = _self;
     self->sock = 0;
@@ -26,28 +32,6 @@ static void *client_ctor(struct Client *_self, va_list *arguments) {
         exit(EXIT_FAILURE);
     }
     return self;
-}
-
-cJSON *client_listen(struct Client *client) {
-    char response[1024];
-    read(client->sock, response, 1024);
-    return cJSON_Parse(response);
-}
-
-void *send_message(struct Client *client, char *method, cJSON *params) {
-    cJSON *message = cJSON_CreateObject();
-    cJSON_AddStringToObject(message, "method", method);
-    cJSON_AddItemToObject(message, "params", params);
-    char *message_rendered = cJSON_Print(message);
-    int size = (int) send(client->sock, message_rendered, strlen(message_rendered), 0);
-    if (size == 0) {
-        exit(-1);
-    }
-    return client_listen(client);
-}
-
-void *send_file(struct Client *client) {
-
 }
 
 static const struct Class _Client = {

@@ -24,6 +24,10 @@ struct Client {
 
 cJSON *client_listen(struct Client *client);
 
-void *send_message(struct Client *client, char *method, cJSON *params);
+void *send_message(struct Client *client, int method, cJSON *params);
+
+void *send_file(struct Client *client, char *absolute_path, char *filename);
+
+static void *client_ctor(void *_self, va_list *arguments);
 
 #endif //OS_PROJECT_CLIENT_H
