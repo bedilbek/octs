@@ -35,6 +35,7 @@ struct Request {
     int socket;
     int method;
     cJSON *data;
+    char *token;
 };
 
 void server_listen(struct Server *self);

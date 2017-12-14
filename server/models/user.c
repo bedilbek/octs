@@ -79,6 +79,16 @@ cJSON *get_user_by_id(int user_id) {
     return msg;
 }
 
+cJSON *get_user_by_token(char *token) {
+    struct Database *db = new(Database);
+    char select_sql[1024];
+
+    sprintf(select_sql, "SELECT * FROM users where token=\'%s\'", token);
+    cJSON *msg = select_query(db, select_sql);
+    delete(db);
+    return msg;
+}
+
 cJSON *get_user_by_username(char *username) {
     struct Database *db = new(Database);
     char select_sql[1024];

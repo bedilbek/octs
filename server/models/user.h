@@ -7,6 +7,7 @@
 
 #include "lib.h"
 #include "DataBase.h"
+
 extern const void *User;
 
 struct User {
@@ -19,6 +20,8 @@ cJSON *create_user_char(char *fname, char *lname, char *username, char *password
 cJSON *create_user_cJSON(cJSON *data);
 
 cJSON *get_user_by_id(int user_id);
+
+cJSON *get_user_by_token(char *token);
 
 cJSON *get_user_by_username(char *username);
 
