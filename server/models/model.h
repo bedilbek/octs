@@ -13,5 +13,6 @@
 #include "problem_result.h"
 #include "test_case.h"
 #include "user_contest_result.h"
+#include "file.h"
 
 #endif //OS_PROJECT_MODEL_H

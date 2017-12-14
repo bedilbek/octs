@@ -88,10 +88,10 @@ static void *contest_problem_ctor(void *_self, va_list *arguments) {
     if (cntst_prblm_args == CONTEST_PROBLEM_CLONE)
         return self;
 
-    cJSON *create_cntst_prblm_msg = create_contest_problem_cJSON(self->data);
+    cJSON *msg = create_contest_problem_cJSON(self->data);
 
-    if ((cJSON_GetObjectItem(create_cntst_prblm_msg, "status"))->valueint != 201) {
-        fprintf(stderr, "%s", (cJSON_GetObjectItem(create_cntst_prblm_msg, "message"))->valuestring);
+    if ((cJSON_GetObjectItem(msg, "status"))->valueint != DATABASE_NO_TUPLES_OK) {
+        fprintf(stderr, "%s", (cJSON_GetObjectItem(msg, "message"))->valuestring);
         delete(self);
         return NULL;
     }

@@ -91,7 +91,7 @@ void check_pg_result(struct Database *db, cJSON *result, char *query_type) {
         cJSON_DeleteItemFromObject(result, "status");
         cJSON_DeleteItemFromObject(result, "message");
 
-        cJSON_AddNumberToObject(result, "status", 200);
+        cJSON_AddNumberToObject(result, "status", DATABASE_TUPLES_OK);
         cJSON_AddStringToObject(result, "message", "OK");
 
         cJSON *data = parseResult(db->pgResult);
@@ -105,7 +105,7 @@ void check_pg_result(struct Database *db, cJSON *result, char *query_type) {
         cJSON_DeleteItemFromObject(result, "status");
         cJSON_DeleteItemFromObject(result, "message");
 
-        cJSON_AddNumberToObject(result, "status", 201);
+        cJSON_AddNumberToObject(result, "status", DATABASE_NO_TUPLES_OK);
         cJSON_AddStringToObject(result, "message", "OK");
     }
 

@@ -95,7 +95,7 @@ static void *user_contest_result_ctor(void *_self, va_list *arguments) {
 
     cJSON *msg = create_user_contest_result_cJSON(self->data);
 
-    if ((cJSON_GetObjectItem(msg, "status"))->valueint != 201) {
+    if ((cJSON_GetObjectItem(msg, "status"))->valueint != DATABASE_NO_TUPLES_OK) {
         fprintf(stderr, "%s", (cJSON_GetObjectItem(msg, "message"))->valuestring);
         delete(self);
         return NULL;
@@ -131,7 +131,7 @@ static void user_contest_result_set(struct UserContestResult *_self, char *field
 
     delete(db);
 
-    if ((cJSON_GetObjectItem(msg, "status"))->valueint != 201) {
+    if ((cJSON_GetObjectItem(msg, "status"))->valueint != DATABASE_NO_TUPLES_OK) {
         fprintf(stderr, "%s", (cJSON_GetObjectItem(msg, "message"))->valuestring);
         return;
     }

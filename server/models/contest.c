@@ -13,16 +13,21 @@
 #define CONTEST_CREATED_AT "created_at"
 #define CONTEST_UPDATED_AT "updated_at"
 #define CONTEST_DESCRIPTION "description"
+#define CONTEST_TITLE "title"
+#define CONTEST_REG_START_TIME "reg_start_time"
+#define CONTEST_REG_END_TIME "reg_end_time"
 
 cJSON *create_contest_char(int author_id, char *starts_at, char *ends_at,
-                           char *description) {
+                           char *description, char *title,
+                           char *reg_start_time, char *reg_end_time) {
     struct Database *db = new(Database);
     char insert_sql[1024];
-    char *paramvalues[] = {starts_at, ends_at};
-    sprintf(insert_sql, "INSERT INTO contest VALUES (DEFAULT, %d, $1, $2, DEFAULT, DEFAULT, \'%s\') RETURNING id",
-            author_id, description);
+    char *paramvalues[] = {starts_at, ends_at, reg_start_time, reg_end_time};
+    sprintf(insert_sql,
+            "INSERT INTO contest VALUES (DEFAULT, %d, $1, $2, DEFAULT, DEFAULT, \'%s\', \'%s\', $3, $4) RETURNING id",
+            author_id, description, title);
 
-    cJSON *msg = insert_query_params(db, insert_sql, 2, paramvalues);
+    cJSON *msg = insert_query_params(db, insert_sql, 4, paramvalues);
     delete(db);
     return msg;
 }
@@ -32,7 +37,10 @@ cJSON *create_contest_cJSON(cJSON *data) {
             (cJSON_GetObjectItem(data, CONTEST_AUTHOR_ID))->valueint,
             (cJSON_GetObjectItem(data, CONTEST_STARTS_AT))->valuestring,
             (cJSON_GetObjectItem(data, CONTEST_ENDS_AT))->valuestring,
-            (cJSON_GetObjectItem(data, CONTEST_DESCRIPTION))->valuestring);
+            (cJSON_GetObjectItem(data, CONTEST_DESCRIPTION))->valuestring,
+            (cJSON_GetObjectItem(data, CONTEST_TITLE))->valuestring,
+            (cJSON_GetObjectItem(data, CONTEST_REG_START_TIME))->valuestring,
+            (cJSON_GetObjectItem(data, CONTEST_REG_END_TIME))->valuestring);
 }
 
 cJSON *get_contest_by_id(int contest_id) {
@@ -88,7 +96,7 @@ static void *contest_ctor(void *_self, va_list *arguments) {
 
     cJSON *create_cntst_msg = create_contest_cJSON(self->data);
 
-    if ((cJSON_GetObjectItem(create_cntst_msg, "status"))->valueint != 200) {
+    if ((cJSON_GetObjectItem(create_cntst_msg, "status"))->valueint != DATABASE_TUPLES_OK) {
         fprintf(stderr, "%s", (cJSON_GetObjectItem(create_cntst_msg, "message"))->valuestring);
         delete(self);
         return NULL;
@@ -123,7 +131,7 @@ static void contest_set(struct Contest *_self, char *field, void *value) {
     sprintf(update_sql, "UPDATE contest SET %s=$1 WHERE id=%d", field, contest_id);
     cJSON *msg = update_query_params(db, update_sql, 1, values);
     delete(db);
-    if ((cJSON_GetObjectItem(msg, "status"))->valueint != 201) {
+    if ((cJSON_GetObjectItem(msg, "status"))->valueint != DATABASE_NO_TUPLES_OK) {
         fprintf(stderr, "%s", (cJSON_GetObjectItem(msg, "message"))->valuestring);
         return;
     }

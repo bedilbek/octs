@@ -106,9 +106,37 @@ const char *migrations[] = {"CREATE SEQUENCE users_id_seq INCREMENT BY 1 MINVALU
                             "ALTER TABLE user_contest_result ADD FOREIGN KEY (contest_id) REFERENCES contest (id);",
                             "CREATE UNIQUE INDEX users_username_uindex ON users (username);",
                             "CREATE UNIQUE INDEX users_email_uindex ON users (email);",
+                            "ALTER TABLE users ADD COLUMN token VARCHAR(100) UNIQUE DEFAULT NULL",
+                            "ALTER TABLE contest ADD COLUMN title VARCHAR(100) DEFAULT NULL,\n"
+                                    "    ADD COLUMN reg_start_time TIMESTAMP,\n"
+                                    "    ADD COLUMN reg_end_time TIMESTAMP;",
+                            "CREATE SEQUENCE file_id_seq INCREMENT BY 1 MINVALUE 1;",
+                            "CREATE TABLE file (\n"
+                                    "    id INTEGER PRIMARY KEY DEFAULT nextval('file_id_seq'::regclass),\n"
+                                    "    user_id INTEGER NULL,\n"
+                                    "    path VARCHAR(200) NULL,\n"
+                                    "    CONSTRAINT file_fk_user_id FOREIGN KEY (user_id) REFERENCES users(id)\n"
+                                    ");",
+                            "ALTER TABLE problem\n"
+                                    "    RENAME COLUMN input_format TO input_file_id;",
+                            "ALTER TABLE problem\n"
+                                    "    RENAME COLUMN output_format to output_file_id;",
+                            "ALTER TABLE test_case\n"
+                                    "    RENAME COLUMN output_file_name to output_file_id;",
+                            "ALTER TABLE test_case\n"
+                                    "    RENAME COLUMN input_file_name to input_file_id;",
+                            "ALTER TABLE problem\n"
+                                    "ALTER input_file_id SET DATA TYPE INTEGER USING input_file_id::INTEGER;",
+                            "ALTER TABLE problem\n"
+                                    "ALTER output_file_id SET DATA TYPE INTEGER USING output_file_id::INTEGER;",
+                            "ALTER TABLE test_case\n"
+                                    "ALTER input_file_id SET DATA TYPE INTEGER USING input_file_id::INTEGER;",
+                            "ALTER TABLE test_case\n"
+                                    "ALTER output_file_id SET DATA TYPE INTEGER USING output_file_id::INTEGER;",
+                            "ALTER TABLE file\n"
+                                    "    ADD COLUMN extension VARCHAR(10) CHECK (extension in ('.txt', '.c'));",
                             NULL
 };
-
 /** TODO
  * contest-fields: title, reg_start_time, reg_end_time **/
 int run_migrations(struct Database *db) {
@@ -129,7 +157,7 @@ int count_migrations(struct Database *db) {
     cJSON *msg = select_query(db, "SELECT count(id) \n"
             "FROM migration");
 
-    if ((int) cJSON_parser(cJSON_GetObjectItem(msg, "status")) != 200)
+    if ((int) cJSON_parser(cJSON_GetObjectItem(msg, "status")) != DATABASE_TUPLES_OK)
         return -1;
 
     return strtol(cJSON_parser(cJSON_GetObjectItem(cJSON_GetArrayItem(cJSON_GetObjectItem(msg, "data"), 0), "count")),
@@ -149,16 +177,18 @@ int migrate(struct Database *db) {
     while (migrations[++i] != NULL) {
         msg = select_query(db, migrations[i]);
 
-        if ((int) cJSON_parser(cJSON_GetObjectItem(msg, "status")) != 201) {
+        if ((int) cJSON_parser(cJSON_GetObjectItem(msg, "status")) != DATABASE_NO_TUPLES_OK) {
             fprintf(stderr, "Migration number-%d failed: %s", i, PQerrorMessage(db->pgConn));
-            continue;
+            break;
         }
         cJSON_Delete(msg);
         char insert_sql[100];
         sprintf(insert_sql, "INSERT INTO migration VALUES(DEFAULT, \'Migration-%d\', DEFAULT)", i);
         msg = insert_query(db, insert_sql);
-        if ((int) cJSON_parser(cJSON_GetObjectItem(msg, "status")) != 201)
+        if ((int) cJSON_parser(cJSON_GetObjectItem(msg, "status")) != DATABASE_NO_TUPLES_OK) {
             fprintf(stderr, "Insert migration number-%d failed: %s", i, PQerrorMessage(db->pgConn));
+            break;
+        }
     }
     cJSON_Delete(msg);
     return i;
@@ -167,7 +197,7 @@ int migrate(struct Database *db) {
 int exist_migration_table(struct Database *db) {
     cJSON *msg = select_query(db, "SELECT to_regclass(\'migration\')");
 
-    if ((int) cJSON_parser(cJSON_GetObjectItem(msg, "status")) != 200) {
+    if ((int) cJSON_parser(cJSON_GetObjectItem(msg, "status")) != DATABASE_TUPLES_OK) {
         fprintf(stderr, "Check migration table existence query failed: %s", PQerrorMessage(db->pgConn));
         return -1;
     }
@@ -183,7 +213,7 @@ int exist_migration_table(struct Database *db) {
 int create_migration_table(struct Database *db) {
     cJSON *msg = select_query(db, "CREATE SEQUENCE migration_id_seq INCREMENT BY 1 MINVALUE 1");
 
-    if ((int) cJSON_parser(cJSON_GetObjectItem(msg, "status")) != 201) {
+    if ((int) cJSON_parser(cJSON_GetObjectItem(msg, "status")) != DATABASE_NO_TUPLES_OK) {
         fprintf(stderr, "Creation of migration sequence query failed: %s", PQerrorMessage(db->pgConn));
         return 0;
     }
@@ -196,7 +226,7 @@ int create_migration_table(struct Database *db) {
             "created_at TIMESTAMP DEFAULT current_timestamp\n"
             ");");
 
-    if ((int) cJSON_parser(cJSON_GetObjectItem(msg, "status")) != 201) {
+    if ((int) cJSON_parser(cJSON_GetObjectItem(msg, "status")) != DATABASE_NO_TUPLES_OK) {
         fprintf(stderr, "Creation of migration table query failed: %s", PQerrorMessage(db->pgConn));
         return 0;
     }
