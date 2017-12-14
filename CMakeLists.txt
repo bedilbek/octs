@@ -67,11 +67,30 @@ add_library(
         server/controllers/users_contests.c
 )
 
-link_libraries(lib db vendor model server contollers client pthread uuid)
+link_libraries(
+        lib
+        db
+        vendor
+        model
+        server
+        contollers
+        client
+        pthread
+        uuid
+)
 
 add_executable(os_project_server ${SERVER_SOURCE_FILES})
 add_executable(os_project_client ${CLIENT_SOURCE_FILES})
 
-target_link_libraries(os_project_server lib db vendor model server contollers)
+target_link_libraries(os_project_server
+        lib
+        db
+        vendor
+        model
+        server
+        contollers
+        )
+
 target_link_libraries(os_project_server ${PostgreSQL_LIBRARIES})
+
 target_link_libraries(os_project_client lib vendor client)
