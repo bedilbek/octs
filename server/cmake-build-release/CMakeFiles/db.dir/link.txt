@@ -1,2 +1,0 @@
-/usr/bin/ar qc libdb.a  CMakeFiles/db.dir/lib/DataBase.c.o CMakeFiles/db.dir/server/migration/migrations.c.o
-/usr/bin/ranlib libdb.a

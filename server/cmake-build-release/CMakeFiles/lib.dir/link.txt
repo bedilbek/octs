@@ -1,2 +1,0 @@
-/usr/bin/ar qc liblib.a  CMakeFiles/lib.dir/lib/helpers.c.o CMakeFiles/lib.dir/lib/dictionary.c.o CMakeFiles/lib.dir/lib/_string.c.o
-/usr/bin/ranlib liblib.a

@@ -176,9 +176,9 @@ int migrate(struct Database *db) {
 
     while (migrations[++i] != NULL) {
         msg = select_query(db, migrations[i]);
-
+        fprintf(stdout, "Migration number-%d: %s ->", i, migrations[i]);
         if ((int) cJSON_parser(cJSON_GetObjectItem(msg, "status")) != DATABASE_NO_TUPLES_OK) {
-            fprintf(stderr, "Migration number-%d failed: %s", i, PQerrorMessage(db->pgConn));
+            fprintf(stderr, "failed: %s\n", PQerrorMessage(db->pgConn));
             break;
         }
         cJSON_Delete(msg);
@@ -189,6 +189,7 @@ int migrate(struct Database *db) {
             fprintf(stderr, "Insert migration number-%d failed: %s", i, PQerrorMessage(db->pgConn));
             break;
         }
+        fprintf(stdout, "succeeded\n");
     }
     cJSON_Delete(msg);
     return i;

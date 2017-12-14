@@ -1,2 +1,0 @@
-/usr/bin/ar qc libserver.a  CMakeFiles/server.dir/server/server/server.c.o CMakeFiles/server.dir/server/server/message_server.c.o CMakeFiles/server.dir/server/server/file_server.c.o
-/usr/bin/ranlib libserver.a

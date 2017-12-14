@@ -1,4 +1,0 @@
-/home/bedilbek/INSTALL/CLion/bin/cmake/bin/cmake -DCMAKE_BUILD_TYPE=server_release -G "CodeBlocks - Unix Makefiles" /home/bedilbek/CLionProjects/os_project
--- Configuring done
--- Generating done
--- Build files have been written to: /home/bedilbek/CLionProjects/os_project/server/cmake-build-release
