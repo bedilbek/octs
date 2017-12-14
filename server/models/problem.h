@@ -16,7 +16,7 @@ struct Problem {
 
 cJSON *create_problem_char(int category_id, char *description, int input_file_id,
                            int output_file_id, int time_limit, int memory_limit,
-                           int max_points);
+                           int max_points, char *title);
 
 cJSON *create_problem_cJSON(cJSON *data);
 

@@ -16,17 +16,18 @@
 #define PROBLEM_MAX_POINTS "max_points"
 #define PROBLEM_CREATED_AT "created_at"
 #define PROBLEM_UPDATED_AT "updated_at"
+#define PROBLEM_TITLE "title"
 
 cJSON *create_problem_char(int category_id, char *description, int input_file_id,
                            int output_file_id, int time_limit, int memory_limit,
-                           int max_points) {
+                           int max_points, char *title) {
     struct Database *db = new(Database);
     char insert_sql[1024];
 
     sprintf(insert_sql,
-            "INSERT INTO problem VALUES (DEFAULT, %d, \'%s\', %d, %d, %d, %d, %d, DEFAULT, DEFAULT) RETURNING *",
+            "INSERT INTO problem VALUES (DEFAULT, %d, \'%s\', %d, %d, %d, %d, %d, DEFAULT, DEFAULT, \'title\') RETURNING *",
             category_id, description, input_file_id, output_file_id,
-            time_limit, memory_limit, max_points);
+            time_limit, memory_limit, max_points, title);
 
     cJSON *msg = insert_query(db, insert_sql);
     delete(db);
@@ -44,7 +45,8 @@ cJSON *create_problem_cJSON(cJSON *data) {
             (cJSON_GetObjectItem(data, PROBLEM_OUTPUT_FILE_ID))->valueint,
             (cJSON_GetObjectItem(data, PROBLEM_TIME_LIMIT))->valueint,
             (cJSON_GetObjectItem(data, PROBLEM_MEMORY_LIMIT))->valueint,
-            (cJSON_GetObjectItem(data, PROBLEM_MAX_POINTS))->valueint);
+            (cJSON_GetObjectItem(data, PROBLEM_MAX_POINTS))->valueint,
+            (cJSON_GetObjectItem(data, PROBLEM_TITLE))->valuestring);
     cJSON *msg = insert_query(db, insert_sql);
     delete(db);
     return msg;
