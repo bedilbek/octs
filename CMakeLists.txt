@@ -67,7 +67,7 @@ add_library(
         server/controllers/users_contests.c
 )
 
-link_libraries(lib db vendor model server contollers client pthread)
+link_libraries(lib db vendor model server contollers client pthread uuid)
 
 add_executable(os_project_server ${SERVER_SOURCE_FILES})
 add_executable(os_project_client ${CLIENT_SOURCE_FILES})

@@ -8,9 +8,13 @@
 #include <regex.h>
 
 bool valid_name(char *);
+
 bool valid_uname(char *);
+
 bool valid_pswd(char *);
+
 char *hash_pswd(char *);
+
 bool valid_email(char *);
 
 cJSON *signup(cJSON *data) {
@@ -24,7 +28,7 @@ cJSON *signup(cJSON *data) {
     char *email = cJSON_GetObjectItem(data, "email")->valuestring;
 
     if (valid_name(fname) && valid_name(lname) && valid_uname(username) && valid_pswd(password) && valid_email(email)) {
-        cJSON *query_result = create_user_char(fname, lname, username, hash_pswd(password), email);
+        cJSON *query_result = create_user_char(fname, lname, username, hash_pswd(password), email, generate_token());
         if (cJSON_GetObjectItem(query_result, "status")->valuestring == "200") {
             setStatus(response, "200");
             setMessage(response, "User created.");
@@ -58,7 +62,7 @@ bool valid_uname(char *uname) {
     }
 }
 
-bool valid_pswd(char * pswd) {
+bool valid_pswd(char *pswd) {
     if (strlen(pswd) > 0) {
         return true;
     } else {
@@ -66,11 +70,10 @@ bool valid_pswd(char * pswd) {
     }
 }
 
-bool valid_email(char * email) {
+bool valid_email(char *email) {
     regex_t re;
 
-    if (regcomp(&re, "\u200E^\\w+@+?\\.$", REG_EXTENDED) != 0)
-    {
+    if (regcomp(&re, "\u200E^\\w+@+?\\.$", REG_EXTENDED) != 0) {
         fprintf(stderr, "Failed to compile regex '%s'\n", "\u200E^\\w+@+?\\.$");
         return 0;
     }

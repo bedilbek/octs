@@ -135,10 +135,11 @@ const char *migrations[] = {"CREATE SEQUENCE users_id_seq INCREMENT BY 1 MINVALU
                                     "ALTER output_file_id SET DATA TYPE INTEGER USING output_file_id::INTEGER;",
                             "ALTER TABLE file\n"
                                     "    ADD COLUMN extension VARCHAR(10) CHECK (extension in ('.txt', '.c'));",
+                            "ALTER TABLE problem\n"
+                                    "ADD COLUMN title VARCHAR(100) DEFAULT NULL",
                             NULL
 };
-/** TODO
- * contest-fields: title, reg_start_time, reg_end_time **/
+
 int run_migrations(struct Database *db) {
     int created = 1;
     if (!exist_migration_table(db))
