@@ -26,7 +26,7 @@ cJSON *login(cJSON *data) {
         cJSON_AddStringToObject(response, "token", "asdhjbeJFVElakdjkABDKBAlkjbdfasd=");
 
     } else {
-        cJSON_AddStringToObject(response, "status", cJSON_GetObjectItem(user_query_result, "status")->valuestring);
+        cJSON_AddStringToObject(response, "status", get_attr(user_query_result, "status", STRING));
     }
 
     return response;

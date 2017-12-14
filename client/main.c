@@ -8,8 +8,8 @@ int main() {
     struct Client *client = new(Client, SERVER_LISTEN_PORT);
 //    struct Client *file_client = new(Client, FILE_SERVER_LISTEN_PORT);
     cJSON *params = cJSON_CreateObject();
-    cJSON_AddNumberToObject(params, "contest_id", 1);
-    cJSON *response = (cJSON *) send_message(client, 1, params);
+    cJSON_AddNumberToObject(params, "contest_id", 2);
+    cJSON *response = (cJSON *) send_message(client, 2, params);
 //    cJSON *response = (cJSON *) send_file(file_client,
 //                                          "/Users/tom1/Documents/Subject files/OS/Project/octs/client/client/client.c",
 //                                          "client.c");

@@ -55,7 +55,6 @@ void *get(void *self, char *field) {
     return "";
 }
 
-
 char *toJson(void *self) {
     const struct Class *const *cp = self;
     if (self && *cp && (*cp)->toJson)
