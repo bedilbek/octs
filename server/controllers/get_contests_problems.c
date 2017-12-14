@@ -5,7 +5,13 @@
 #include "model.h"
 
 cJSON *get_contest_problems(cJSON *data) {
-    int contest_id = cJSON_GetObjectItem(data, "contest_id")->valueint;
+    //TODO: check if the contest started (showing problems is allowed)
+    //TODO: check if the contest finished and problems can be shown without registration
+//    int contest_id = cJSON_GetObjectItem(data, "contest_id")->valueint;
+    int contest_id;
+    if (!(contest_id= (int) get_attr(data, "contest_id", INTEGER))) {
+        return error_input("contest_id");
+    }
     cJSON *response = get_problems_by_contest_id(contest_id, "DESC");
     return response;
 }

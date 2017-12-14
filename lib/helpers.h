@@ -105,7 +105,7 @@ void *clone(const void *self);
  * Sets status for response
  *
  * */
-void setStatus(cJSON *, char *);
+void setStatus(cJSON *response, int status_code);
 
 /*
  * Sets error message for response if any
