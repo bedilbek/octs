@@ -1,2 +1,0 @@
-/usr/bin/ar qc libvendor.a  CMakeFiles/vendor.dir/vendor/cJSON/cJSON.c.o
-/usr/bin/ranlib libvendor.a
