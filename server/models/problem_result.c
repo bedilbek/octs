@@ -33,7 +33,7 @@ cJSON *create_problem_result_char(int user_id, int contest_id, int problem_id,
 
     cJSON *msg = select_query(db, select_sql);
 
-    if ((cJSON_GetObjectItem(msg, "status"))->valueint != 200)
+    if ((cJSON_GetObjectItem(msg, "status"))->valueint != DATABASE_TUPLES_OK)
         return msg;
 
     int trial_number = strtol((cJSON_GetObjectItem(cJSON_GetArrayItem(cJSON_GetObjectItem(msg, "data"), 0),
@@ -185,7 +185,7 @@ static void *problem_result_ctor(void *_self, va_list *arguments) {
 
     cJSON *create_prblm_rslt_msg = create_problem_result_cJSON(self->data);
 
-    if ((cJSON_GetObjectItem(create_prblm_rslt_msg, "status"))->valueint != 200) {
+    if ((cJSON_GetObjectItem(create_prblm_rslt_msg, "status"))->valueint != DATABASE_TUPLES_OK) {
         fprintf(stderr, "%s", (cJSON_GetObjectItem(create_prblm_rslt_msg, "message"))->valuestring);
         delete(self);
         return NULL;
@@ -220,7 +220,7 @@ static void problem_result_set(struct ProblemResult *_self, char *field, void *v
     sprintf(update_sql, "UPDATE problem_result SET %s=$1 WHERE id=%d", field, problem_result_id);
     cJSON *msg = update_query_params(db, update_sql, 1, values);
     delete(db);
-    if ((cJSON_GetObjectItem(msg, "status"))->valueint != 201) {
+    if ((cJSON_GetObjectItem(msg, "status"))->valueint != DATABASE_NO_TUPLES_OK) {
         fprintf(stderr, "%s", (cJSON_GetObjectItem(msg, "message"))->valuestring);
         return;
     }

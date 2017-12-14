@@ -20,7 +20,7 @@ cJSON *create_contest_problem_cJSON(cJSON *data);
 
 cJSON *get_contests_by_problem_id(int problem_id);
 
-cJSON *get_problems_by_contest_id(int contest_id);
+cJSON *get_problems_by_contest_id(int contest_id, char *order);
 
 cJSON *get_all_problems_count_by_contests();
 

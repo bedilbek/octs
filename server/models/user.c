@@ -13,7 +13,8 @@
 #define USER_PASSWORD "password"
 #define USER_EMAIL "email"
 #define USER_CREATED_AT "created_at"
-#define USER_UPDATED_AT "updated_at
+#define USER_UPDATED_AT "updated_at"
+#define USER_TOKEN "token"
 
 static void *user_ctor(void *_self, va_list *arguments) {
     struct User *self = _self;
@@ -32,7 +33,7 @@ static void *user_ctor(void *_self, va_list *arguments) {
 
     cJSON *create_usr_msg = create_user_cJSON(self->data);
 
-    if ((cJSON_GetObjectItem(create_usr_msg, "status"))->valueint != 200) {
+    if ((cJSON_GetObjectItem(create_usr_msg, "status"))->valueint != DATABASE_TUPLES_OK) {
         fprintf(stderr, "%s", (cJSON_GetObjectItem(create_usr_msg, "message"))->valuestring);
         delete(self);
         return NULL;
@@ -47,26 +48,22 @@ static void *user_ctor(void *_self, va_list *arguments) {
 
 cJSON *create_user_cJSON(cJSON *data) {
     struct Database *db = new(Database);
-    char insert_sql[1024];
-
-    sprintf(insert_sql, "INSERT INTO users VALUES (DEFAULT, \'%s\', \'%s\', \'%s\', \'%s\', \'%s\') RETURNING id",
+    return create_user_char(
             (cJSON_GetObjectItem(data, USER_FIRST_NAME))->valuestring,
             (cJSON_GetObjectItem(data, USER_LAST_NAME))->valuestring,
             (cJSON_GetObjectItem(data, USER_USERNAME))->valuestring,
             (cJSON_GetObjectItem(data, USER_PASSWORD))->valuestring,
-            (cJSON_GetObjectItem(data, USER_EMAIL))->valuestring);
-    cJSON *msg = insert_query(db, insert_sql);
-    delete(db);
-    return msg;
+            (cJSON_GetObjectItem(data, USER_EMAIL))->valuestring,
+            (cJSON_GetObjectItem(data, USER_TOKEN))->valuestring);
 }
 
-cJSON *create_user_char(char *fname, char *lname, char *username, char *password, char *email) {
+cJSON *create_user_char(char *fname, char *lname, char *username, char *password, char *email, char *token) {
     struct Database *db = new(Database);
     char insert_sql[1024];
 
     sprintf(insert_sql,
-            "INSERT INTO users VALUES (DEFAULT, \'%s\', \'%s\', \'%s\', \'%s\', \'%s\', DEFAULT, DEFAULT) RETURNING id",
-            fname, lname, username, password, email);
+            "INSERT INTO users VALUES (DEFAULT, \'%s\', \'%s\', \'%s\', \'%s\', \'%s\', DEFAULT, DEFAULT, \'%s\') RETURNING id",
+            fname, lname, username, password, email, token);
     cJSON *msg = insert_query(db, insert_sql);
     delete(db);
     return msg;
@@ -136,7 +133,7 @@ static void user_set(struct User *_self, char *field, void *value) {
     sprintf(update_sql, "UPDATE users SET %s=$1 WHERE username=\'%s\'", field, username);
     cJSON *msg = update_query_params(db, update_sql, 1, param_values);
     delete(db);
-    if ((cJSON_GetObjectItem(msg, "status"))->valueint != 201) {
+    if ((cJSON_GetObjectItem(msg, "status"))->valueint != DATABASE_NO_TUPLES_OK) {
         fprintf(stderr, "%s", (cJSON_GetObjectItem(msg, "message"))->valuestring);
         return;
     }

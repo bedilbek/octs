@@ -9,23 +9,23 @@
 #define PROBLEM_ID "id"
 #define PROBLEM_CATEGORY_ID "category_id"
 #define PROBLEM_DESCRIPTION "description"
-#define PROBLEM_INPUT_FORMAT "input_format"
-#define PROBLEM_OUTPUT_FORMAT "output_format"
+#define PROBLEM_INPUT_FILE_ID "input_file_id"
+#define PROBLEM_OUTPUT_FILE_ID "output_file_id"
 #define PROBLEM_TIME_LIMIT "time_limit"
 #define PROBLEM_MEMORY_LIMIT "memory_limit"
 #define PROBLEM_MAX_POINTS "max_points"
 #define PROBLEM_CREATED_AT "created_at"
 #define PROBLEM_UPDATED_AT "updated_at"
 
-cJSON *create_problem_char(int category_id, char *description, char *input_format,
-                           char *output_format, int time_limit, int memory_limit,
+cJSON *create_problem_char(int category_id, char *description, int input_file_id,
+                           int output_file_id, int time_limit, int memory_limit,
                            int max_points) {
     struct Database *db = new(Database);
     char insert_sql[1024];
 
     sprintf(insert_sql,
-            "INSERT INTO problem VALUES (DEFAULT, %d, \'%s\', \'%s\', \'%s\', %d, %d, %d, DEFAULT, DEFAULT) RETURNING id",
-            category_id, description, input_format, output_format,
+            "INSERT INTO problem VALUES (DEFAULT, %d, \'%s\', %d, %d, %d, %d, %d, DEFAULT, DEFAULT) RETURNING *",
+            category_id, description, input_file_id, output_file_id,
             time_limit, memory_limit, max_points);
 
     cJSON *msg = insert_query(db, insert_sql);
@@ -40,8 +40,8 @@ cJSON *create_problem_cJSON(cJSON *data) {
     sprintf(insert_sql, "INSERT INTO problem VALUES (DEFAULT, %d, \'%s\', \'%s\', \'%s\', %d, %d, %d) RETURNING id",
             (cJSON_GetObjectItem(data, PROBLEM_CATEGORY_ID))->valueint,
             (cJSON_GetObjectItem(data, PROBLEM_DESCRIPTION))->valuestring,
-            (cJSON_GetObjectItem(data, PROBLEM_INPUT_FORMAT))->valuestring,
-            (cJSON_GetObjectItem(data, PROBLEM_OUTPUT_FORMAT))->valuestring,
+            (cJSON_GetObjectItem(data, PROBLEM_INPUT_FILE_ID))->valueint,
+            (cJSON_GetObjectItem(data, PROBLEM_OUTPUT_FILE_ID))->valueint,
             (cJSON_GetObjectItem(data, PROBLEM_TIME_LIMIT))->valueint,
             (cJSON_GetObjectItem(data, PROBLEM_MEMORY_LIMIT))->valueint,
             (cJSON_GetObjectItem(data, PROBLEM_MAX_POINTS))->valueint);
@@ -101,7 +101,7 @@ static void *problem_ctor(void *_self, va_list *arguments) {
 
     cJSON *create_prblm_msg = create_problem_cJSON(self->data);
 
-    if ((cJSON_GetObjectItem(create_prblm_msg, "status"))->valueint != 200) {
+    if ((cJSON_GetObjectItem(create_prblm_msg, "status"))->valueint != DATABASE_TUPLES_OK) {
         fprintf(stderr, "%s", (cJSON_GetObjectItem(create_prblm_msg, "message"))->valuestring);
         delete(self);
         return NULL;
@@ -135,7 +135,7 @@ static void problem_set(struct Problem *_self, char *field, void *value) {
     sprintf(update_sql, "UPDATE problem SET %s=$1 WHERE id=%d", field, problem_id);
     cJSON *msg = update_query_params(db, update_sql, 1, values);
     delete(db);
-    if ((cJSON_GetObjectItem(msg, "status"))->valueint != 201) {
+    if ((cJSON_GetObjectItem(msg, "status"))->valueint != DATABASE_NO_TUPLES_OK) {
         fprintf(stderr, "%s", (cJSON_GetObjectItem(msg, "message"))->valuestring);
         return;
     }

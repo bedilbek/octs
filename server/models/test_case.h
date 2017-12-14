@@ -14,7 +14,7 @@ struct TestCase {
     cJSON *data;
 };
 
-cJSON *create_test_case_char(int problem_id, char *input_file_name, char *output_file_name,
+cJSON *create_test_case_char(int problem_id, int input_file_id, int output_file_id,
                              char *explanation, int is_sample);
 
 cJSON *create_test_case_cJSON(cJSON *data);

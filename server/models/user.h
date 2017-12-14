@@ -14,7 +14,7 @@ struct User {
     cJSON *data;
 };
 
-cJSON *create_user_char(char *fname, char *lname, char *username, char *password, char *email);
+cJSON *create_user_char(char *fname, char *lname, char *username, char *password, char *email, char *token);
 
 cJSON *create_user_cJSON(cJSON *data);
 

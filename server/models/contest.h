@@ -15,7 +15,8 @@ struct Contest {
 };
 
 cJSON *create_contest_char(int author_id, char *starts_at, char *ends_at,
-                           char *description);
+                           char *description, char *title,
+                           char *reg_start_time, char *reg_end_time);
 
 cJSON *create_contest_cJSON(cJSON *data);
 

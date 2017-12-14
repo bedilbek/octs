@@ -3,12 +3,7 @@
 //
 
 #include "server.h"
-#include <pthread.h>
 #include "controllers.h"
-
-cJSON *get_attr(cJSON *data, char *field) {
-    return cJSON_GetObjectItem(data, field);
-}
 
 void return_response(int socket, cJSON *response) {
     char *response_message = cJSON_Print(response);
@@ -39,8 +34,8 @@ void pre_dispatch(int peer_socket) {
         return;
     }
     cJSON *message = cJSON_Parse(buffer);
-    int method = get_attr(message, "method")->valueint;
-    cJSON *params = get_attr(message, "params");
+    int method = (int) get_attr(message, "method", INTEGER);
+    cJSON *params = get_attr(message, "params", CJSON);
     struct Request request = make_request(peer_socket, method, params);
     pthread_create(&thread_id, NULL, dispatch, &request);
 }
