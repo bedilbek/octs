@@ -20,4 +20,6 @@ cJSON *register_for_contest(cJSON *data);
 
 cJSON *problem_details(cJSON *data);
 
+cJSON *users_contests(cJSON *data);
+
 #endif //OS_PROJECT_METHODS_H
