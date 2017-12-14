@@ -2,9 +2,10 @@
 // Created by ulugbekna on 12/13/17.
 //
 
-#include <stdbool.h>
 #include "model.h"
 #include "methods.h"
+#include <stdbool.h>
+#include <regex.h>
 
 bool valid_name(char *);
 bool valid_uname(char *);
@@ -24,12 +25,12 @@ cJSON *signup(cJSON *data) {
 
     if (valid_name(fname) && valid_name(lname) && valid_uname(username) && valid_pswd(password) && valid_email(email)) {
         cJSON *query_result = create_user_char(fname, lname, username, hash_pswd(password), email);
-        if (cJSON_GetObjectItem(query_result, status)->valuestring == "200") {
+        if (cJSON_GetObjectItem(query_result, "status")->valuestring == "200") {
             setStatus(response, "200");
             setMessage(response, "User created.");
         } else {
-            setStatus(response, cJSON_GetObjectItem(query_result, status)->valuestring);
-            setErrMsg(response, cJSON_GetObjectItem(query_result, message)->valuestring);
+            setStatus(response, cJSON_GetObjectItem(query_result, "status")->valuestring);
+            setErrMsg(response, cJSON_GetObjectItem(query_result, "message")->valuestring);
             return response;
         }
 
@@ -66,33 +67,12 @@ bool valid_pswd(char * pswd) {
 }
 
 bool valid_email(char * email) {
-    int email_adrs_len = strlen(email);
-    int at_count = 0;
-    int dot_count = 0;
-    if (email_adrs_len > 5) {
-        for (int i = 0; i < email_adrs_len; i++) {
-            if (email[i] == '@') {
-                at_count++;
-            }
-        }
+    regex_t re;
 
-        if (at_flag == 1) {
-            for (int i = 0; i < email_adrs_len; i++) {
-                if (email[i] == '.') {
-                    dot_count++;
-                }
-            }
-
-            if (dot_count != 0) {
-                return true;
-            } else {
-                return false;
-            }
-        }
-        else
-            return false;
-    } else {
-        return false;
+    if (regcomp(&re, "\u200E^\\w+@+?\\.$", REG_EXTENDED) != 0)
+    {
+        fprintf(stderr, "Failed to compile regex '%s'\n", "\u200E^\\w+@+?\\.$");
+        return 0;
     }
 }
 

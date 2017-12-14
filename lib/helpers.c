@@ -3,7 +3,7 @@
 //
 
 #include "helpers.h"
-#include <uuid/uuid.h>
+//#include <uuid/uuid.h>
 #include <server.h>
 
 
@@ -90,13 +90,13 @@ void setMessage(cJSON *response, char *message) {
     cJSON_AddStringToObject(response, "message", message);
 }
 
-char *generate_token() {
-    uuid_t uuid = {};
-    char *str_uuid = calloc(37, sizeof(char));
-    uuid_generate(uuid);
-    uuid_unparse(uuid, str_uuid);
-    return str_uuid;
-}
+//char *generate_token() {
+//    uuid_t uuid = {};
+//    char *str_uuid = calloc(37, sizeof(char));
+//    uuid_generate(uuid);
+//    uuid_unparse(uuid, str_uuid);
+//    return str_uuid;
+//}
 
 void *get_attr(cJSON *data, char *value, int value_type) {
     cJSON *val;
@@ -132,7 +132,7 @@ cJSON *error_input(char *input) {
     cJSON *response = cJSON_CreateObject();
     char err_message[1024];
     sprintf(err_message, "%s is required", input);
-    cJSON_AddNumberToObject(response, "status", 400);
-    cJSON_AddStringToObject(response, "non_field_error", err_message);
+    setStatus(response, 400);
+    setErrMsg(response, err_message);
     return response;
 }
