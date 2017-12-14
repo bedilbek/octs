@@ -19,6 +19,15 @@
 
 #include "vendor.h"
 
+#define CJSON 1
+#define STRING 2
+#define DOUBLE 3
+#define INTEGER 4
+
+#define TRUE 1
+#define FALSE 0
+
+
 #define typename(x) _Generic((x), \
     int:    "int", \
     char*:  "char", \
@@ -115,6 +124,10 @@ void setMessage(cJSON *, char *);
  *
  * */
 char *generate_token();
+
+void *get_attr(cJSON *data, char *value, int value_type);
+
+cJSON *error_input(char *input);
 
 
 #endif //POSTGRES_TEST_OOPDESIGNPATTERNS_H

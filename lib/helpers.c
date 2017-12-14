@@ -4,6 +4,7 @@
 
 #include "helpers.h"
 #include <uuid/uuid.h>
+#include <server.h>
 
 
 int differ(const void *self, const void *b) {
@@ -92,8 +93,47 @@ void setMessage(cJSON *response, char *message) {
 
 char *generate_token() {
     uuid_t uuid = {};
-    char *str_uuid=calloc(37, sizeof(char));
+    char *str_uuid = calloc(37, sizeof(char));
     uuid_generate(uuid);
     uuid_unparse(uuid, str_uuid);
     return str_uuid;
+}
+
+void *get_attr(cJSON *data, char *value, int value_type) {
+    cJSON *val;
+    switch (value_type) {
+        case STRING:
+            val = cJSON_GetObjectItem(data, value);
+            if (val) {
+                return val->valuestring;
+            }
+            break;
+        case DOUBLE:
+            val = cJSON_GetObjectItem(data, value);
+            if (val) {
+                return val;
+            }
+            break;
+        case INTEGER:
+            val = cJSON_GetObjectItem(data, value);
+            if (val) {
+                return (void *) val->valueint;
+            }
+            break;
+        case CJSON:
+            val = cJSON_GetObjectItem(data, value);
+            return val;
+        default:
+            return FALSE;
+    }
+    return FALSE;
+}
+
+cJSON *error_input(char *input) {
+    cJSON *response = cJSON_CreateObject();
+    char err_message[1024];
+    sprintf(err_message, "%s is required", input);
+    cJSON_AddNumberToObject(response, "status", 400);
+    cJSON_AddStringToObject(response, "non_field_error", err_message);
+    return response;
 }

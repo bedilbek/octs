@@ -7,8 +7,15 @@
 
 cJSON *login(cJSON *data) {
 
-    char *username = cJSON_GetObjectItem(data, "username")->valuestring;
-    char *password = cJSON_GetObjectItem(data, "password")->valuestring;
+    char *username;
+    char *password;
+    if (!(username = get_attr(data, "username", STRING))) {
+        return error_input("username");
+    }
+    if (!(password = get_attr(data, "password", STRING))) {
+        return error_input("password");
+    }
+
 
     cJSON *response = cJSON_CreateObject();
 
