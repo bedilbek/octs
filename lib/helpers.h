@@ -27,6 +27,8 @@
 #define TRUE 1
 #define FALSE 0
 
+#define FILE_STORAGE "/Users/tom1/Documents/Subject files/OS/Project/octs/media/files/XXXXXXXXXX."
+
 
 #define typename(x) _Generic((x), \
     int:    "int", \

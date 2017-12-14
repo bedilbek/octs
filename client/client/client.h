@@ -26,7 +26,7 @@ cJSON *client_listen(struct Client *client);
 
 void *send_message(struct Client *client, char *token, int method, cJSON *params);
 
-void *send_file(struct Client *client, char *absolute_path, char *filename);
+void *send_file(struct Client *client, char *token, char absolute_path[]);
 
 static void *client_ctor(void *_self, va_list *arguments);
 

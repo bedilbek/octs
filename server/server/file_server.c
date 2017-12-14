@@ -4,22 +4,20 @@
 
 
 #include "server.h"
-#include <pthread.h>
 #include "controllers.h"
+#include "model.h"
 
+int authenticate_user(char *token) {
+    cJSON *result_user = get_user_by_token(token);
+    int user_id = 0;
+    if (!(user_id = (int) get_attr(cJSON_GetArrayItem(cJSON_GetObjectItem(result_user, "data"), 0), "id", INTEGER)))
+        return 0;
+    return user_id;
+}
 
 void return_response(int socket, cJSON *response) {
     char *response_message = cJSON_Print(response);
     send(socket, response_message, strlen(response_message), 0);
-}
-
-const char *get_full_path(char *file_name) {
-    //TODO: make file management
-    char *base_path = "/Users/tom1/Documents/Subject files/OS/Project/octs/media/files/";
-    char *absolute_path = (char *) malloc(1 + strlen(base_path) + strlen(file_name));
-    strcpy(absolute_path, base_path);
-    strcat(absolute_path, file_name);
-    return absolute_path;
 }
 
 void receive_file(int peer_socket) {
@@ -33,19 +31,55 @@ void receive_file(int peer_socket) {
 
     ////separate request into datum
     cJSON *message = cJSON_Parse(buffer);
-    char *token = get_attr(message, "token", STRING);
-    int length = (int) get_attr(message, "length", INTEGER);
-    char *file_name = get_attr(message, "file_name", STRING);
+    char *token;
+    int length;
+    char *ext;
+    if (!(token = get_attr(message, "token", STRING))) {
+        cJSON *response = error_input("Login in order to proceed this operation");
+        return_response(peer_socket, response);
+        close(peer_socket);
+        return;
+    }
+    if (!(length = (int) get_attr(message, "length", INTEGER))) {
+        cJSON *response = error_input("length is required");
+        return_response(peer_socket, response);
+        close(peer_socket);
+    }
+
+    if (!(ext = get_attr(message, "ext", STRING))) {
+        cJSON *response = error_input("ext is required");
+        return_response(peer_socket, response);
+        close(peer_socket);
+    }
+
+    int user_id;
+    if (!(user_id = authenticate_user(token))) {
+        cJSON *response = cJSON_CreateObject();
+        setStatus(response, 403);
+        setErrMsg(response, "Login in order to proceed this operation");
+        return_response(peer_socket, response);
+        close(peer_socket);
+    }
+    cJSON *request = cJSON_CreateObject();
+    cJSON_AddNumberToObject(request, "user_id", user_id);
+    cJSON_AddStringToObject(request, "ext", ext);
+
     //TODO validate above values
     for (int i = 0; i < sizeof(buffer); ++i) {
         buffer[i] = '\0';
     }
     file_size = length;
-    const char *absolute_file_path = get_full_path(file_name);
-    received_file = fopen(absolute_file_path, "w");
+
+    char absolute_file_path[1024] = FILE_STORAGE;
+    strcat(absolute_file_path, ext);
+    int fd = mkstemps(absolute_file_path, (size_t) 4);
+
+    received_file = fdopen(fd, "w");
     if (received_file == NULL) {
         return;
     }
+    printf(absolute_file_path);
+    cJSON_AddStringToObject(request, "absolute_path", absolute_file_path);
 
     while (TRUE) {
         len = (int) read(peer_socket, buffer, MAX_LENGTH_OF_MESSAGE);
@@ -58,8 +92,7 @@ void receive_file(int peer_socket) {
     }
     fclose(received_file);
 
-    cJSON_AddStringToObject(message, "file", absolute_file_path);
-    cJSON *response = methods[1](message);
+    cJSON *response = methods[0](request);
     return_response(peer_socket, response);
 }
 

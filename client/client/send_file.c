@@ -6,7 +6,7 @@
 #include <errno.h>
 #include "client.h"
 
-void *send_file(struct Client *client, char *absolute_path, char *filename) {
+void *send_file(struct Client *client, char *token, char absolute_path[]) {
     ////Init variables
     ssize_t len;
     struct stat file_stat;
@@ -22,9 +22,13 @@ void *send_file(struct Client *client, char *absolute_path, char *filename) {
         return response;
     }
     file_length = file_stat.st_size;
-
-    sprintf(request, "{\"token\":\"%s\", \"length\":%d, \"file_name\": \"%s\"}", "TOKEN 12", file_length,
-            filename);
+    char *format = strtok(absolute_path, ".");
+    char *ext;
+    do {
+        ext = format;
+        format = strtok(NULL, ".");
+    } while (format != NULL);
+    sprintf(request, "{\"token\":\"%s\", \"length\":%d, \"ext\": \"%s\"}", token, file_length, ext);
     len = send(client->sock, request, sizeof(request), 0);
     for (int i = 0; i < sizeof(request); ++i) {
         request[i] = '\0';
