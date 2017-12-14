@@ -4,7 +4,6 @@
 
 #include "helpers.h"
 #include <uuid/uuid.h>
-#include <server.h>
 
 
 int differ(const void *self, const void *b) {

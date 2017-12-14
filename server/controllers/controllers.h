@@ -15,5 +15,6 @@ const function methods[10] = {
         login,
 //        signup,
         get_contest_problems,
+        register_for_contest,
 };
 #endif //OS_PROJECT_CONTROLLERS_H
