@@ -11,7 +11,7 @@
 #define DATABASE_INVALID_QUERY 703
 #define DATABASE_NOT_CONNECTED 704
 
-#include "postgresql/libpq-fe.h"
+#include "libpq-fe.h"
 #include "DB_CONFIG.h"
 #include "helpers.h"
 
