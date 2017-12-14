@@ -257,9 +257,9 @@ cJSON *getProblemFromUser()
     cJSON_AddNumberToObject(newProblem, "memory_limit", memory_limit);
     cJSON_AddNumberToObject(newProblem, "max_points", max_points);
 
-    printf("%s\n", cJSON_Print(cJSON_GetObjectItem(newProblem, "title")));
-    printf("%s\n", cJSON_Print(cJSON_GetObjectItem(newProblem, "description")));
-    printf("%s\n", cJSON_Print(cJSON_GetObjectItem(newProblem, "input_file_path")));
-    printf("%s\n", cJSON_Print(cJSON_GetObjectItem(newProblem, "output_file_path")));
+//    printf("%s\n", cJSON_Print(cJSON_GetObjectItem(newProblem, "title")));
+//    printf("%s\n", cJSON_Print(cJSON_GetObjectItem(newProblem, "description")));
+//    printf("%s\n", cJSON_Print(cJSON_GetObjectItem(newProblem, "input_file_path")));
+//    printf("%s\n", cJSON_Print(cJSON_GetObjectItem(newProblem, "output_file_path")));
     return newProblem;
 }
