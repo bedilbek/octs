@@ -6,7 +6,6 @@
 #include "methods.h"
 
 cJSON *login(cJSON *data) {
-
     char *username;
     char *password;
     if (!(username = get_attr(data, "username", STRING))) {
@@ -15,8 +14,7 @@ cJSON *login(cJSON *data) {
     if (!(password = get_attr(data, "password", STRING))) {
         return error_input("password");
     }
-
-
+    
     cJSON *response = cJSON_CreateObject();
 
     cJSON *user_query_result = exist_user(username, password);
