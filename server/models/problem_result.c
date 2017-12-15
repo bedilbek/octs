@@ -265,3 +265,4 @@ static const struct Class _ProblemResult = {
 };
 
 const void *ProblemResult = &_ProblemResult;
+

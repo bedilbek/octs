@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.8)
 project(os_project)
 
 set(CMAKE_C_STANDARD 11)
-
+include_directories(/usr/local/include)
 set(SERVER_SOURCE_FILES server/main.c)
 set(CLIENT_SOURCE_FILES client/main.c)
 

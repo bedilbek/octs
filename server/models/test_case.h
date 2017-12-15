@@ -12,9 +12,17 @@ extern const void *TestCase;
 struct TestCase {
     const void *class;
     cJSON *data;
+    int id;
+    int problem_id;
+    char *input_file;
+    char *output_file;
+    char *explanation;
+    bool is_sample;
 };
 
-cJSON *create_test_case_char(int problem_id, int input_file_id, int output_file_id,
+ int map_test_case(cJSON *from, struct TestCase **to);
+
+cJSON *create_test_case_char(int problem_id, char *input_file_name, char *output_file_name,
                              char *explanation, int is_sample);
 
 cJSON *create_test_case_cJSON(cJSON *data);

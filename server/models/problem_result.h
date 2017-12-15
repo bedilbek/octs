@@ -14,6 +14,7 @@ struct ProblemResult {
     cJSON *data;
 };
 
+
 cJSON *create_problem_result_char(int user_id, int contest_id, int problem_id,
                                   int points, int success, void *failed_test_case_id);
 

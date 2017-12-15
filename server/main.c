@@ -23,4 +23,24 @@ int main() {
 //    char *token;
 //    token = generate_token();
 //    printf(token);
+    //cJSON *response = create_category_char("test_category","test description");
+    //int id =  (int) cJSON_parser(cJSON_GetObjectItem(cJSON_GetArrayItem(cJSON_GetObjectItem(response, "data"), 0), "id"));
+    //printf(id);
+    //create_problem_char(1, "test categry", "test_format", "test_outpu_format", 3, 256, 1000);
+    //create_test_case_char(1,"test","test2","test exp", 1);
+    //create_problem_result_char(1,1,1,10,1, NULL);
+    //struct ProblemResult res;
+    //printf(cJSON_Print(get_test_cases_of_problem(1)));
+
+    struct TestCase test;
+    test.input_file = "/Users/sherzod/Documents/test_input";
+    test.output_file = "/Users/sherzod/Documents/test_output";
+    char *code_path = "/Users/sherzod/Documents/test.c";
+    //int i = execute(code_path, test);
+    //printf("\n\nstatus: %d ", i);
+
+    compile(code_path,1,1,1);
+    return  0;
 }
+
+
