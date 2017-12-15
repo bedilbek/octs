@@ -1,9 +1,28 @@
 ////
 //// Created by Tolqinbek Isoqov on 12/3/17.
 ////
-//#include "client.h"
+#include "client.h"
 #include "ui.c"
 
+void print_table_TEST()
+{
+    char *id = "Contest_ID";
+    char *title = "Title";
+    char *starts_at = "Starts_at";
+    char *ends_at = "Ends_at";
+    printf("----------------------------------------------------------------------------------------------------------------------------\n");
+    printf("%-12s|%-35s|%-15s|\n", id, title, starts_at, ends_at, "reg_end_date");
+    printf("----------------------------------------------------------------------------------------------------------------------------\n");
+    int i;
+    for(i=0;i<5;i++) {
+        printf("   %-9d|", (i+3)*1232);
+        printf("%-35s|", "Quadratic equation");
+        printf("%-15s|", "45-45-1997 12:30");
+        printf("\n");
+        printf("----------------------------------------------------------------------------------------------------------------------------\n");
+    }
+
+}
 
 int main() {
 //    cJSON *params = cJSON_CreateObject();
@@ -15,12 +34,14 @@ int main() {
     //cJSON_AddNumberToObject(params, "id", 123);
    // cJSON *response = (cJSON *) send_message(client, "get_user", params);
   //  struct User u;
-//    saveToFileOcts("asd", "woxa", "234ewrw", 123);
-//
 //    makeUser();
+   // saveToFileOcts("qwertyyfflghdfjgkdjlf564456564");
+   // registerMenu();
+    //loginMenu();
+        //print_table_TEST();
 
-    isLoggedIn();
-//    printf("%s", u.token);
+        getProblemFromUser();
+
 
 
     return 0;

@@ -14,7 +14,7 @@
 //cJSON *loginMenu();
 
 
-void saveToFileOcts(char *fname, char *lname, char *token, int id);
+void saveToFileOcts(char *token);
 
 #endif //OS_PROJECT_UI_H
 
