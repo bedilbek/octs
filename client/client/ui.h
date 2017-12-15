@@ -16,5 +16,19 @@
 
 void saveToFileOcts(char *token);
 
+cJSON *loginMenu();
+
+int isLoggedIn();
+
+void logoutFunction();
+
+char *getToken();
+
+void showContests(cJSON *contests, int size);
+
+void showContestProblems(cJSON *problems, int size);
+
+cJSON *registerMenu();
+
 #endif //OS_PROJECT_UI_H
 

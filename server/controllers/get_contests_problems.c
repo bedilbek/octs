@@ -1,7 +1,7 @@
 //
 // Created by Tolqinbek Isoqov on 12/13/17.
 //
-#include "methods.h"
+#include "server_methods.h"
 #include "model.h"
 
 cJSON *get_contest_problems(cJSON *data) {

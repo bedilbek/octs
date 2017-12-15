@@ -5,18 +5,15 @@
 #include "ui.h"
 
 
+const char *USR_FILE_NAME = "usr_octs";
 
-const char* USR_FILE_NAME = "usr_octs";
-
-int isLoggedIn()
-{
-    if(access(USR_FILE_NAME, F_OK)!=-1)
-    return 1;
+int isLoggedIn() {
+    if (access(USR_FILE_NAME, F_OK) != -1)
+        return 1;
     else return 0;
 }
 
-char *getToken()
-{
+char *getToken() {
     FILE *f;
     char *token;
     token = malloc(75);
@@ -26,19 +23,18 @@ char *getToken()
 
     return token;
 }
-void logoutFunction()
-{
+
+void logoutFunction() {
     remove(USR_FILE_NAME);
 }
 
-cJSON *loginMenu()
-{
+cJSON *loginMenu() {
     char *login;
     char *password;
     cJSON *lp = cJSON_CreateObject();
 
-    login = (char*)malloc(60);
-    password = (char *)malloc(60);
+    login = (char *) malloc(60);
+    password = (char *) malloc(60);
 
     printf("*********LOGIN MENU*********\n");
     printf("Username: ");
@@ -52,8 +48,6 @@ cJSON *loginMenu()
     return lp;
 }
 
-
-
 //struct User{
 //    char fname[100];
 //    char lname[100];
@@ -61,8 +55,7 @@ cJSON *loginMenu()
 //    int id;
 //};
 
-void makeUser()
-{// NOT COMPLETED
+void makeUser() {// NOT COMPLETED
 //    char *fname;
 //    char *lname;
 //    char *token;
@@ -84,8 +77,7 @@ void makeUser()
 
 }
 
-void saveToFileOcts(char *token)
-{
+void saveToFileOcts(char *token) {
     FILE *f;
 
     f = fopen(USR_FILE_NAME, "w");
@@ -95,7 +87,7 @@ void saveToFileOcts(char *token)
     fclose(f);
 }
 
-void registerMenu(struct Client client) // for registering a new user it should have CLIENT attritbute
+cJSON *registerMenu() // for registering a new user it should have CLIENT attritbute
 {
     char *fname;
     char *lname;
@@ -105,14 +97,14 @@ void registerMenu(struct Client client) // for registering a new user it should 
     int responseStatus;
     char *responseMsg;
 
-    cJSON *response =  cJSON_CreateObject();
+    cJSON *response = cJSON_CreateObject();
     cJSON *regData = cJSON_CreateObject();
 
-    fname = (char*)malloc(100);
-    lname = (char*)malloc(100);
-    mail = (char*)malloc(100);
-    login = (char*)malloc(100);
-    password = (char*)malloc(100);
+    fname = (char *) malloc(100);
+    lname = (char *) malloc(100);
+    mail = (char *) malloc(100);
+    login = (char *) malloc(100);
+    password = (char *) malloc(100);
 
     printf("*********Register Menu*********\n");
 
@@ -137,28 +129,12 @@ void registerMenu(struct Client client) // for registering a new user it should 
     cJSON_AddStringToObject(regData, "email", mail);
     cJSON_AddStringToObject(regData, "username", login);
     cJSON_AddStringToObject(regData, "password", password);
-    //client should be added
-   // response = (cJSON*)send_message(client, 2, regData);// should be tested with server connection
-
-    responseStatus = cJSON_GetObjectItem(response, "status")->valueint;
-    responseMsg = cJSON_GetObjectItem(response, "message")->valuestring;// NOT FINISHED YET
-
-    if(responseStatus==200 || responseStatus==201)
-    {
-        printf("You have successfully signed up\n");
-        printf("%s", responseMsg);
-    }
-    else
-    {
-        printf("%s", responseMsg);
-        printf("Smth went wrong\n Please try again");
-    }
-
+    return regData;
 }
 
 void showContests(cJSON *contests, int size)// lists all the available contests
 {
-    int i=0;
+    int i = 0;
     char *id = "Contest_ID";
     char *title = "Title";
     char *starts_at = "Starts_at";
@@ -167,8 +143,7 @@ void showContests(cJSON *contests, int size)// lists all the available contests
     printf("----------------------------------------------------------------------------------------------------------------------------\n");
     printf("%-12s|%-35s|%-20s|%-20s|%-20s|\n", id, title, starts_at, ends_at, reg_end_date);
     printf("----------------------------------------------------------------------------------------------------------------------------\n");
-    for(i=0; i<size;i++)
-    {
+    for (i = 0; i < size; i++) {
         printf("   %-9d|", cJSON_GetObjectItem(cJSON_GetArrayItem(contests, i), "id")->valueint);
         printf(" %-34s|", cJSON_GetObjectItem(cJSON_GetArrayItem(contests, i), "title")->valuestring);
         printf("%-20s|", cJSON_GetObjectItem(cJSON_GetArrayItem(contests, i), "starts_at")->valuestring);
@@ -184,12 +159,11 @@ void showContestProblems(cJSON *problems, int size)//lists all the problems of a
     char *id = "Problem_ID";
     char *title = "Title";
     char *max_points = "Max_Points";
-    int i=0;
+    int i = 0;
     printf("----------------------------------------------------------------------------------------------------------------------------\n");
     printf("%-12s|%-20s|%-20s|\n", id, title, max_points);
     printf("----------------------------------------------------------------------------------------------------------------------------\n");
-    for(i=0; i<size;i++)
-    {
+    for (i = 0; i < size; i++) {
         printf("   %-9d", cJSON_GetObjectItem(cJSON_GetArrayItem(problems, i), "id")->valueint);
         printf("%-20s", cJSON_GetObjectItem(cJSON_GetArrayItem(problems, i), "title")->valuestring);
         printf("%-15d", cJSON_GetObjectItem(cJSON_GetArrayItem(problems, i), "max_points")->valueint);
@@ -200,8 +174,7 @@ void showContestProblems(cJSON *problems, int size)//lists all the problems of a
 }
 
 
-void showProblemDetails(cJSON *problem)
-{
+void showProblemDetails(cJSON *problem) {
     printf("******************Problem Details******************");
     printf("Title: %s", cJSON_GetObjectItem(problem, "title")->valuestring);
     printf("\nDescription: %s", cJSON_GetObjectItem(problem, "description")->valuestring);
@@ -212,14 +185,13 @@ void showProblemDetails(cJSON *problem)
     printf("\nMax points: %d sec", cJSON_GetObjectItem(problem, "max_points")->valueint);
 }
 
-cJSON *getProblemFromUser()
-{
-    char *title = (char*)malloc(256);
+cJSON *getProblemFromUser() {
+    char *title = (char *) malloc(256);
     title[59] = '\0';
-    char *description = (char*)malloc(2048);
+    char *description = (char *) malloc(2048);
     description[2047] = '\0';
-    char *inputPath = (char*)malloc(128);
-    char *outputPath = (char*)malloc(128);
+    char *inputPath = (char *) malloc(128);
+    char *outputPath = (char *) malloc(128);
     int time_limit;
     int memory_limit;
     int max_points;

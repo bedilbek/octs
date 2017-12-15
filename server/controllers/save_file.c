@@ -1,4 +1,4 @@
-#include "methods.h"
+#include "server_methods.h"
 #include "model.h"
 
 cJSON *save_file(cJSON *data) {

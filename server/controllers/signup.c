@@ -3,7 +3,7 @@
 //
 
 #include "model.h"
-#include "methods.h"
+#include "server_methods.h"
 #include <stdbool.h>
 #include <regex.h>
 

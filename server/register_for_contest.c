@@ -1,7 +1,7 @@
 //
 // Created by Tolqinbek Isoqov on 12/14/17.
 //
-#include "methods.h"
+#include "server_methods.h"
 #include "model.h"
 
 cJSON *register_for_contest(cJSON *data) {

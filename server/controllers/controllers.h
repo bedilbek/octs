@@ -6,7 +6,7 @@
 #define OS_PROJECT_CONTROLLERS_H
 
 #include "lib.h"
-#include "methods.h"
+#include "server_methods.h"
 
 typedef cJSON *(*function)(cJSON *);
 
