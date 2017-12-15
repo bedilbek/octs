@@ -4,7 +4,7 @@ project(os_project)
 set(CMAKE_C_STANDARD 11)
 
 set(SERVER_SOURCE_FILES server/main.c)
-set(CLIENT_SOURCE_FILES client/main.c)
+set(CLIENT_SOURCE_FILES client/main.c client/controllers/client_methods.c client/controllers/client_methods.h)
 
 include_directories(
         lib
@@ -14,7 +14,9 @@ include_directories(
         server/server
         client/client
         server/controllers
-        server/migration)
+        server/migration
+        client/controllers
+)
 include_directories(vendor)
 
 include(server/pgsqlFind.cmake)
@@ -65,6 +67,10 @@ add_library(
         server/register_for_contest.c
         server/controllers/problem_details.c
         server/controllers/users_contests.c
+)
+add_library(
+        client_controller
+        client/controllers/client_methods.c
 )
 
 link_libraries(lib db vendor model server contollers client pthread)
