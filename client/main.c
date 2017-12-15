@@ -2,10 +2,8 @@
 //// Created by Tolqinbek Isoqov on 12/3/17.
 ////
 #include "client.h"
-cJSON *loginMenu()
-{
+#include "ui.c"
 
-}
 
 void logoutFunction() // this function deletes the file with the token
 {
