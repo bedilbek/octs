@@ -137,6 +137,9 @@ const char *migrations[] = {"CREATE SEQUENCE users_id_seq INCREMENT BY 1 MINVALU
                                     "    ADD COLUMN extension VARCHAR(10) CHECK (extension in ('.txt', '.c'));",
                             "ALTER TABLE problem\n"
                                     "ADD COLUMN title VARCHAR(100) DEFAULT NULL",
+                            "ALTER TABLE problem_result\n"
+                                    "DROP COLUMN success,\n"
+                                    "ADD COLUMN success INTEGER DEFAULT 0;",
                             NULL
 };
 
