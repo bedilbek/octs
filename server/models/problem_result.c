@@ -40,20 +40,17 @@ cJSON *create_problem_result_char(int user_id, int contest_id, int problem_id,
                                                    "count"))->valuestring, NULL, 10);
     trial_number++;
     cJSON_Delete(msg);
-    char param[1];
-    sprintf(param, "%d", success);
-    char *param_values[2];
+    char *param_values[1];
     if (failed_test_case_id != 0)
-        sprintf(param_values[1], "%d", failed_test_case_id);
-    else param_values[1] = failed_test_case_id;
-    param_values[0] = param;
+        sprintf(param_values[0], "%d", failed_test_case_id);
+    else param_values[0] = failed_test_case_id;
     char insert_sql[1024];
     sprintf(insert_sql, "INSERT INTO problem_result \n"
-                    "VALUES (DEFAULT, %d, %d, %d, %d, $1, $2, DEFAULT, DEFAULT, %d) \n"
+                    "VALUES (DEFAULT, %d, %d, %d, %d, %d, $1, DEFAULT, DEFAULT, %d) \n"
                     "RETURNING id",
-            user_id, contest_id, problem_id, points, trial_number);
+            user_id, contest_id, problem_id, success, points, trial_number);
 
-    msg = insert_query_params(db, insert_sql, 2, param_values);
+    msg = insert_query_params(db, insert_sql, 1, param_values);
     delete(db);
 
     return msg;
