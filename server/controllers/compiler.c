@@ -114,8 +114,8 @@ int execute(char *code_path, struct TestCase testCase)
     char command[100000];   //gcc command buffer
     char *temp_location = get_temp_location();  //temporary location
     char *temp_file_name = get_temp_file_name(); //temporary file name for code
-    char *input_file = testCase.input_file; //test case input file location
-    char *output_file = testCase.output_file; //test case output file location
+    char *input_file = testCase.input_file_path; //test case input file location
+    char *output_file = testCase.output_file_path; //test case output file location
     char error_file_path[100000]; //error log temporary location
     char code_object[100000]; //compiled code object temporary location
     char code_output[100000]; //code object execution output location
@@ -169,22 +169,33 @@ void compile(char *code_path, int user_id, int contest_id, int problem_id)
 {
     cJSON *test_cases_json = get_test_cases_of_problem(problem_id);
     struct TestCase *test_cases;
+
     int count = map_test_case(test_cases_json, &test_cases);
+    struct Problem *problem =    map_problem(get_problem_by_id(problem_id));
+    int status = TEST_CASES_UNDEFINED_ERROR;
+    int test_case_fail_id = 0;
+    int points = 0;
     int i = 0;
-    int status = TEST_CASES_SUCCESS;
     for (i; i < count; i++)
     {
         status = execute(code_path, test_cases[i]);
         if (status == TEST_CASE_FAILED)
         {
+            test_case_fail_id = test_cases[i].id;
+            points = 0;
             break;
         }
         else if (status == TEST_CASE_OK)
         {
+            points = problem->max_point;
+            test_case_fail_id = 0;
+            status = TEST_CASES_SUCCESS;
             continue;
         }
         else if (status == COMPILATION_ERROR)
         {
+            test_case_fail_id = 0;
+            points = 0;
             break;
         }
     }
@@ -193,8 +204,8 @@ void compile(char *code_path, int user_id, int contest_id, int problem_id)
      * TODO implement point calculation
      * **/
 
-    if (status == TEST_CASE_FAILED)
-        create_problem_result_char(user_id,contest_id, problem_id, 0, status, test_cases[i].id);
-    else
-        create_problem_result_char(user_id,contest_id, problem_id, 0, status, 0);
+    if (status == TEST_CASES_UNDEFINED_ERROR)
+        fprintf(stderr,"Test case map failed");
+
+    create_problem_result_char(user_id,contest_id, problem_id, points, status, test_case_fail_id);
 }

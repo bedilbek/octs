@@ -118,21 +118,21 @@ const char *migrations[] = {"CREATE SEQUENCE users_id_seq INCREMENT BY 1 MINVALU
                                     "    CONSTRAINT file_fk_user_id FOREIGN KEY (user_id) REFERENCES users(id)\n"
                                     ");",
                             "ALTER TABLE problem\n"
-                                    "    RENAME COLUMN input_format TO input_file_id;",
+                                    "    RENAME COLUMN input_format TO input_file_path;",
                             "ALTER TABLE problem\n"
-                                    "    RENAME COLUMN output_format to output_file_id;",
+                                    "    RENAME COLUMN output_format to output_file_path;",
                             "ALTER TABLE test_case\n"
-                                    "    RENAME COLUMN output_file_name to output_file_id;",
+                                    "    RENAME COLUMN output_file_name to output_file_path;",
                             "ALTER TABLE test_case\n"
-                                    "    RENAME COLUMN input_file_name to input_file_id;",
+                                    "    RENAME COLUMN input_file_name to input_file_path;",
                             "ALTER TABLE problem\n"
-                                    "ALTER input_file_id SET DATA TYPE INTEGER USING input_file_id::INTEGER;",
+                                    "ALTER input_file_path SET DATA TYPE INTEGER USING input_file_path::INTEGER;",
                             "ALTER TABLE problem\n"
-                                    "ALTER output_file_id SET DATA TYPE INTEGER USING output_file_id::INTEGER;",
+                                    "ALTER output_file_path SET DATA TYPE INTEGER USING output_file_path::INTEGER;",
                             "ALTER TABLE test_case\n"
-                                    "ALTER input_file_id SET DATA TYPE INTEGER USING input_file_id::INTEGER;",
+                                    "ALTER input_file_path SET DATA TYPE INTEGER USING input_file_path::INTEGER;",
                             "ALTER TABLE test_case\n"
-                                    "ALTER output_file_id SET DATA TYPE INTEGER USING output_file_id::INTEGER;",
+                                    "ALTER output_file_path SET DATA TYPE INTEGER USING output_file_path::INTEGER;",
                             "ALTER TABLE file\n"
                                     "    ADD COLUMN extension VARCHAR(10) CHECK (extension in ('.txt', '.c'));",
                             "ALTER TABLE problem\n"

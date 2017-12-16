@@ -172,3 +172,15 @@ static const struct Class _File = {
 };
 
 const void *File = &_File;
+
+
+char *get_file_path(int file_id)
+{
+    cJSON *response = get_file_by_id(file_id);
+    if (((int) cJSON_parser(cJSON_GetObjectItem(response, "status"))) != DATABASE_TUPLES_OK)
+    {
+        return  NULL;
+    }
+
+    return (char *) cJSON_parser( cJSON_GetObjectItem(cJSON_GetArrayItem(cJSON_GetObjectItem(response, "data"), 0), "path"));
+}

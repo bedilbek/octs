@@ -12,6 +12,7 @@
 #define COMPILATION_ERROR 801
 #define TEST_CASE_FAILED 802
 #define TEST_CASES_SUCCESS 803
+#define TEST_CASES_UNDEFINED_ERROR 804
 
 int compare_outputs(FILE *actual, FILE *expected);
 char *get_temp_file_name();

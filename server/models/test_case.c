@@ -190,10 +190,8 @@ const void *TestCase = &_TestCase;
 int map_test_case(cJSON *from, struct TestCase **to)
 {
     int status = (int) cJSON_parser(cJSON_GetObjectItem(from, "status"));
-    /**
-     * TODO change status to defined status
-     * **/
-    if (status == 200)
+
+    if (status == DATABASE_TUPLES_OK)
     {
         const int count = (int) cJSON_parser(cJSON_GetObjectItem(from, "count"));
         struct TestCase *testcases = malloc(sizeof(struct TestCase) * count);
@@ -202,14 +200,19 @@ int map_test_case(cJSON *from, struct TestCase **to)
         for(i = 0; i < count; i++)
         {
             data = cJSON_GetArrayItem(cJSON_GetObjectItem(from, "data"), i);
-            testcases[i].problem_id = (int) cJSON_parser(cJSON_GetObjectItem(data, "problem_id"));
-            testcases[i].id = (int) cJSON_parser(cJSON_GetObjectItem(data, "id"));
-            testcases[i].explanation = (char*) cJSON_parser(cJSON_GetObjectItem(data, "explanation"));
-            testcases[i].input_file = (char*) cJSON_parser(cJSON_GetObjectItem(data, "input_file_name"));
-            testcases[i].output_file = (char*) cJSON_parser(cJSON_GetObjectItem(data, "output_file_name"));
-            testcases[i].is_sample = (bool) cJSON_parser(cJSON_GetObjectItem(data, "is_sample"));
-            testcases[i].problem_id = 10;
+            testcases[i].problem_id = (int) cJSON_parser(cJSON_GetObjectItem(data, TEST_CASE_PROBLEM_ID));
+            testcases[i].id = (int) cJSON_parser(cJSON_GetObjectItem(data, TEST_CASE_ID));
+            testcases[i].explanation = (char*) cJSON_parser(cJSON_GetObjectItem(data, TEST_CASE_EXPLANATION));
+            testcases[i].is_sample = (bool) cJSON_parser(cJSON_GetObjectItem(data, TEST_CASE_IS_SAMPLE));
 
+            int input_file_id = (int) cJSON_parser(cJSON_GetObjectItem(data, TEST_CASE_INPUT_FILE_ID));
+            int output_file_id  = (int) cJSON_parser(cJSON_GetObjectItem(data, TEST_CASE_OUTPUT_FILE_ID));
+
+            testcases[i].input_file_path = get_file_path(input_file_id);
+            testcases[i].output_file_path = get_file_path(output_file_id);
+
+            if (testcases[i].input_file_path == NULL || testcases[i].output_file_path == NULL)
+                return  -1;
         }
         *to = testcases;
         return count;

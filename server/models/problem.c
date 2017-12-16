@@ -182,3 +182,26 @@ static const struct Class _Problem = {
 };
 
 const void *Problem = &_Problem;
+
+void *map_problem(cJSON *from)
+{
+    struct Problem *to;
+    to = malloc(sizeof(struct Problem));
+    //printf(cJSON_Print(from));
+    int status = (int) cJSON_parser(cJSON_GetObjectItem(from, "status"));
+
+    if (status == DATABASE_TUPLES_OK)
+    {
+        cJSON *data;
+        data = cJSON_GetArrayItem(cJSON_GetObjectItem(from, "data"),0);
+        to->id = (int) cJSON_parser(cJSON_GetObjectItem(data, PROBLEM_ID));
+        to->category_id = (int) cJSON_parser(cJSON_GetObjectItem(data,PROBLEM_CATEGORY_ID));
+        to->description  = (char*) cJSON_parser(cJSON_GetObjectItem(data, PROBLEM_DESCRIPTION));
+        to->max_point  = (int) cJSON_parser(cJSON_GetObjectItem(data, PROBLEM_MAX_POINTS));
+        to->memory_limit  = (int) cJSON_parser(cJSON_GetObjectItem(data, PROBLEM_MEMORY_LIMIT));
+        to->time_limit  = (int) cJSON_parser(cJSON_GetObjectItem(data, PROBLEM_TIME_LIMIT));
+        to->title = (char*) cJSON_parser(cJSON_GetObjectItem(data, PROBLEM_TITLE));
+    }
+
+    return to;
+}

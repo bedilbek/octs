@@ -14,8 +14,9 @@ include_directories(
         server/server
         client/client
         server/controllers
-        server/migration)
-include_directories(vendor)
+        server/db/migration
+        vendor
+)
 
 include(server/pgsqlFind.cmake)
 
@@ -28,14 +29,15 @@ add_library(
 add_library(
         db
         lib/DataBase.c
-        server/migration/migrations.c
+        server/db/migration/migrations.c
 )
 add_library(
         vendor
         vendor/cJSON/cJSON.c
 )
 add_library(
-        model server/models/user.c
+        model
+        server/models/user.c
         server/models/problem.c
         server/models/category.c
         server/models/contest.c
@@ -57,27 +59,18 @@ add_library(
         client/client/send_message.c
         client/client/send_file.c
 )
+
 add_library(
-        contollers
+        controllers
         server/controllers/login.c
         server/controllers/save_file.c
         server/controllers/get_contests_problems.c
-        server/register_for_contest.c
+        server/controllers/register_for_contest.c
         server/controllers/problem_details.c
         server/controllers/users_contests.c
+        server/controllers/compiler.c
 )
 
-link_libraries(
-        lib
-        db
-        vendor
-        model
-        server
-        contollers
-        client
-        pthread
-        uuid
-)
 
 add_executable(os_project_server ${SERVER_SOURCE_FILES})
 add_executable(os_project_client ${CLIENT_SOURCE_FILES})
@@ -88,7 +81,7 @@ target_link_libraries(os_project_server
         vendor
         model
         server
-        contollers
+        controllers
         )
 
 target_link_libraries(os_project_server ${PostgreSQL_LIBRARIES})
