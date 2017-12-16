@@ -108,8 +108,11 @@ void report_compilation_error(char *error_file)
 }
 
 //execute code with given test case
-int execute(char *code_path, struct TestCase testCase)
+int execute(char *code_path, struct TestCase testCase, int time_limit)
 {
+    time_t start, end;
+    double cpu_time_used;
+
     int status; //execution status
     char command[100000];   //gcc command buffer
     char *temp_location = get_temp_location();  //temporary location
@@ -126,8 +129,18 @@ int execute(char *code_path, struct TestCase testCase)
     sprintf(code_output, "%s%s_out", temp_location,temp_file_name);
     sprintf(command,"gcc -o %s %s 2>%s && %s< %s >%s", code_object, code_path, error_file_path, code_object, input_file, code_output);
 
-    system(command); // execute shell script
 
+    //int cl = CLOCKS_PER_SEC;
+    start = time(NULL); // start execution
+    system(command); // execute shell script
+    end = time(NULL); // end execution
+
+    cpu_time_used = ((double) (end - start)); // time taken to execute
+
+    if (cpu_time_used > time_limit)
+    {
+        status = TEST_CASE_TIME_LIMIT;
+    } else
     //check for error
     if (if_error(error_file_path) == 0)
     {
@@ -152,8 +165,6 @@ int execute(char *code_path, struct TestCase testCase)
     }
     else
     {
-        //report_compilation_error(error_file_path);
-
         status = COMPILATION_ERROR;
     }
 
@@ -171,15 +182,17 @@ void compile(char *code_path, int user_id, int contest_id, int problem_id)
     struct TestCase *test_cases;
 
     int count = map_test_case(test_cases_json, &test_cases);
-    struct Problem *problem =    map_problem(get_problem_by_id(problem_id));
+    struct Problem *problem = map_problem(get_problem_by_id(problem_id));
     int status = TEST_CASES_UNDEFINED_ERROR;
     int test_case_fail_id = 0;
     int points = 0;
     int i = 0;
+
+
     for (i; i < count; i++)
     {
-        status = execute(code_path, test_cases[i]);
-        if (status == TEST_CASE_FAILED)
+        status = execute(code_path, test_cases[i], problem->time_limit);
+        if (status == TEST_CASE_FAILED || status == TEST_CASE_TIME_LIMIT)
         {
             test_case_fail_id = test_cases[i].id;
             points = 0;
@@ -199,7 +212,6 @@ void compile(char *code_path, int user_id, int contest_id, int problem_id)
             break;
         }
     }
-
     /**
      * TODO implement point calculation
      * **/
