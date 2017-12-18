@@ -35,7 +35,7 @@ char *get_temp_file_name() {
         if (temp_is_locked == 0) {
             temp_is_locked = 1;
             char temp[1000000];
-            sprintf(temp, "%d", ++temp_file_name);
+            sprintf(temp, "%d\0", ++temp_file_name);
             temp_is_locked = 0;
             return temp;
         }
@@ -43,7 +43,9 @@ char *get_temp_file_name() {
 }
 
 char *get_temp_location() {
-    return strcat(FILE_STORAGE, "temp/"); //temp_location;
+    char path[1024] = TEMP_FILE_STORAGE;
+    strcat(path, "temp/");
+    return path;
 }
 
 //1 if error otherwise 0
@@ -100,16 +102,24 @@ int execute(char *code_path, struct TestCase testCase, int time_limit) {
     char *temp_file_name = get_temp_file_name(); //temporary file name for code
     char *input_file = testCase.input_file_path; //test case input file location
     char *output_file = testCase.output_file_path; //test case output file location
-    char error_file_path[100000]; //error log temporary location
-    char code_object[100000]; //compiled code object temporary location
-    char code_output[100000]; //code object execution output location
+    char error_file_path[100000] = {}; //error log temporary location
+    char code_object[100000] = {}; //compiled code object temporary location
+    char code_output[100000] = {}; //code object execution output location
 
     //prepare command and paths
-    sprintf(error_file_path, "%s%s_error", temp_location, temp_file_name);
-    sprintf(code_object, "%s%s.o", temp_location, temp_file_name);
-    sprintf(code_output, "%s%s_out", temp_location, temp_file_name);
+    strcat(error_file_path, temp_location);
+    strcat(error_file_path, temp_file_name);
+    strcat(error_file_path, "_error");
+    strcat(code_object, temp_location);
+    strcat(code_object, temp_file_name);
+    strcat(code_object, ".o");
+    strcat(code_output, temp_location);
+    strcat(code_output, temp_file_name);
+    strcat(code_output, "_out");
+
     sprintf(command, "gcc -o %s %s 2>%s && %s< %s >%s", code_object, code_path, error_file_path, code_object,
             input_file, code_output);
+
 
 
     //int cl = CLOCKS_PER_SEC;
@@ -187,6 +197,8 @@ void compile(char *code_path, int user_id, int contest_id, int problem_id) {
     if (status == TEST_CASES_UNDEFINED_ERROR)
         fprintf(stderr, "Test case map failed");
 
-    create_problem_result_char(user_id, contest_id, problem_id, points, status, test_case_fail_id);
+    cJSON *response = create_problem_result_char(user_id, contest_id, problem_id, points, status, test_case_fail_id);
+    printf(cJSON_Print(response));
 }
 
+//gcc -o /Users/tom1/octs/temp/1.o /Users/tom1/octs/files/zo65Vu21XX.c 2> /Users/tom1/octs/temp/1_error && /Users/tom1/octs/temp/1.o < /Users/tom1/octs/test_cases/input_file.txt > /Users/tom1/octs/temp/1_out

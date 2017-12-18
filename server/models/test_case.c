@@ -8,8 +8,8 @@
 
 #define TEST_CASE_ID "id"
 #define TEST_CASE_PROBLEM_ID "problem_id"
-#define TEST_CASE_INPUT_FILE_ID "input_file_id"
-#define TEST_CASE_OUTPUT_FILE_ID "output_file_id"
+#define TEST_CASE_INPUT_FILE_ID "input_file_path"
+#define TEST_CASE_OUTPUT_FILE_ID "output_file_path"
 #define TEST_CASE_EXPLANATION "explanation"
 #define TEST_CASE_IS_SAMPLE "is_sample"
 #define TEST_CASE_CREATED_AT "created_at"

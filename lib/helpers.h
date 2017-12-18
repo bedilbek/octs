@@ -27,7 +27,9 @@
 #define TRUE 1
 #define FALSE 0
 
-#define FILE_STORAGE "./media/files/"
+#define FILE_STORAGE "/Users/tom1/octs/files/XXXXXXXXXX."
+#define TEMP_FILE_STORAGE "/Users/tom1/octs/"
+
 
 /**
  * Class definition for oop principles
