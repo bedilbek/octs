@@ -17,7 +17,7 @@ void login(struct Client *client) {
             saveToFileOcts(token); // save name lastname and token with id in .octs
             printf("Successfully Logged In");
         } else {
-            printf(get_attr(response, "err_msgs", STRING));
+            printf(get_attr(response, "err_msg", STRING));
         }
     } else {
         printf("You have already signed in!\n");
