@@ -8,7 +8,7 @@
 
 #include "lib.h"
 
-cJSON *login(cJSON *data);
+cJSON *login_server(cJSON *data);
 
 cJSON *save_file(cJSON *data);
 

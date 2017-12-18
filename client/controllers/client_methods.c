@@ -6,10 +6,8 @@
 #include "ui.h"
 
 void login(struct Client *client) {
-
     if (!isLoggedIn()) // isLoggedIn function checks whether there is a file with token
     {
-
         cJSON *login_credentials = loginMenu(); // call Login menu function (username , password)
 
         cJSON *response = (cJSON *) send_message(client, NULL, LOGIN, login_credentials);

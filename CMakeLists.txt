@@ -18,6 +18,7 @@ include_directories(
         server/migration
         client/controllers
 )
+
 include_directories(vendor)
 
 include(server/pgsqlFind.cmake)
@@ -64,7 +65,7 @@ add_library(
 )
 
 add_library(
-        contollers
+        controllers
         server/controllers/login.c
         server/controllers/save_file.c
         server/controllers/get_contests_problems.c
@@ -75,18 +76,18 @@ add_library(
         server/controllers/get_problem.c
         server/controllers/signup.c
         server/controllers/problem_creation.c
-        server/controllers/submit_problem.c)
+        server/controllers/submit_problem.c
+)
 
 add_library(
-        client_controller
+        client_controllers
         client/client/ui.c
         client/controllers/register_user.c
         client/controllers/client_methods.c
         client/controllers/submit_solution.c
-
 )
 
-link_libraries(lib db vendor model server contollers client pthread)
+#link_libraries(lib db vendor model server controllers client)
 
 add_executable(os_project_server ${SERVER_SOURCE_FILES})
 add_executable(os_project_file_server ${FILE_SERVER_SOURCE_FILES})
@@ -94,8 +95,8 @@ add_executable(os_project_client ${CLIENT_SOURCE_FILES})
 
 target_link_libraries(os_project_server ${PostgreSQL_LIBRARIES})
 target_link_libraries(os_project_file_server ${PostgreSQL_LIBRARIES})
-target_link_libraries(os_project_client ${PostgreSQL_LIBRARIES})
+#target_link_libraries(os_project_client ${PostgreSQL_LIBRARIES})
 
-target_link_libraries(os_project_file_server lib db vendor model server contollers)
-target_link_libraries(os_project_server lib db vendor model server contollers)
-target_link_libraries(os_project_client lib vendor client client_controller)
+target_link_libraries(os_project_file_server lib db vendor model server controllers)
+target_link_libraries(os_project_server lib db vendor model server controllers)
+target_link_libraries(os_project_client lib vendor client client_controllers)

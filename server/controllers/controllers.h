@@ -13,7 +13,7 @@ typedef cJSON *(*function)(cJSON *);
 
 const function methods[11] = {
         save_file,//Done
-        login, //Done
+        login_server, //Done
         get_contest, //Done
         get_contests,//Done
         get_contest_problems,//Done

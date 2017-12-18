@@ -5,7 +5,7 @@
 #include "model.h"
 #include "server_methods.h"
 
-cJSON *login(cJSON *data) {
+cJSON *login_server(cJSON *data) {
     printf("login");
     char *username;
     char *password;
