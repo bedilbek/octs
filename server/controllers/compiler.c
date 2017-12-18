@@ -6,7 +6,6 @@
 
 int temp_file_name = 0;
 int temp_is_locked = 0;
-//char *temp_location = "/Users/tom1/octs";
 
 int compare_outputs(FILE *actual, FILE *expected) {
     char a_buff;
@@ -200,5 +199,3 @@ void compile(char *code_path, int user_id, int contest_id, int problem_id) {
     cJSON *response = create_problem_result_char(user_id, contest_id, problem_id, points, status, test_case_fail_id);
     printf(cJSON_Print(response));
 }
-
-//gcc -o /Users/tom1/octs/temp/1.o /Users/tom1/octs/files/zo65Vu21XX.c 2> /Users/tom1/octs/temp/1_error && /Users/tom1/octs/temp/1.o < /Users/tom1/octs/test_cases/input_file.txt > /Users/tom1/octs/temp/1_out
