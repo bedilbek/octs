@@ -18,7 +18,7 @@ include_directories(
         server/migration
         client/controllers
 )
-
+include_directories(/usr/local/include)
 include_directories(vendor)
 
 include(server/pgsqlFind.cmake)

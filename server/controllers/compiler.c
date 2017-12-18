@@ -6,7 +6,7 @@
 
 int temp_file_name = 0;
 int temp_is_locked = 0;
-char *temp_location = "/Users/tom1/octs";
+//char *temp_location = "/Users/tom1/octs";
 
 int compare_outputs(FILE *actual, FILE *expected) {
     char a_buff;
@@ -43,7 +43,7 @@ char *get_temp_file_name() {
 }
 
 char *get_temp_location() {
-    return temp_location;
+    return strcat(FILE_STORAGE, "temp/"); //temp_location;
 }
 
 //1 if error otherwise 0
