@@ -7,10 +7,11 @@
 
 #include "lib.h"
 #include "server_methods.h"
+#include "compiler.h"
 
 typedef cJSON *(*function)(cJSON *);
 
-const function methods[10] = {
+const function methods[11] = {
         save_file,//Done
         login, //Done
         get_contest, //Done

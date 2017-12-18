@@ -23,6 +23,7 @@
 #define REGISTER_FOR_CONTEST 7
 #define MY_CONTESTS 8
 #define PROBLEM_CREATION 9
+#define SUBMIT_SOLUTION 10
 
 extern const void *Client;
 

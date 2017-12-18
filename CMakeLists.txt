@@ -31,14 +31,15 @@ add_library(
 add_library(
         db
         lib/DataBase.c
-        server/migration/migrations.c
+        server/db/migration/migrations.c
 )
 add_library(
         vendor
         vendor/cJSON/cJSON.c
 )
 add_library(
-        model server/models/user.c
+        model
+        server/models/user.c
         server/models/problem.c
         server/models/category.c
         server/models/contest.c
@@ -53,6 +54,7 @@ add_library(
         server/server/server.c
         server/server/message_server.c
         server/server/file_server.c
+        server/controllers/compiler.c
 )
 add_library(
         client
@@ -60,6 +62,7 @@ add_library(
         client/client/send_message.c
         client/client/send_file.c
 )
+
 add_library(
         contollers
         server/controllers/login.c
@@ -72,7 +75,7 @@ add_library(
         server/controllers/get_problem.c
         server/controllers/signup.c
         server/controllers/problem_creation.c
-        server/controllers/supmit_problem.c)
+        server/controllers/submit_problem.c)
 
 add_library(
         client_controller

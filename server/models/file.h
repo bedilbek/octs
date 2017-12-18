@@ -24,4 +24,6 @@ cJSON *get_file_by_id(int file_id);
 
 cJSON *get_files_of_user(int user_id);
 
+char *get_file_path(int file_id);
+
 #endif //OS_PROJECT_FILE_H

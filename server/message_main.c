@@ -2,7 +2,7 @@
 //// Created by Tolqinbek Isoqov on 12/3/17.
 ////
 #include "server.h"
-#include "migrations.h"
+#include "db/migration/migrations.h"
 #include "lib.h"
 #include "model.h"
 

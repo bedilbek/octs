@@ -204,16 +204,21 @@ int main(int argc, char *argv[]) {
                     printf("You haven't logged in yet");
                 }
             }
-            break;
-        case 5:
             if (strcmp(argv[1], "submit") == 0) {
-                struct Client *file_client = new(Client, FILE_SERVER_LISTEN_PORT);
                 if (isLoggedIn()) {
-                    int contest_id = (int) strtol(argv[3], NULL, 10);
-                    int problem_id = (int) strtol(argv[4], NULL, 10);
-                    submit_solution(file_client, message_client, getToken(), argv[2], contest_id, problem_id);
+                    struct Client *file_client = new(Client, FILE_SERVER_LISTEN_PORT);
+                    int contest_id = (int) strtol(argv[2], NULL, 10);
+                    int problem_id = (int) strtol(argv[3], NULL, 10);
+                    char path[1024] = {};
+                    printf("Enter file path: ");
+                    fgets(path, 1024, stdin);
+                    path[strlen(path) - 1] = '\0';
+                    submit_solution(file_client, message_client, getToken(), path, contest_id, problem_id);
                 }
             }
+            break;
+        case 5:
+
             break;
         default:
             break;
@@ -249,3 +254,4 @@ octs //commands for admin
 */
 
 //login - login
+//Users/tom1/Documents/Subject files/OS/Project/octs/test_send.c

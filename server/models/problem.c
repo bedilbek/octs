@@ -16,6 +16,7 @@
 #define PROBLEM_MAX_POINTS "max_points"
 #define PROBLEM_CREATED_AT "created_at"
 #define PROBLEM_UPDATED_AT "updated_at"
+#define PROBLEM_TITLE "title"
 
 cJSON *create_problem_char(int category_id, char *description, int input_file_id,
                            int output_file_id, int time_limit, int memory_limit,
@@ -43,7 +44,8 @@ cJSON *create_problem_cJSON(cJSON *data) {
             (cJSON_GetObjectItem(data, PROBLEM_OUTPUT_FILE_ID))->valueint,
             (cJSON_GetObjectItem(data, PROBLEM_TIME_LIMIT))->valueint,
             (cJSON_GetObjectItem(data, PROBLEM_MEMORY_LIMIT))->valueint,
-            (cJSON_GetObjectItem(data, PROBLEM_MAX_POINTS))->valueint);
+            (cJSON_GetObjectItem(data, PROBLEM_MAX_POINTS))->valueint,
+            (cJSON_GetObjectItem(data, PROBLEM_TITLE))->valuestring);
     cJSON *msg = insert_query(db, insert_sql);
     delete(db);
     return msg;
@@ -183,3 +185,26 @@ static const struct Class _Problem = {
 };
 
 const void *Problem = &_Problem;
+
+void *map_problem(cJSON *from)
+{
+    struct Problem *to;
+    to = malloc(sizeof(struct Problem));
+    //printf(cJSON_Print(from));
+    int status = (int) cJSON_parser(cJSON_GetObjectItem(from, "status"));
+
+    if (status == DATABASE_TUPLES_OK)
+    {
+        cJSON *data;
+        data = cJSON_GetArrayItem(cJSON_GetObjectItem(from, "data"),0);
+        to->id = (int) cJSON_parser(cJSON_GetObjectItem(data, PROBLEM_ID));
+        to->category_id = (int) cJSON_parser(cJSON_GetObjectItem(data,PROBLEM_CATEGORY_ID));
+        to->description  = (char*) cJSON_parser(cJSON_GetObjectItem(data, PROBLEM_DESCRIPTION));
+        to->max_point  = (int) cJSON_parser(cJSON_GetObjectItem(data, PROBLEM_MAX_POINTS));
+        to->memory_limit  = (int) cJSON_parser(cJSON_GetObjectItem(data, PROBLEM_MEMORY_LIMIT));
+        to->time_limit  = (int) cJSON_parser(cJSON_GetObjectItem(data, PROBLEM_TIME_LIMIT));
+        to->title = (char*) cJSON_parser(cJSON_GetObjectItem(data, PROBLEM_TITLE));
+    }
+
+    return to;
+}

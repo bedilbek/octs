@@ -184,3 +184,41 @@ static const struct Class _TestCase = {
 };
 
 const void *TestCase = &_TestCase;
+
+//maps cJSON to TestCase struct and returns number of elements.
+//to must be passed by reference
+int map_test_case(cJSON *from, struct TestCase **to)
+{
+    int status = (int) cJSON_parser(cJSON_GetObjectItem(from, "status"));
+
+    if (status == DATABASE_TUPLES_OK)
+    {
+        const int count = (int) cJSON_parser(cJSON_GetObjectItem(from, "count"));
+        struct TestCase *testcases = malloc(sizeof(struct TestCase) * count);
+        int i = 0;
+        cJSON *data;
+        for(i = 0; i < count; i++)
+        {
+            data = cJSON_GetArrayItem(cJSON_GetObjectItem(from, "data"), i);
+            testcases[i].problem_id = (int) cJSON_parser(cJSON_GetObjectItem(data, TEST_CASE_PROBLEM_ID));
+            testcases[i].id = (int) cJSON_parser(cJSON_GetObjectItem(data, TEST_CASE_ID));
+            testcases[i].explanation = (char*) cJSON_parser(cJSON_GetObjectItem(data, TEST_CASE_EXPLANATION));
+            testcases[i].is_sample = (bool) cJSON_parser(cJSON_GetObjectItem(data, TEST_CASE_IS_SAMPLE));
+
+            int input_file_id = (int) cJSON_parser(cJSON_GetObjectItem(data, TEST_CASE_INPUT_FILE_ID));
+            int output_file_id  = (int) cJSON_parser(cJSON_GetObjectItem(data, TEST_CASE_OUTPUT_FILE_ID));
+
+            testcases[i].input_file_path = get_file_path(input_file_id);
+            testcases[i].output_file_path = get_file_path(output_file_id);
+
+            if (testcases[i].input_file_path == NULL || testcases[i].output_file_path == NULL)
+                return  -1;
+        }
+        *to = testcases;
+        return count;
+    }
+    else
+    {
+        return  -1;
+    }
+}

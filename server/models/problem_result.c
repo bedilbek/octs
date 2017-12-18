@@ -18,7 +18,7 @@
 #define PROBLEM_RESULT_TRIAL_NUMBER "trial_number"
 
 cJSON *create_problem_result_char(int user_id, int contest_id, int problem_id,
-                                  int points, int success, void *failed_test_case_id) {
+                                  int points, int success, int failed_test_case_id) {
     struct Database *db = new(Database);
 
     char select_sql[1024];
@@ -40,20 +40,18 @@ cJSON *create_problem_result_char(int user_id, int contest_id, int problem_id,
                                                    "count"))->valuestring, NULL, 10);
     trial_number++;
     cJSON_Delete(msg);
-    char param[1];
-    sprintf(param, "%d", success);
-    char *param_values[2];
-    if (failed_test_case_id != 0)
-        sprintf(param_values[1], "%d", failed_test_case_id);
-    else param_values[1] = failed_test_case_id;
-    param_values[0] = param;
     char insert_sql[1024];
+    if (failed_test_case_id == 0)
     sprintf(insert_sql, "INSERT INTO problem_result \n"
-                    "VALUES (DEFAULT, %d, %d, %d, %d, $1, $2, DEFAULT, DEFAULT, %d) \n"
+                    "VALUES (DEFAULT, %d, %d, %d, %d, NULL, DEFAULT, DEFAULT, %d, %d) \n"
                     "RETURNING id",
-            user_id, contest_id, problem_id, points, trial_number);
-
-    msg = insert_query_params(db, insert_sql, 2, param_values);
+            user_id, contest_id, problem_id, points, trial_number, success);
+    else
+        sprintf(insert_sql, "INSERT INTO problem_result \n"
+                "VALUES (DEFAULT, %d, %d, %d, %d, %d, DEFAULT, DEFAULT, %d, %d) \n"
+                "RETURNING id",
+                user_id, contest_id, problem_id, points, failed_test_case_id, trial_number, success);
+    msg = insert_query(db, insert_sql);
     delete(db);
 
     return msg;
@@ -265,3 +263,4 @@ static const struct Class _ProblemResult = {
 };
 
 const void *ProblemResult = &_ProblemResult;
+

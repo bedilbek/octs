@@ -27,16 +27,7 @@
 #define TRUE 1
 #define FALSE 0
 
-#define FILE_STORAGE "/Users/tom1/Documents/Subject files/OS/Project/octs/media/files/XXXXXXXXXX."
-
-
-#define typename(x) _Generic((x), \
-    int:    "int", \
-    char*:  "char", \
-    char: "char", \
-    double:"double", \
-    default:"char")
-
+#define FILE_STORAGE "/Users/tom1/octs/files/XXXXXXXXXX."
 
 /**
  * Class definition for oop principles
