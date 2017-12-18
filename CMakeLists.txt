@@ -87,7 +87,6 @@ add_library(
         client/controllers/submit_solution.c
 )
 
-#link_libraries(lib db vendor model server controllers client)
 
 add_executable(os_project_server ${SERVER_SOURCE_FILES})
 add_executable(os_project_file_server ${FILE_SERVER_SOURCE_FILES})
@@ -95,7 +94,6 @@ add_executable(os_project_client ${CLIENT_SOURCE_FILES})
 
 target_link_libraries(os_project_server ${PostgreSQL_LIBRARIES})
 target_link_libraries(os_project_file_server ${PostgreSQL_LIBRARIES})
-#target_link_libraries(os_project_client ${PostgreSQL_LIBRARIES})
 
 target_link_libraries(os_project_file_server lib db vendor model server controllers)
 target_link_libraries(os_project_server lib db vendor model server controllers)
