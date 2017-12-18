@@ -8,7 +8,7 @@
 #include "ui.h"
 
 
-const char *USR_FILE_NAME = "/Users/tom1/Documents/Subject files/OS/Project/octs/client/usr_octs.txt";
+const char *USR_FILE_NAME = "./usr_octs.txt";//"/Users/tom1/Documents/Subject files/OS/Project/octs/client/usr_octs.txt";
 
 void print_line(int number) {
     for (int i = 0; i < number; i++)

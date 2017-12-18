@@ -80,9 +80,9 @@ int main(int argc, char *argv[]) {
             }
             if (strcmp(argv[1], "problem") == 0 || strcmp(argv[1], "-p") == 0) {
                 if (isLoggedIn()) {
-                    int contest_id = (int) strtol(argv[2], NULL, 10);
+                    int problem_id = (int) strtol(argv[2], NULL, 10);
                     cJSON *request = cJSON_CreateObject();
-                    cJSON_AddNumberToObject(request, "problem_d", contest_id);
+                    cJSON_AddNumberToObject(request, "problem_id", problem_id);
                     cJSON *response = (cJSON *) send_message(message_client, getToken(), GET_PROBLEM, request);
                     int status;
                     if ((status = (int) get_attr(response, "status", INTEGER)) == 200) {
