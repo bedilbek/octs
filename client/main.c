@@ -224,34 +224,4 @@ int main(int argc, char *argv[]) {
             break;
     }
     free(message_client);
-//    free(file_client);
 }
-/*
- * $octs register
- * octs submit main.c
- * OK
- * octs show-result
-octs //commands for user
-	register - register()
-	login - login()
-    contests - contests()
-    apply contest_id - applyForContest(contes_id)
-    problems - showProblems()
-    description problem_id -
-    standings contest_id - showStandings(contest_id)
-
-    submit file problem_id  - submit(argv[1], argv[2])
-
-
-
-	--problems
-	--see problem problem_id
-octs //commands for admin
-	--add new problem
-	--submissions
-	--problems
-	--create contest
-*/
-
-//login - login
-//Users/tom1/Documents/Subject files/OS/Project/octs/test_send.c

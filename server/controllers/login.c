@@ -24,7 +24,7 @@ cJSON *login_server(cJSON *data) {
         char *token = get_attr(cJSON_GetArrayItem(get_attr(user_query_result, "data", CJSON), 0), "token", STRING);
         cJSON_AddStringToObject(response, "token", token);
     } else {
-        setStatus(response, (int) get_attr(user_query_result, "status", INTEGER));
+        setStatus(response, 400);
         setErrMsg(response, "User not found");
     }
 
