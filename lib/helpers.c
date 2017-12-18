@@ -78,11 +78,18 @@ size_t sizeOf(const void *self) {
 }
 
 void setStatus(cJSON *response, int status_code) {
+    if (get_attr(response, "status", INTEGER)) {
+        cJSON_DetachItemFromObject(response, "status");
+    }
     cJSON_AddNumberToObject(response, "status", status_code);
 }
 
 void setErrMsg(cJSON *response, char *message) {
-    cJSON_AddStringToObject(response, "err_msg", message);
+    if (message == "") {
+        char *err_msg = get_attr(response, "message", STRING);
+        cJSON_AddStringToObject(response, "err_msg", err_msg);
+    } else
+        cJSON_AddStringToObject(response, "err_msg", message);
 }
 
 void setMessage(cJSON *response, char *message) {

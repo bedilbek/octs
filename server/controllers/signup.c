@@ -1,82 +1,28 @@
 //
-// Created by ulugbekna on 12/13/17.
+// Created by Tolqinbek Isoqov on 12/17/17.
 //
-
-#include "model.h"
 #include "server_methods.h"
-#include <stdbool.h>
-#include <regex.h>
+#include "model.h"
 
-bool valid_name(char *);
-bool valid_uname(char *);
-bool valid_pswd(char *);
-char *hash_pswd(char *);
-bool valid_email(char *);
-
-cJSON *signup(cJSON *data) {
-
+cJSON *signup(cJSON *request) {
+    char *fname = get_attr(request, "fname", STRING);
+    char *lname = get_attr(request, "lname", STRING);
+    char *username = get_attr(request, "username", STRING);
+    char *email = get_attr(request, "email", STRING);
+    char *password = get_attr(request, "password", STRING);
+    cJSON *validation = validate_user(username, email);
     cJSON *response = cJSON_CreateObject();
-
-    char *fname = cJSON_GetObjectItem(data, "fname")->valuestring;
-    char *lname = cJSON_GetObjectItem(data, "lname")->valuestring;
-    char *username = cJSON_GetObjectItem(data, "username")->valuestring;
-    char *password = cJSON_GetObjectItem(data, "password")->valuestring;
-    char *email = cJSON_GetObjectItem(data, "email")->valuestring;
-
-    if (valid_name(fname) && valid_name(lname) && valid_uname(username) && valid_pswd(password) && valid_email(email)) {
-        cJSON *query_result = create_user_char(fname, lname, username, hash_pswd(password), email);
-        if (cJSON_GetObjectItem(query_result, "status")->valuestring == "200") {
-            setStatus(response, "200");
-            setMessage(response, "User created.");
-        } else {
-            setStatus(response, cJSON_GetObjectItem(query_result, "status")->valuestring);
-            setErrMsg(response, cJSON_GetObjectItem(query_result, "message")->valuestring);
-            return response;
-        }
-
-        return response;
-    } else {
-        setStatus(response, "400");
-        setErrMsg(response, "Please, enter valid info.");
+    if ((int) get_attr(validation, "count", INTEGER) > 0) {
+        setStatus(response, 400);
+        setErrMsg(response, "User with username or password exists. Please try with other credentials");
         return response;
     }
-}
-
-bool valid_name(char *name) {
-    if (strlen(name) > 0) {
-        return true;
+    cJSON *user = create_user_char(fname, lname, username, password, email, generate_token());
+    if ((int) get_attr(user, "status", INTEGER) == 700) {
+        setStatus(response, 201);
     } else {
-        return false;
+        setStatus(response, 400);
+        setErrMsg(response, "");
     }
+    return response;
 }
-
-bool valid_uname(char *uname) {
-    if (strlen(uname) > 0 && cJSON_GetObjectItem(get_user_by_username(uname), "count")->valueint == 0) {
-        return true;
-    } else {
-        return false;
-    }
-}
-
-bool valid_pswd(char * pswd) {
-    if (strlen(pswd) > 0) {
-        return true;
-    } else {
-        return false;
-    }
-}
-
-bool valid_email(char * email) {
-    regex_t re;
-
-    if (regcomp(&re, "\u200E^\\w+@+?\\.$", REG_EXTENDED) != 0)
-    {
-        fprintf(stderr, "Failed to compile regex '%s'\n", "\u200E^\\w+@+?\\.$");
-        return 0;
-    }
-}
-
-char *hash_pswd(char *pswd) {
-    return pswd;
-}
-

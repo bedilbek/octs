@@ -19,14 +19,13 @@
 
 cJSON *create_problem_char(int category_id, char *description, int input_file_id,
                            int output_file_id, int time_limit, int memory_limit,
-                           int max_points) {
+                           int max_points, char *title) {
     struct Database *db = new(Database);
     char insert_sql[1024];
 
     sprintf(insert_sql,
-            "INSERT INTO problem VALUES (DEFAULT, %d, \'%s\', %d, %d, %d, %d, %d, DEFAULT, DEFAULT) RETURNING *",
-            category_id, description, input_file_id, output_file_id,
-            time_limit, memory_limit, max_points);
+            "INSERT INTO problem VALUES (DEFAULT, %d, \'%s\', %d, %d, %d, %d, %d, DEFAULT, DEFAULT, \'%s\') RETURNING *",
+            category_id, description, input_file_id, output_file_id, time_limit, memory_limit, max_points, title);
 
     cJSON *msg = insert_query(db, insert_sql);
     delete(db);
@@ -54,7 +53,11 @@ cJSON *get_problem_by_id(int problem_id) {
     struct Database *db = new(Database);
     char select_sql[1024];
 
-    sprintf(select_sql, "SELECT * FROM problem where id=%d", problem_id);
+    sprintf(select_sql, "SELECT problem.*,\n"
+            "  category.name as \"category\"\n"
+            "FROM problem\n"
+            "  JOIN category ON category_id=category.id\n"
+            "WHERE problem.id = %d", problem_id);
     cJSON *msg = select_query(db, select_sql);
     delete(db);
     return msg;

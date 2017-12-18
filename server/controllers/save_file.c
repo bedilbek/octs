@@ -7,10 +7,11 @@ cJSON *save_file(cJSON *data) {
     char ext[1024] = ".";
     strcat(ext, get_attr(data, "ext", STRING));
     cJSON *response = create_file_char(user_id, absolute_path, ext);
+    printf(cJSON_Print(response));
     int file_id = (int) get_attr(cJSON_GetArrayItem(cJSON_GetObjectItem(response, "data"), 0), "id", INTEGER);
     free(response);
     response = cJSON_CreateObject();
-    setStatus(response, 200);
+    setStatus(response, 201);
     cJSON_AddNumberToObject(response, "file_id", file_id);
     return response;
 }

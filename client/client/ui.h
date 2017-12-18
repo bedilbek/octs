@@ -28,7 +28,15 @@ void showContests(cJSON *contests, int size);
 
 void showContestProblems(cJSON *problems, int size);
 
-cJSON *registerMenu();
+cJSON *signup();
+
+void show_contest_problems(cJSON *problem, int size);
+
+cJSON *getProblemFromUser();
+
+void show_contest(cJSON *contest);
+
+void show_problem(cJSON *problem);
 
 #endif //OS_PROJECT_UI_H
 

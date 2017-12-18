@@ -4,9 +4,8 @@
 #include "client_methods.h"
 
 void register_user(struct Client *client, cJSON *request) {
-    cJSON *response = (cJSON *) send_message(client, NULL, 2, request);
-    int status;
-    if ((status = get_attr(response, "status", INTEGER)) == 201) {
+    cJSON *response = (cJSON *) send_message(client, NULL, SIGNUP, request);
+    if (((int) get_attr(response, "status", INTEGER)) == 201) {
         printf("You have successfully signed up\n");
     } else {
         printf(get_attr(response, "err_msg", STRING));

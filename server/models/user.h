@@ -31,5 +31,7 @@ cJSON *get_all_users();
 
 cJSON *get_all_users_count();
 
+cJSON *validate_user(char *username, char *email);
+
 
 #endif //OS_PROJECT_USER_H

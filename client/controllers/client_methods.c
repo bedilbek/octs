@@ -6,23 +6,20 @@
 #include "ui.h"
 
 void login(struct Client *client) {
-    cJSON *responseLogin;
-    cJSON *loginDetails;
 
     if (!isLoggedIn()) // isLoggedIn function checks whether there is a file with token
     {
-        int status;
-        loginDetails = loginMenu(); // call Login menu function (username , password)
 
-        responseLogin = (cJSON *) send_message(client, NULL, 0, loginDetails);
-        status = cJSON_GetObjectItem(responseLogin, "status")->valueint;
-        if (status == 200 || status == 201) {
-            char *token = cJSON_GetObjectItem(responseLogin, "token")->valuestring; // token of user
+        cJSON *login_credentials = loginMenu(); // call Login menu function (username , password)
+
+        cJSON *response = (cJSON *) send_message(client, NULL, LOGIN, login_credentials);
+        int status;
+        if ((status = (int) get_attr(response, "status", INTEGER)) == 200) {
+            char *token = get_attr(response, "token", STRING); // token of user
             saveToFileOcts(token); // save name lastname and token with id in .octs
             printf("Successfully Logged In");
         } else {
-            char *error = cJSON_GetObjectItem(responseLogin, "err_msg")->valuestring;
-            printf(error);
+            printf(get_attr(response, "err_msgs", STRING));
         }
     } else {
         printf("You have already signed in!\n");

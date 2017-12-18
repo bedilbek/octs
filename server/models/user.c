@@ -99,6 +99,16 @@ cJSON *get_user_by_username(char *username) {
     return msg;
 }
 
+cJSON *validate_user(char *username, char *email) {
+    struct Database *db = new(Database);
+    char select_sql[1024];
+
+    sprintf(select_sql, "SELECT * FROM users where username=\'%s\' and email=\'%s\'", username, email);
+    cJSON *msg = select_query(db, select_sql);
+    delete(db);
+    return msg;
+}
+
 cJSON *exist_user(char *username, char *password) {
     struct Database *db = new(Database);
     char select_sql[1024];

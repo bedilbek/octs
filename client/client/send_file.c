@@ -6,7 +6,7 @@
 #include <errno.h>
 #include "client.h"
 
-void *send_file(struct Client *client, char *token, char absolute_path[]) {
+void *send_file(struct Client *client, char *token, char absolute_path[1024]) {
     ////Init variables
     ssize_t len;
     struct stat file_stat;

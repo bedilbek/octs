@@ -6,6 +6,7 @@
 #include "server_methods.h"
 
 cJSON *login(cJSON *data) {
+    printf("login");
     char *username;
     char *password;
     if (!(username = get_attr(data, "username", STRING))) {
@@ -20,9 +21,10 @@ cJSON *login(cJSON *data) {
 
     if ((int) get_attr(user_query_result, "count", INTEGER) == 1) {
         setStatus(response, 200);
-        cJSON_AddStringToObject(response, "token", "asdhjbeJFVElakdjkABDKBAlkjbdfasd=");
+        char *token = get_attr(cJSON_GetArrayItem(get_attr(user_query_result, "data", CJSON), 0), "token", STRING);
+        cJSON_AddStringToObject(response, "token", token);
     } else {
-        setStatus(response, get_attr(user_query_result, "status", STRING));
+        setStatus(response, (int) get_attr(user_query_result, "status", INTEGER));
         setErrMsg(response, "User not found");
     }
 

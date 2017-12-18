@@ -13,6 +13,17 @@
 #define SERVER "127.0.0.1"
 #define MAX_LENGTH_OF_MESSAGE 1024
 
+#define SAVE_FILE 0
+#define LOGIN 1
+#define GET_CONTEST 2
+#define GET_CONTESTS 3
+#define GET_CONTEST_PROBLEMS 4
+#define GET_PROBLEM 5
+#define SIGNUP 6
+#define REGISTER_FOR_CONTEST 7
+#define MY_CONTESTS 8
+#define PROBLEM_CREATION 9
+
 extern const void *Client;
 
 struct Client {

@@ -54,7 +54,7 @@ cJSON *get_contests_of_user(int user_id) {
 
     sprintf(select_sql,
             "SELECT contest.* \n"
-                    "FROM contest join user_contest_result ON id=contest_id \n"
+                    "FROM contest join user_contest_result ON contest.id=user_contest_result.contest_id \n"
                     "WHERE user_id=%d",
             user_id);
 

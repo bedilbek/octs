@@ -62,6 +62,8 @@ cmake-build-debug/
 
 client/cmake-build-debug/
 client/cmake-build-release/
+client/usr_octs.txt
+media/
 
 
 # End of https://www.gitignore.io/api/clion+all

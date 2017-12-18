@@ -2,10 +2,19 @@
 // Created by shakhobiddin on 12/13/17.
 //
 
+#include <sys/file.h>
+#include <unistd.h>
+#include <helpers.h>
 #include "ui.h"
 
 
-const char *USR_FILE_NAME = "usr_octs";
+const char *USR_FILE_NAME = "/Users/tom1/Documents/Subject files/OS/Project/octs/client/usr_octs.txt";
+
+void print_line(int number) {
+    for (int i = 0; i < number; i++)
+        printf("-");
+    printf("\n");
+}
 
 int isLoggedIn() {
     if (access(USR_FILE_NAME, F_OK) != -1)
@@ -44,8 +53,40 @@ cJSON *loginMenu() {
 
     cJSON_AddStringToObject(lp, "username", login);
     cJSON_AddStringToObject(lp, "password", password);
-    printf("%s", cJSON_Print(lp));
     return lp;
+}
+
+void show_contest(cJSON *contest) {
+    char *id = "Contest ID";
+    char *title = "Title";
+    char *author = "Author";
+    char *starts_at = "starts_at";
+    char *ends_at = "ends_at";
+    char *description = "Description";
+    print_line(192);
+    printf("%-12s|%-35s|%-30s|%-30s|%-30s|%-50s|\n", id, title, author, starts_at, ends_at, description);
+    print_line(192);
+    printf("      %-6d|", (int) get_attr(contest, "id", INTEGER));
+    printf(" %-34s|", (char *) get_attr(contest, "title", STRING));
+    printf("%-30s|", (char *) get_attr(contest, "author", STRING));
+    printf("%-30s|", (char *) get_attr(contest, "starts_at", STRING));
+    printf("%-30s|", (char *) get_attr(contest, "ends_at", STRING));
+    printf("%-50s|", (char *) get_attr(contest, "description", STRING));
+    printf("\n");
+    print_line(192);
+}
+
+void show_problem(cJSON *problem) {
+    print_line(192);
+    printf("Problem ID: %d\n", (int) get_attr(problem, "id", INTEGER));
+    printf("Title: %s\n", (char *) get_attr(problem, "title", STRING));
+    printf("Category: %s\n", (char *) get_attr(problem, "category", STRING));
+    printf("Description: %s\n", (char *) get_attr(problem, "description", STRING));
+    printf("Time limit: %d\n", (int) get_attr(problem, "time_limit", INTEGER));
+    printf("Memory limit: %d\n", (int) get_attr(problem, "memory_limit", INTEGER));
+    printf("Max points: %d", (int) get_attr(problem, "max_points", INTEGER));
+    printf("\n");
+    print_line(192);
 }
 
 //struct User{
@@ -87,7 +128,7 @@ void saveToFileOcts(char *token) {
     fclose(f);
 }
 
-cJSON *registerMenu() // for registering a new user it should have CLIENT attritbute
+cJSON *signup() // for registering a new user it should have CLIENT attritbute
 {
     char *fname;
     char *lname;
@@ -139,18 +180,19 @@ void showContests(cJSON *contests, int size)// lists all the available contests
     char *title = "Title";
     char *starts_at = "Starts_at";
     char *ends_at = "Ends_at";
-    char *reg_end_date = "Registration ends";
-    printf("----------------------------------------------------------------------------------------------------------------------------\n");
-    printf("%-12s|%-35s|%-20s|%-20s|%-20s|\n", id, title, starts_at, ends_at, reg_end_date);
-    printf("----------------------------------------------------------------------------------------------------------------------------\n");
+    char *reg_end_time = "Registration ends";
+    printf("--------------------------------------------------------------------------------------------------------------------------------------\n");
+    printf("%-12s|%-35s|%-30s|%-30s|%-30s|\n", id, title, starts_at, ends_at, reg_end_time);
+    printf("--------------------------------------------------------------------------------------------------------------------------------------\n");
     for (i = 0; i < size; i++) {
-        printf("   %-9d|", cJSON_GetObjectItem(cJSON_GetArrayItem(contests, i), "id")->valueint);
-        printf(" %-34s|", cJSON_GetObjectItem(cJSON_GetArrayItem(contests, i), "title")->valuestring);
-        printf("%-20s|", cJSON_GetObjectItem(cJSON_GetArrayItem(contests, i), "starts_at")->valuestring);
-        printf("%-20s|", cJSON_GetObjectItem(cJSON_GetArrayItem(contests, i), "ends_at")->valuestring);
-        printf("%-20s|", cJSON_GetObjectItem(cJSON_GetArrayItem(contests, i), "reg_end_at")->valuestring);
+        cJSON *contest = cJSON_GetArrayItem(contests, i);
+        printf("   %-9d|", (int) get_attr(contest, "id", INTEGER));
+        printf(" %-34s|", (char *) get_attr(contest, "title", STRING));
+        printf("%-30s|", (char *) get_attr(contest, "starts_at", STRING));
+        printf("%-30s|", (char *) get_attr(contest, "ends_at", STRING));
+        printf("%-30s|", (char *) get_attr(contest, "reg_end_time", STRING));
         printf("\n");
-        printf("----------------------------------------------------------------------------------------------------------------------------\n");
+        printf("--------------------------------------------------------------------------------------------------------------------------------------\n");
     }
 }
 
@@ -173,65 +215,71 @@ void showContestProblems(cJSON *problems, int size)//lists all the problems of a
 
 }
 
-
-void showProblemDetails(cJSON *problem) {
-    printf("******************Problem Details******************");
-    printf("Title: %s", cJSON_GetObjectItem(problem, "title")->valuestring);
-    printf("\nDescription: %s", cJSON_GetObjectItem(problem, "description")->valuestring);
-    printf("\nInput Format: %s", cJSON_GetObjectItem(problem, "input_format")->valuestring);
-    printf("\nOutput Format: %s", cJSON_GetObjectItem(problem, "output_format")->valuestring);
-    printf("\nTime Limit: %d sec", cJSON_GetObjectItem(problem, "time_limit")->valueint);
-    printf("\nMemory Limit: %d MB", cJSON_GetObjectItem(problem, "memory_limit")->valueint);
-    printf("\nMax points: %d sec", cJSON_GetObjectItem(problem, "max_points")->valueint);
+void show_contest_problems(cJSON *problems, int size) {
+    //TODO: not correct function
+    int i = 0;
+    char *id = "Problem_id";
+    char *title = "Category";
+    char *starts_at = "Time limit";
+    char *ends_at = "Memory limit";
+    char *reg_end_time = "Max point";
+    printf("--------------------------------------------------------------------------------------------------------------------------------------\n");
+    printf("%-12s|%-35s|%-30s|%-30s|%-30s|\n", id, title, starts_at, ends_at, reg_end_time);
+    printf("--------------------------------------------------------------------------------------------------------------------------------------\n");
+    for (i = 0; i < size; i++) {
+        cJSON *contest = cJSON_GetArrayItem(problems, i);
+        printf("   %-9d|", (int) get_attr(contest, "id", INTEGER));
+        printf(" %-34s|", (char *) get_attr(contest, "name", STRING));
+        printf("%-30d|", (int) get_attr(contest, "time_limit", INTEGER));
+        printf("%-30d|", (int) get_attr(contest, "memory_limit", INTEGER));
+        printf("%-30d|", (int) get_attr(contest, "max_points", INTEGER));
+        printf("\n");
+        printf("--------------------------------------------------------------------------------------------------------------------------------------\n");
+    }
 }
 
 cJSON *getProblemFromUser() {
-    char *title = (char *) malloc(256);
-    title[59] = '\0';
-    char *description = (char *) malloc(2048);
-    description[2047] = '\0';
-    char *inputPath = (char *) malloc(128);
-    char *outputPath = (char *) malloc(128);
-    int time_limit;
-    int memory_limit;
-    int max_points;
-    cJSON *newProblem = cJSON_CreateObject();
+    char title[1024], description[1024], input_file_path[1024] = {}, output_file_path[1024] = {};
+    int category_id, time_limit, memory_limit, max_points;
     char c;
     printf("Title: ");
-    fgets(title, 256, stdin);
-//    scanf("%c", &c);
-    printf("Description: ");
-    fgets(description, 2048, stdin);
+    fgets(title, 1024, stdin);
 
-    //scanf ("%s", description);
+    printf("Category ID: ");
+    scanf("%d", &category_id);
+    scanf("%c", &c);
+
+    printf("Description: ");
+    fgets(description, 1024, stdin);
 
     printf("Input file path(absolute): ");
-    scanf("%s", inputPath);
+    fgets(input_file_path, 1024, stdin);
+    input_file_path[strlen(input_file_path) - 1] = '\0';
 
     printf("Output file path(absolute): ");
-    scanf("%s", outputPath);
+    fgets(output_file_path, 1024, stdin);
+    output_file_path[strlen(output_file_path) - 1] = '\0';
 
-    printf("Time Limit(seconds): ");
+    printf("Time limit: ");
     scanf("%d", &time_limit);
+    scanf("%c", &c);
 
-    printf("Memory Limit(MBs): ");
+    printf("Memory limit: ");
     scanf("%d", &memory_limit);
+    scanf("%c", &c);
 
-    printf("Max_points: ");
+    printf("Max points: ");
     scanf("%d", &max_points);
+    scanf("%c", &c);
 
-    cJSON_AddStringToObject(newProblem, "title", title);
-    cJSON_AddStringToObject(newProblem, "description", description);
-    cJSON_AddStringToObject(newProblem, "input_file_path", inputPath);
-    cJSON_AddStringToObject(newProblem, "output_file_path", outputPath);
-    cJSON_AddNumberToObject(newProblem, "time_limit", time_limit);
-    cJSON_AddNumberToObject(newProblem, "memory_limit", memory_limit);
-    cJSON_AddNumberToObject(newProblem, "memory_limit", memory_limit);
-    cJSON_AddNumberToObject(newProblem, "max_points", max_points);
-
-//    printf("%s\n", cJSON_Print(cJSON_GetObjectItem(newProblem, "title")));
-//    printf("%s\n", cJSON_Print(cJSON_GetObjectItem(newProblem, "description")));
-//    printf("%s\n", cJSON_Print(cJSON_GetObjectItem(newProblem, "input_file_path")));
-//    printf("%s\n", cJSON_Print(cJSON_GetObjectItem(newProblem, "output_file_path")));
-    return newProblem;
+    cJSON *params = cJSON_CreateObject();
+    cJSON_AddStringToObject(params, "title", title);
+    cJSON_AddNumberToObject(params, "category_id", category_id);
+    cJSON_AddStringToObject(params, "description", description);
+    cJSON_AddStringToObject(params, "input_file_path", input_file_path);
+    cJSON_AddStringToObject(params, "output_file_path", output_file_path);
+    cJSON_AddNumberToObject(params, "time_limit", time_limit);
+    cJSON_AddNumberToObject(params, "memory_limit", memory_limit);
+    cJSON_AddNumberToObject(params, "max_points", max_points);
+    return params;
 }

@@ -3,8 +3,9 @@ project(os_project)
 
 set(CMAKE_C_STANDARD 11)
 
-set(SERVER_SOURCE_FILES server/main.c)
-set(CLIENT_SOURCE_FILES client/main.c client/controllers/client_methods.c client/controllers/client_methods.h)
+set(SERVER_SOURCE_FILES server/message_main.c)
+set(FILE_SERVER_SOURCE_FILES server/file_main.c)
+set(CLIENT_SOURCE_FILES client/main.c)
 
 include_directories(
         lib
@@ -64,20 +65,34 @@ add_library(
         server/controllers/login.c
         server/controllers/save_file.c
         server/controllers/get_contests_problems.c
-        server/register_for_contest.c
-        server/controllers/problem_details.c
+        server/controllers/register_for_contest.c
         server/controllers/users_contests.c
-)
+        server/controllers/get_contests.c
+        server/controllers/get_contest.c
+        server/controllers/get_problem.c
+        server/controllers/signup.c
+        server/controllers/problem_creation.c
+        server/controllers/supmit_problem.c)
+
 add_library(
         client_controller
+        client/client/ui.c
+        client/controllers/register_user.c
         client/controllers/client_methods.c
+        client/controllers/submit_solution.c
+
 )
 
 link_libraries(lib db vendor model server contollers client pthread)
 
 add_executable(os_project_server ${SERVER_SOURCE_FILES})
+add_executable(os_project_file_server ${FILE_SERVER_SOURCE_FILES})
 add_executable(os_project_client ${CLIENT_SOURCE_FILES})
 
-target_link_libraries(os_project_server lib db vendor model server contollers)
 target_link_libraries(os_project_server ${PostgreSQL_LIBRARIES})
-target_link_libraries(os_project_client lib vendor client)
+target_link_libraries(os_project_file_server ${PostgreSQL_LIBRARIES})
+target_link_libraries(os_project_client ${PostgreSQL_LIBRARIES})
+
+target_link_libraries(os_project_file_server lib db vendor model server contollers)
+target_link_libraries(os_project_server lib db vendor model server contollers)
+target_link_libraries(os_project_client lib vendor client client_controller)

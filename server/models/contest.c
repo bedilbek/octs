@@ -47,7 +47,12 @@ cJSON *get_contest_by_id(int contest_id) {
     struct Database *db = new(Database);
     char select_sql[1024];
 
-    sprintf(select_sql, "SELECT * FROM contest where id=%d", contest_id);
+    sprintf(select_sql, "SELECT "
+            "contest.*, "
+            "concat(users.fname, ' ', users.lname) AS author "
+            "FROM contest "
+            "JOIN users ON author_id = users.id "
+            "where contest.id=%d", contest_id);
     cJSON *msg = select_query(db, select_sql);
     delete(db);
     return msg;

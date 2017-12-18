@@ -8,7 +8,7 @@
 
 int authenticate_user(char *token) {
     cJSON *result_user = get_user_by_token(token);
-    int user_id=0;
+    int user_id = 0;
     if (!(user_id = (int) get_attr(cJSON_GetArrayItem(cJSON_GetObjectItem(result_user, "data"), 0), "id", INTEGER)))
         return 0;
     return user_id;
@@ -20,11 +20,9 @@ void return_response(int socket, cJSON *response) {
 }
 
 static void dispatch(struct Request *request) {
-    printf(cJSON_Print(request->data));
-    fflush(stdout);
-    if (request->method != 1) {
+    if (request->method != 1 && request->method != 6) {
         int user_id;
-        if (!(user_id = authenticate_user((char *) request->token))) {
+        if (!(user_id = authenticate_user(request->token))) {
             cJSON *response = cJSON_CreateObject();
             setStatus(response, 403);
             setErrMsg(response, "Login in order to proceed operation");
@@ -46,8 +44,11 @@ struct Request make_request(int socket, int method, char *token, cJSON *data) {
     struct Request request = {};
     request.socket = socket;
     request.method = method;
-    request.data = data;
+    request.data = cJSON_CreateObject();
+    if (data)
+        request.data = data;
     request.token = token;
+
     return request;
 }
 
