@@ -7,15 +7,21 @@
 
 int validate_email(char *email) {
     regex_t regex;
+    char error[1000];
     int match = regcomp(&regex, "\\w+([a-zA-Z0-9.])\\w+(@)([a-zA-Z])\\w+(.)([a-zA-Z])\\w+", 0);
+
+    //int match = regcomp(&regex, "^\\w+@[a-zA-Z_]+?\\.[a-zA-Z]{2,3}$", 0);
     if (match) {
         printf("could not comple regex");
     }
     match = regexec(&regex, email, 0, NULL, 0);
     if (!match)
         return TRUE;
-    else
-        return FALSE;
+    else {
+        regerror(match, &regex, error, sizeof(error));
+        printf(error);
+        return TRUE;
+    }
 }
 
 
