@@ -65,6 +65,17 @@ cJSON *get_all_contests() {
     return msg;
 }
 
+cJSON *validate_contest_owner(int user_id, int contest_id) {
+    struct Database *db = new(Database);
+    char select_sql[1024];
+
+    sprintf(select_sql, "SELECT * FROM contest\n"
+            "WHERE id=%d and author_id=%d", contest_id, user_id);
+    cJSON *msg = select_query(db, select_sql);
+    delete(db);
+    return msg;
+}
+
 cJSON *get_all_contests_count() {
     struct Database *db = new(Database);
     cJSON *msg = select_query(db, "SELECT COUNT(*) FROM contest");

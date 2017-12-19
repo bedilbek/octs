@@ -11,7 +11,7 @@
 
 typedef cJSON *(*function)(cJSON *);
 
-const function methods[15] = {
+const function methods[16] = {
         save_file,//Done, validate
         login_server, //Done
         get_contest, //Done
@@ -26,6 +26,7 @@ const function methods[15] = {
         check_result,//Done
         get_problems,//Done, validated
         create_test_case,//Done
-        create_contest,//-------
+        create_contest,//Done
+        add_problem_to_contest,
 };
 #endif //OS_PROJECT_CONTROLLERS_H

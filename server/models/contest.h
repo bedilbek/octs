@@ -28,4 +28,6 @@ cJSON *get_all_contests_count();
 
 cJSON *get_contest_by_authorId(int author_id);
 
+cJSON *validate_contest_owner(int user_id, int contest_id);
+
 #endif //OS_PROJECT_CONTEST_H

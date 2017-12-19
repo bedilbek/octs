@@ -28,6 +28,7 @@
 #define GET_PROBLEMS 12
 #define CREATE_TEST_CASE 13
 #define CREATE_CONTEST 14
+#define ADD_PROBLEM_TO_CONTEST 15
 
 extern const void *Client;
 

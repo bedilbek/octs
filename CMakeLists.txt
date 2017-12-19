@@ -77,7 +77,7 @@ add_library(
         server/controllers/signup.c
         server/controllers/problem_creation.c
         server/controllers/submit_problem.c
-        server/controllers/check_result.c server/controllers/get_problems.c server/controllers/create_test_case.c server/controllers/create_contest.c)
+        server/controllers/check_result.c server/controllers/get_problems.c server/controllers/create_test_case.c server/controllers/create_contest.c server/controllers/add_problem_to_contest.c)
 
 add_library(
         client_controllers

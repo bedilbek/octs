@@ -38,4 +38,6 @@ cJSON *create_test_case(cJSON *request);
 
 cJSON *create_contest(cJSON *request);
 
+cJSON *add_problem_to_contest(cJSON *request);
+
 #endif //OS_PROJECT_METHODS_H

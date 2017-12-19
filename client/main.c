@@ -232,6 +232,22 @@ int main(int argc, char *argv[]) {
                     show_results(get_attr(response, "data", CJSON));
                 }
             }
+            if (strcmp(argv[1], "add") == 0 && strcmp(argv[2], "problem") == 0) {
+                if (isLoggedIn()) {
+                    int contest_id = (int) strtol(argv[3], NULL, 10);
+                    int problem_id;
+                    problem_id = (int) strtol(argv[4], NULL, 10);
+                    cJSON *request = cJSON_CreateObject();
+                    cJSON_AddNumberToObject(request, "contest_id", contest_id);
+                    cJSON_AddNumberToObject(request, "problem_id", problem_id);
+                    cJSON *response = send_message(message_client, getToken(), ADD_PROBLEM_TO_CONTEST, request);
+                    if ((int) get_attr(response, "status", INTEGER) != 201) {
+                        printf(get_attr(response, "err_msg", STRING));
+                        return 1;
+                    }
+                    printf("Problem is added to contest");
+                }
+            }
             if (strcmp(argv[1], "create") == 0 && strcmp(argv[2], "test") == 0 && strcmp(argv[3], "case") == 0) {
                 if (isLoggedIn()) {
                     struct Client *file_client = new(Client, FILE_SERVER_LISTEN_PORT);
