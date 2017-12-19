@@ -6,6 +6,7 @@
 #include "model.h"
 
 cJSON *get_contest(cJSON *request) {
+    printf("get contests");
     int contest_id = (int) get_attr(request, "contest_id", INTEGER);
     cJSON *response = get_contest_by_id(contest_id);
     if ((int) get_attr(response, "status", INTEGER) == 700) {

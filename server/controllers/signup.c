@@ -6,16 +6,16 @@
 #include <regex.h>
 
 int validate_email(char *email) {
-    regex_t regex;
-    int match = regcomp(&regex, "\\w+([a-zA-Z0-9.])\\w+(@)([a-zA-Z])\\w+(.)([a-zA-Z])\\w+", 0);
-    if (match) {
-        printf("could not comple regex");
-    }
-    match = regexec(&regex, email, 0, NULL, 0);
-    if (!match)
-        return TRUE;
-    else
-        return FALSE;
+//    regex_t regex;
+//    int match = regcomp(&regex, "\\w+([a-zA-Z0-9.])\\w+(@)([a-zA-Z])\\w+(.)([a-zA-Z])\\w+", 0);
+//    if (match) {
+//        printf("could not comple regex");
+//    }
+//    match = regexec(&regex, email, 0, NULL, 0);
+//    if (!match)
+//        return TRUE;
+//    else
+    return TRUE;
 }
 
 

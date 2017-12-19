@@ -5,15 +5,15 @@
 #include "model.h"
 
 cJSON *get_contests(cJSON *data) {
+    printf("get contest");
     cJSON *response = get_all_contests();
-    int status;
-    if ((status = (int) get_attr(response, "status", INTEGER)) == 700) {
+    if ((int) get_attr(response, "status", INTEGER) == 700) {
         cJSON_DetachItemFromObject(response, "status");
         setStatus(response, 200);
-        return response;
     } else {
         cJSON_DetachItemFromObject(response, "status");
         setStatus(response, 400);
-        return response;
     }
+    printf(cJSON_Print(response));
+    return response;
 }

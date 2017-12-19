@@ -34,8 +34,7 @@ int main(int argc, char *argv[]) {
             {
                 if (isLoggedIn()) {
                     cJSON *response = (cJSON *) send_message(message_client, getToken(), GET_CONTESTS, NULL);
-                    int status;
-                    if ((status = (int) get_attr(response, "status", INTEGER)) == 200) {
+                    if ((int) get_attr(response, "status", INTEGER) == 200) {
                         int size = cJSON_GetArraySize(get_attr(response, "data", CJSON));
                         showContests(get_attr(response, "data", CJSON), size);
                     } else {
