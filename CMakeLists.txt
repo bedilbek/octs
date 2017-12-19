@@ -18,7 +18,7 @@ include_directories(
         server/migration
         client/controllers
 )
-include_directories(/usr/local/include)
+
 include_directories(vendor)
 
 include(server/pgsqlFind.cmake)
@@ -77,7 +77,7 @@ add_library(
         server/controllers/signup.c
         server/controllers/problem_creation.c
         server/controllers/submit_problem.c
-)
+        server/controllers/check_result.c server/controllers/get_problems.c)
 
 add_library(
         client_controllers

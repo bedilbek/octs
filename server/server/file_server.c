@@ -63,7 +63,6 @@ void receive_file(int peer_socket) {
     cJSON *request = cJSON_CreateObject();
     cJSON_AddNumberToObject(request, "user_id", user_id);
     cJSON_AddStringToObject(request, "ext", ext);
-    printf(cJSON_Print(request));
 
     //TODO validate above values
     for (int i = 0; i < sizeof(buffer); ++i) {
@@ -79,7 +78,6 @@ void receive_file(int peer_socket) {
     if (received_file == NULL) {
         return;
     }
-    printf(absolute_file_path);
     cJSON_AddStringToObject(request, "absolute_path", absolute_file_path);
 
     while (TRUE) {

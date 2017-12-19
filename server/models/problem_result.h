@@ -24,7 +24,7 @@ cJSON *get_problem_results_in_contest(int user_id, int contest_id);
 
 cJSON *get_problem_result_trials_in_contest(int user_id, int contest_id, int problem_id);
 
-cJSON *get_successful_problem_results_in_contest(int user_id, int contest_id);
+cJSON *get_successful_problem_results_in_contest(int user_id, int contest_id, int problem_id);
 
 cJSON *get_successful_problem_result_in_contest(int user_id, int contest_id, int problem_id);
 

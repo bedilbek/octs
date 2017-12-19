@@ -6,7 +6,6 @@
 #include "server_methods.h"
 
 cJSON *login_server(cJSON *data) {
-    printf("login");
     char *username;
     char *password;
     if (!(username = get_attr(data, "username", STRING))) {

@@ -10,6 +10,7 @@ void submit_solution(struct Client *file_client, struct Client *message_client, 
     int file_id;
     if ((int) get_attr(response, "status", INTEGER) != 201) {
         printf(get_attr(response, "err_msg", STRING));
+        return;
     } else {
         file_id = (int) get_attr(response, "file_id", INTEGER);
         cJSON *request = cJSON_CreateObject();

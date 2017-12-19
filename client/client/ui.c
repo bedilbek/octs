@@ -196,36 +196,17 @@ void showContests(cJSON *contests, int size)// lists all the available contests
     }
 }
 
-void showContestProblems(cJSON *problems, int size)//lists all the problems of a contest
-{
-    char *id = "Problem_ID";
-    char *title = "Title";
-    char *max_points = "Max_Points";
-    int i = 0;
-    printf("----------------------------------------------------------------------------------------------------------------------------\n");
-    printf("%-12s|%-20s|%-20s|\n", id, title, max_points);
-    printf("----------------------------------------------------------------------------------------------------------------------------\n");
-    for (i = 0; i < size; i++) {
-        printf("   %-9d", cJSON_GetObjectItem(cJSON_GetArrayItem(problems, i), "id")->valueint);
-        printf("%-20s", cJSON_GetObjectItem(cJSON_GetArrayItem(problems, i), "title")->valuestring);
-        printf("%-15d", cJSON_GetObjectItem(cJSON_GetArrayItem(problems, i), "max_points")->valueint);
-        printf("\n");
-        printf("----------------------------------------------------------------------------------------------------------------------------\n");
-    }
-
-}
-
-void show_contest_problems(cJSON *problems, int size) {
-    //TODO: not correct function
+void show_problems(cJSON *problems) {
+    int size = cJSON_GetArraySize(problems);
     int i = 0;
     char *id = "Problem_id";
     char *title = "Category";
     char *starts_at = "Time limit";
     char *ends_at = "Memory limit";
     char *reg_end_time = "Max point";
-    printf("--------------------------------------------------------------------------------------------------------------------------------------\n");
+    print_line(141);
     printf("%-12s|%-35s|%-30s|%-30s|%-30s|\n", id, title, starts_at, ends_at, reg_end_time);
-    printf("--------------------------------------------------------------------------------------------------------------------------------------\n");
+    print_line(141);
     for (i = 0; i < size; i++) {
         cJSON *contest = cJSON_GetArrayItem(problems, i);
         printf("   %-9d|", (int) get_attr(contest, "id", INTEGER));
@@ -234,7 +215,7 @@ void show_contest_problems(cJSON *problems, int size) {
         printf("%-30d|", (int) get_attr(contest, "memory_limit", INTEGER));
         printf("%-30d|", (int) get_attr(contest, "max_points", INTEGER));
         printf("\n");
-        printf("--------------------------------------------------------------------------------------------------------------------------------------\n");
+        print_line(141);
     }
 }
 
@@ -282,4 +263,40 @@ cJSON *getProblemFromUser() {
     cJSON_AddNumberToObject(params, "memory_limit", memory_limit);
     cJSON_AddNumberToObject(params, "max_points", max_points);
     return params;
+}
+
+void show_results(cJSON *results) {
+    int size = cJSON_GetArraySize(results);
+    print_line(87);
+    printf("%-20s|%-35s|%-30s|\n", "Trial number", "Points", "Status");
+    print_line(87);
+    for (int i = 0; i < size; i++) {
+        cJSON *result = cJSON_GetArrayItem(results, i);
+        printf("     %-15d|", (int) get_attr(result, "trial_number", INTEGER));
+        printf(" %-34d|", (int) get_attr(result, "points", INTEGER));
+        switch ((int) get_attr(result, "success", INTEGER)) {
+            case TEST_CASE_OK:
+                printf("%-30s|", "Passed");
+                break;
+            case COMPILATION_ERROR:
+                printf("%-30s|", "Compilation error");
+                break;
+            case TEST_CASE_FAILED:
+                printf("%-30s|", "Test case failed");
+                break;
+            case TEST_CASES_SUCCESS:
+                printf("%-30s|", "Passed");
+                break;
+            case TEST_CASES_UNDEFINED_ERROR:
+                printf("%-30s|", "Test cases are not valid");
+                break;
+            case TEST_CASE_TIME_LIMIT:
+                printf("%-30s|", "Time limit is exceeded");
+                break;
+            default:
+                printf("%-30s|", "Internal error");
+        }
+        printf("\n");
+        print_line(87);
+    }
 }

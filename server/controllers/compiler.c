@@ -197,5 +197,4 @@ void compile(char *code_path, int user_id, int contest_id, int problem_id) {
         fprintf(stderr, "Test case map failed");
 
     cJSON *response = create_problem_result_char(user_id, contest_id, problem_id, points, status, test_case_fail_id);
-    printf(cJSON_Print(response));
 }

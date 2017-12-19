@@ -9,7 +9,6 @@
 int main() {
 //    struct Database *db = new(Database);
 //    run_migrations(db);
-
     pthread_t server_pid;
     struct Server *server = new(Server, SERVER_LISTEN_PORT);
     pthread_create(&server_pid, NULL, server_listen, server);

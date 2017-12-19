@@ -5,6 +5,8 @@
 #include "client.h"
 #include "client_methods.h"
 
+#define NONE "-"
+
 
 int main(int argc, char *argv[]) {
     struct Client *message_client = new(Client, SERVER_LISTEN_PORT);
@@ -78,15 +80,12 @@ int main(int argc, char *argv[]) {
                     printf("You haven't logged in\n");
                 }
             }
-            if (strcmp(argv[1], "problem") == 0 || strcmp(argv[1], "-p") == 0) {
+            if (strcmp(argv[1], "problems") == 0 || strcmp(argv[1], "-p") == 0) {
                 if (isLoggedIn()) {
                     int problem_id = (int) strtol(argv[2], NULL, 10);
-                    cJSON *request = cJSON_CreateObject();
-                    cJSON_AddNumberToObject(request, "problem_id", problem_id);
-                    cJSON *response = (cJSON *) send_message(message_client, getToken(), GET_PROBLEM, request);
-                    int status;
-                    if ((status = (int) get_attr(response, "status", INTEGER)) == 200) {
-                        show_problem(cJSON_GetArrayItem(get_attr(response, "data", CJSON), 0));
+                    cJSON *response = (cJSON *) send_message(message_client, getToken(), GET_PROBLEMS, NULL);
+                    if (((int) get_attr(response, "status", INTEGER)) == 200) {
+                        show_problems(get_attr(response, "data", CJSON));
                     } else {
                         printf(get_attr(response, "err_msg", STRING));
                     }
@@ -94,22 +93,22 @@ int main(int argc, char *argv[]) {
                     printf("You haven't logged in\n");
                 }
             }
-            if (strcmp(argv[1], "apply") == 0) {
-                int contest_id = (int) strtol(argv[2], NULL, 10);
-                if (isLoggedIn()) {
-                    cJSON *request = cJSON_CreateObject();
-                    cJSON_AddNumberToObject(request, "contest_id", contest_id);
-                    cJSON *response = (cJSON *) send_message(message_client, getToken(), 4, request);
-                    int status;
-                    if ((status = (int) get_attr(response, "status", INTEGER)) == 201) {
-                        printf("Successfully applied for contest");
-                    } else {
-                        printf(get_attr(response, "err_msg", STRING));
-                    }
-                } else {
-                    printf("You haven't logged in\n");
-                }
-            }
+//            if (strcmp(argv[1], "apply") == 0) {
+//                int contest_id = (int) strtol(argv[2], NULL, 10);
+//                if (isLoggedIn()) {
+//                    cJSON *request = cJSON_CreateObject();
+//                    cJSON_AddNumberToObject(request, "contest_id", contest_id);
+//                    cJSON *response = (cJSON *) send_message(message_client, getToken(), 4, request);
+//                    int status;
+//                    if ((status = (int) get_attr(response, "status", INTEGER)) == 201) {
+//                        printf("Successfully applied for contest");
+//                    } else {
+//                        printf(get_attr(response, "err_msg", STRING));
+//                    }
+//                } else {
+//                    printf("You haven't logged in\n");
+//                }
+//            }
             if (strcmp(argv[1], "create") == 0 && (strcmp(argv[2], "problem") == 0 || strcmp(argv[2], "-p") == 0)) {
                 if (isLoggedIn()) {
                     struct Client *file_client = new(Client, FILE_SERVER_LISTEN_PORT);
@@ -159,7 +158,7 @@ int main(int argc, char *argv[]) {
                     if ((status = (int) get_attr(response, "status", INTEGER)) == 200) {
                         cJSON *contest_problems = get_attr(response, "data", CJSON);
                         int size = cJSON_GetArraySize(contest_problems);
-                        show_contest_problems(contest_problems, size);
+                        show_problems(contest_problems);
                     } else {
                         printf(get_attr(response, "err_msg", STRING));
                     }
@@ -168,7 +167,7 @@ int main(int argc, char *argv[]) {
                     printf("You haven't logged in yet");
                 }
             }
-            if (strcmp(argv[1], "ls") == 0 && (strcmp(argv[2], "problem") == 0 || strcmp(argv[2], "-p") == 0)) {
+            if (strcmp(argv[1], "detail") == 0 && (strcmp(argv[2], "problem") == 0 || strcmp(argv[2], "-p") == 0)) {
                 if (isLoggedIn()) {
                     int problem_id = (int) strtol(argv[3], NULL, 10);
                     cJSON *request = cJSON_CreateObject();
@@ -218,7 +217,26 @@ int main(int argc, char *argv[]) {
             }
             break;
         case 5:
-
+            if (strcmp(argv[1], "show") == 0 && strcmp(argv[2], "result") == 0) {
+                if (isLoggedIn()) {
+                    int contest_id = (int) strtol(argv[3], NULL, 10);
+                    int problem_id;
+                    if (argv[4] != NONE) {
+                        problem_id = (int) strtol(argv[4], NULL, 10);
+                    } else {
+                        problem_id = -1;
+                    }
+                    cJSON *request = cJSON_CreateObject();
+                    cJSON_AddNumberToObject(request, "contest_id", contest_id);
+                    cJSON_AddNumberToObject(request, "problem_id", problem_id);
+                    cJSON *response = send_message(message_client, getToken(), CHECK_RESULT, request);
+                    if ((int) get_attr(response, "status", INTEGER) != 200) {
+                        printf(get_attr(response, "err_msg", STRING));
+                        return 1;
+                    }
+                    show_results(get_attr(response, "data", CJSON));
+                }
+            }
             break;
         default:
             break;

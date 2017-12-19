@@ -1,13 +1,11 @@
 //
-// Created by Tolqinbek Isoqov on 12/17/17.
+// Created by Tolqinbek Isoqov on 12/19/17.
 //
-
 #include "server_methods.h"
 #include "model.h"
 
-cJSON *get_contest(cJSON *request) {
-    int contest_id = (int) get_attr(request, "contest_id", INTEGER);
-    cJSON *response = get_contest_by_id(contest_id);
+cJSON *get_problems(cJSON *request) {
+    cJSON *response = get_all_problems();
     if ((int) get_attr(response, "status", INTEGER) == 700) {
         setStatus(response, 200);
     } else {

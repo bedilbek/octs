@@ -17,7 +17,7 @@ cJSON *create_user_contest_result_char(int user_id, int contest_id, int total_po
 
     char insert_sql[1024];
     sprintf(insert_sql, "INSERT INTO user_contest_result \n"
-                    "VALUES (%d, %d, %d, DEFAULT, DEFAULT)",
+            "VALUES (%d, %d, %d, DEFAULT, DEFAULT)",
             user_id, contest_id, total_points);
 
     cJSON *msg = insert_query(db, insert_sql);
@@ -72,6 +72,22 @@ cJSON *get_user_contest_result(int user_id, int contest_id) {
                     "WHERE user_id=%d \n"
                     "AND contest_id=%d",
             user_id, contest_id);
+
+    cJSON *msg = select_query(db, select_sql);
+    delete(db);
+    return msg;
+}
+
+cJSON *validate_user_contest_result(int user_id, int contest_id, int problem_id) {
+    struct Database *db = new(Database);
+    char select_sql[1024];
+
+    sprintf(select_sql,
+            "SELECT *\n"
+                    "FROM user_contest_result\n"
+                    "JOIN contest_problem ON  user_contest_result.contest_id=contest_problem.contest_id\n"
+                    "WHERE user_contest_result.user_id=%d and user_contest_result.contest_id=%d AND contest_problem.problem_id=%d",
+            user_id, contest_id, problem_id);
 
     cJSON *msg = select_query(db, select_sql);
     delete(db);

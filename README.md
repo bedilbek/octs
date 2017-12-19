@@ -62,3 +62,19 @@ cJSON *response = (cJSON *) send_file(file_client,
                                           "/Users/tom1/Documents/Subject files/OS/Project/octs/client/client/client.c",
                                           "client.c");
 ```
+###Commands
+```
+login -                                             in order to login
+logout -                                            in order to logout
+signup -                                            in order to register user
+contests(-c) -                                      in order to see contests
+contest(-c) CONTEST_ID -                            in order to see contest details
+my -c -                                             in order to my contests
+problems(-p) -                                      in order to see problem detail
+create problem(-p) -                                in order create problem
+ls contest(-c) CONTEST_ID -                         in order to see contest problems
+detail problem PROBLEM_ID -                         in order to see problem details
+register contest CONTEST_ID -                       in ordert to register for contest
+submit CONTEST_ID PROBLEM_ID -                      in order to submit solution to contest's problem
+show result CONTEST_ID PROBLEM_ID(optional, -) -    in order to see the whole contest result or contest problems result  
+```

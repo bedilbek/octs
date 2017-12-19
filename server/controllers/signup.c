@@ -3,15 +3,36 @@
 //
 #include "server_methods.h"
 #include "model.h"
+#include <regex.h>
+
+int validate_email(char *email) {
+    regex_t regex;
+    int match = regcomp(&regex, "\\w+([a-zA-Z0-9.])\\w+(@)([a-zA-Z])\\w+(.)([a-zA-Z])\\w+", 0);
+    if (match) {
+        printf("could not comple regex");
+    }
+    match = regexec(&regex, email, 0, NULL, 0);
+    if (!match)
+        return TRUE;
+    else
+        return FALSE;
+}
+
 
 cJSON *signup(cJSON *request) {
-    char *fname = get_attr(request, "fname", STRING);
-    char *lname = get_attr(request, "lname", STRING);
+    cJSON *response = cJSON_CreateObject();
     char *username = get_attr(request, "username", STRING);
     char *email = get_attr(request, "email", STRING);
+    int is_valid = validate_email(email);
+    if (!is_valid) {
+        setStatus(response, 400);
+        setErrMsg(response, "Email has wrong pattern");
+        return response;
+    }
+    char *fname = get_attr(request, "fname", STRING);
+    char *lname = get_attr(request, "lname", STRING);
     char *password = get_attr(request, "password", STRING);
     cJSON *validation = validate_user(username, email);
-    cJSON *response = cJSON_CreateObject();
     if ((int) get_attr(validation, "count", INTEGER) > 0) {
         setStatus(response, 400);
         setErrMsg(response, "User with username or password exists. Please try with other credentials");

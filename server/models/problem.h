@@ -39,4 +39,6 @@ cJSON *get_problems_by_categoryId(int category_id);
 
 void *map_problem(cJSON *from);
 
+cJSON *validate_problem(int user_id, int problem_id);
+
 #endif //OS_PROJECT_PROBLEM_H

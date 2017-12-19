@@ -24,10 +24,10 @@ cJSON *create_problem_result_char(int user_id, int contest_id, int problem_id,
     char select_sql[1024];
 
     sprintf(select_sql, "SELECT COUNT(id)\n"
-                    "FROM problem_result\n"
-                    "WHERE contest_id=%d \n"
-                    "AND user_id=%d \n"
-                    "AND problem_id=%d",
+            "FROM problem_result\n"
+            "WHERE contest_id=%d \n"
+            "AND user_id=%d \n"
+            "AND problem_id=%d",
             contest_id, user_id, problem_id);
 
 
@@ -42,10 +42,10 @@ cJSON *create_problem_result_char(int user_id, int contest_id, int problem_id,
     cJSON_Delete(msg);
     char insert_sql[1024];
     if (failed_test_case_id == 0)
-    sprintf(insert_sql, "INSERT INTO problem_result \n"
-                    "VALUES (DEFAULT, %d, %d, %d, %d, NULL, DEFAULT, DEFAULT, %d, %d) \n"
-                    "RETURNING id",
-            user_id, contest_id, problem_id, points, trial_number, success);
+        sprintf(insert_sql, "INSERT INTO problem_result \n"
+                "VALUES (DEFAULT, %d, %d, %d, %d, NULL, DEFAULT, DEFAULT, %d, %d) \n"
+                "RETURNING id",
+                user_id, contest_id, problem_id, points, trial_number, success);
     else
         sprintf(insert_sql, "INSERT INTO problem_result \n"
                 "VALUES (DEFAULT, %d, %d, %d, %d, %d, DEFAULT, DEFAULT, %d, %d) \n"
@@ -99,16 +99,23 @@ cJSON *get_problem_result_trials_in_contest(int user_id, int contest_id, int pro
     return msg;
 }
 
-cJSON *get_successful_problem_results_in_contest(int user_id, int contest_id) {
+cJSON *get_successful_problem_results_in_contest(int user_id, int contest_id, int problem_id) {
     struct Database *db = new(Database);
     char select_sql[1024];
-
-    sprintf(select_sql,
-            "SELECT * FROM problem_result \n"
-                    "where user_id=%d \n"
-                    "AND contest_id=%d \n"
-                    "AND success = 1",
-            user_id, contest_id);
+    if (problem_id == NULL && contest_id != NULL) {
+        sprintf(select_sql,
+                "SELECT * FROM problem_result \n"
+                        "where user_id=%d \n"
+                        "AND contest_id=%d \n",
+                user_id, contest_id);
+    } else {
+        sprintf(select_sql,
+                "SELECT * FROM problem_result \n"
+                        "where user_id=%d \n"
+                        "AND contest_id=%d \n"
+                        "AND problem_id=%d \n",
+                user_id, contest_id, problem_id);
+    }
 
     cJSON *msg = select_query(db, select_sql);
     delete(db);

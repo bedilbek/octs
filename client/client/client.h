@@ -10,7 +10,7 @@
 
 #define SERVER_LISTEN_PORT 8000
 #define FILE_SERVER_LISTEN_PORT 8001
-#define SERVER "192.168.43.52" //"127.0.0.1"
+#define SERVER "127.0.0.1"
 #define MAX_LENGTH_OF_MESSAGE 1024
 
 #define SAVE_FILE 0
@@ -24,6 +24,8 @@
 #define MY_CONTESTS 8
 #define PROBLEM_CREATION 9
 #define SUBMIT_SOLUTION 10
+#define CHECK_RESULT 11
+#define GET_PROBLEMS 12
 
 extern const void *Client;
 

@@ -87,6 +87,7 @@ void setStatus(cJSON *response, int status_code) {
 void setErrMsg(cJSON *response, char *message) {
     if (message == "") {
         char *err_msg = get_attr(response, "message", STRING);
+        cJSON_DetachItemFromObject(response, "message");
         cJSON_AddStringToObject(response, "err_msg", err_msg);
     } else
         cJSON_AddStringToObject(response, "err_msg", message);

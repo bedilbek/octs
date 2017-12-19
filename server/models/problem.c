@@ -65,9 +65,27 @@ cJSON *get_problem_by_id(int problem_id) {
     return msg;
 }
 
+cJSON *validate_problem(int user_id, int problem_id) {
+    struct Database *db = new(Database);
+    char select_sql[1024];
+
+    sprintf(select_sql, "SELECT\n"
+            "  problem.*,\n"
+            "  category.name\n"
+            "FROM problem\n"
+            "  JOIN category ON category.id = problem.category_id\n"
+            "  JOIN contest_problem ON contest_problem.problem_id = problem.id\n"
+            "  JOIN user_contest_result ON contest_problem.contest_id=user_contest_result.contest_id\n"
+            "WHERE user_contest_result.user_id=%d AND problem.id=%d", user_id, problem_id);
+    cJSON *msg = select_query(db, select_sql);
+    delete(db);
+    return msg;
+}
+
 cJSON *get_all_problems() {
     struct Database *db = new(Database);
-    cJSON *msg = select_query(db, "SELECT * FROM problem");
+    cJSON *msg = select_query(db, "SELECT * FROM problem WHERE problem.id not in "
+            "(SELECT contest_problem.problem_id FROM contest_problem)");
     delete(db);
     return msg;
 }
@@ -186,24 +204,21 @@ static const struct Class _Problem = {
 
 const void *Problem = &_Problem;
 
-void *map_problem(cJSON *from)
-{
+void *map_problem(cJSON *from) {
     struct Problem *to;
     to = malloc(sizeof(struct Problem));
-    //printf(cJSON_Print(from));
     int status = (int) cJSON_parser(cJSON_GetObjectItem(from, "status"));
 
-    if (status == DATABASE_TUPLES_OK)
-    {
+    if (status == DATABASE_TUPLES_OK) {
         cJSON *data;
-        data = cJSON_GetArrayItem(cJSON_GetObjectItem(from, "data"),0);
+        data = cJSON_GetArrayItem(cJSON_GetObjectItem(from, "data"), 0);
         to->id = (int) cJSON_parser(cJSON_GetObjectItem(data, PROBLEM_ID));
-        to->category_id = (int) cJSON_parser(cJSON_GetObjectItem(data,PROBLEM_CATEGORY_ID));
-        to->description  = (char*) cJSON_parser(cJSON_GetObjectItem(data, PROBLEM_DESCRIPTION));
-        to->max_point  = (int) cJSON_parser(cJSON_GetObjectItem(data, PROBLEM_MAX_POINTS));
-        to->memory_limit  = (int) cJSON_parser(cJSON_GetObjectItem(data, PROBLEM_MEMORY_LIMIT));
-        to->time_limit  = (int) cJSON_parser(cJSON_GetObjectItem(data, PROBLEM_TIME_LIMIT));
-        to->title = (char*) cJSON_parser(cJSON_GetObjectItem(data, PROBLEM_TITLE));
+        to->category_id = (int) cJSON_parser(cJSON_GetObjectItem(data, PROBLEM_CATEGORY_ID));
+        to->description = (char *) cJSON_parser(cJSON_GetObjectItem(data, PROBLEM_DESCRIPTION));
+        to->max_point = (int) cJSON_parser(cJSON_GetObjectItem(data, PROBLEM_MAX_POINTS));
+        to->memory_limit = (int) cJSON_parser(cJSON_GetObjectItem(data, PROBLEM_MEMORY_LIMIT));
+        to->time_limit = (int) cJSON_parser(cJSON_GetObjectItem(data, PROBLEM_TIME_LIMIT));
+        to->title = (char *) cJSON_parser(cJSON_GetObjectItem(data, PROBLEM_TITLE));
     }
 
     return to;

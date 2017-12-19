@@ -24,4 +24,6 @@ cJSON *get_contests_of_user(int user_id);
 
 cJSON *get_user_contest_result(int user_id, int contest_id);
 
+cJSON *validate_user_contest_result(int user_id, int contest_id, int problem_id);
+
 #endif //OS_PROJECT_USER_CONTEST_RESULT_H
