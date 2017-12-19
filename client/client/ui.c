@@ -318,3 +318,41 @@ cJSON *get_files() {
     cJSON_AddStringToObject(params, "output_file_path", output_file_path);
     return params;
 }
+
+cJSON *create_contest() {
+    cJSON *data = cJSON_CreateObject();
+    char title[1024] = {}, description[1024] = {}, starts_at[1024] = {},
+            ends_at[1024] = {}, register_time[1024] = {}, end_register_time[1024] = {};
+    char c;
+    printf("Enter title: ");
+    fgets(title, 1024, stdin);
+    title[strlen(title) - 1] = '\0';
+
+    printf("Description: ");
+    fgets(description, 1024, stdin);
+    description[strlen(description) - 1] = '\0';
+
+    printf("Starts at: ");
+    fgets(starts_at, 1024, stdin);
+    starts_at[strlen(starts_at) - 1] = '\0';
+
+    printf("Ends at: ");
+    fgets(ends_at, 1024, stdin);
+    ends_at[strlen(ends_at) - 1] = '\0';
+
+    printf("Register start time: ");
+    fgets(register_time, 1024, stdin);
+    register_time[strlen(register_time) - 1] = '\0';
+
+    printf("Register end time: ");
+    fgets(end_register_time, 1024, stdin);
+    end_register_time[strlen(end_register_time) - 1] = '\0';
+
+    cJSON_AddStringToObject(data, "title", title);
+    cJSON_AddStringToObject(data, "description", description);
+    cJSON_AddStringToObject(data, "starts_at", starts_at);
+    cJSON_AddStringToObject(data, "ends_at", ends_at);
+    cJSON_AddStringToObject(data, "reg_start_time", register_time);
+    cJSON_AddStringToObject(data, "reg_end_time", end_register_time);
+    return data;
+}

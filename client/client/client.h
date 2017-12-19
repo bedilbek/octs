@@ -27,6 +27,7 @@
 #define CHECK_RESULT 11
 #define GET_PROBLEMS 12
 #define CREATE_TEST_CASE 13
+#define CREATE_CONTEST 14
 
 extern const void *Client;
 

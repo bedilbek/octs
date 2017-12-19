@@ -1,6 +1,3 @@
-////
-//// Created by Tolqinbek Isoqov on 12/3/17.
-////
 #include "ui.h"
 #include "client.h"
 #include "client_methods.h"
@@ -67,6 +64,19 @@ int main(int argc, char *argv[]) {
                     printf("You haven't logged in\n");
                 }
             }
+            if (strcmp(argv[1], "create") == 0 && strcmp(argv[2], "contest") == 0) {
+                if (isLoggedIn()) {
+                    cJSON *request = create_contest();
+                    cJSON *response = (cJSON *) send_message(message_client, getToken(), CREATE_CONTEST, request);
+                    if ((int) get_attr(response, "status", INTEGER) == 201) {
+                        printf("Successfully created");
+                    } else {
+                        printf(get_attr(response, "err_msg", STRING));
+                    }
+                } else {
+                    printf("You haven't logged in\n");
+                }
+            }
             if (strcmp(argv[1], "my") == 0 && (strcmp(argv[2], "-c") == 0 || strcmp(argv[2], "contests") == 0)) {
                 if (isLoggedIn()) {
                     cJSON *response = (cJSON *) send_message(message_client, getToken(), MY_CONTESTS, NULL);
@@ -94,22 +104,6 @@ int main(int argc, char *argv[]) {
                     printf("You haven't logged in\n");
                 }
             }
-//            if (strcmp(argv[1], "apply") == 0) {
-//                int contest_id = (int) strtol(argv[2], NULL, 10);
-//                if (isLoggedIn()) {
-//                    cJSON *request = cJSON_CreateObject();
-//                    cJSON_AddNumberToObject(request, "contest_id", contest_id);
-//                    cJSON *response = (cJSON *) send_message(message_client, getToken(), 4, request);
-//                    int status;
-//                    if ((status = (int) get_attr(response, "status", INTEGER)) == 201) {
-//                        printf("Successfully applied for contest");
-//                    } else {
-//                        printf(get_attr(response, "err_msg", STRING));
-//                    }
-//                } else {
-//                    printf("You haven't logged in\n");
-//                }
-//            }
             if (strcmp(argv[1], "create") == 0 && (strcmp(argv[2], "problem") == 0 || strcmp(argv[2], "-p") == 0)) {
                 if (isLoggedIn()) {
                     struct Client *file_client = new(Client, FILE_SERVER_LISTEN_PORT);

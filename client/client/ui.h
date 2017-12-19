@@ -44,5 +44,7 @@ void show_results(cJSON *results);
 
 cJSON *get_files();
 
+cJSON *create_contest();
+
 #endif //OS_PROJECT_UI_H
 
