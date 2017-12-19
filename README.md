@@ -76,5 +76,6 @@ ls contest(-c) CONTEST_ID -                         in order to see contest prob
 detail problem PROBLEM_ID -                         in order to see problem details
 register contest CONTEST_ID -                       in ordert to register for contest
 submit CONTEST_ID PROBLEM_ID -                      in order to submit solution to contest's problem
-show result CONTEST_ID PROBLEM_ID(optional, -) -    in order to see the whole contest result or contest problems result  
+show result CONTEST_ID PROBLEM_ID(optional, -) -    in order to see the whole contest result or contest problems result
+create test case PROBLEM_ID -                       in order to create test_case  
 ```

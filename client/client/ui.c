@@ -300,3 +300,21 @@ void show_results(cJSON *results) {
         print_line(87);
     }
 }
+
+cJSON *get_files() {
+    char input_file_path[1024] = {}, output_file_path[1024] = {};
+    printf("Input file path(absolute): ");
+    fflush(stdout);
+    fgets(input_file_path, 1024, stdin);
+    input_file_path[strlen(input_file_path) - 1] = '\0';
+
+    printf("Output file path(absolute): ");
+    fflush(stdout);
+    fgets(output_file_path, 1024, stdin);
+    output_file_path[strlen(output_file_path) - 1] = '\0';
+
+    cJSON *params = cJSON_CreateObject();
+    cJSON_AddStringToObject(params, "input_file_path", input_file_path);
+    cJSON_AddStringToObject(params, "output_file_path", output_file_path);
+    return params;
+}

@@ -42,5 +42,7 @@ void show_problem(cJSON *problem);
 
 void show_results(cJSON *results);
 
+cJSON *get_files();
+
 #endif //OS_PROJECT_UI_H
 

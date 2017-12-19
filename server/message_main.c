@@ -7,6 +7,7 @@
 #include "model.h"
 
 int main() {
+    setbuf(stdout, NULL);
 //    struct Database *db = new(Database);
 //    run_migrations(db);
     pthread_t server_pid;

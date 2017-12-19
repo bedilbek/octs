@@ -24,7 +24,7 @@ cJSON *create_test_case_char(int problem_id, int input_file_id, int output_file_
     sprintf(param, "%d", is_sample);
     char *param_values[] = {param};
     sprintf(insert_sql, "INSERT INTO test_case \n"
-                    "VALUES (DEFAULT, %d, \'%s\', \'%s\', \'%s\', $1, DEFAULT, DEFAULT) \n"
+                    "VALUES (DEFAULT, %d, %d, %d, \'%s\', $1, DEFAULT, DEFAULT) \n"
                     "RETURNING id",
             problem_id, input_file_id, output_file_id,
             explanation);

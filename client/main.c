@@ -9,6 +9,7 @@
 
 
 int main(int argc, char *argv[]) {
+    setbuf(stdout, NULL);
     struct Client *message_client = new(Client, SERVER_LISTEN_PORT);
     switch (argc) {
         case 2:
@@ -235,6 +236,45 @@ int main(int argc, char *argv[]) {
                         return 1;
                     }
                     show_results(get_attr(response, "data", CJSON));
+                }
+            }
+            if (strcmp(argv[1], "create") == 0 && strcmp(argv[2], "test") == 0 && strcmp(argv[3], "case") == 0) {
+                if (isLoggedIn()) {
+                    struct Client *file_client = new(Client, FILE_SERVER_LISTEN_PORT);
+
+                    int problem_id = (int) strtol(argv[4], NULL, 10);
+                    cJSON *request = cJSON_CreateObject();
+                    cJSON *files = get_files();
+                    char *input_file_path = get_attr(files, "input_file_path", STRING);
+                    char *output_file_path = get_attr(files, "output_file_path", STRING);
+                    cJSON *input_file_response = send_file(file_client, getToken(), input_file_path);
+                    if (((int) get_attr(input_file_response, "status", INTEGER)) != 201) {
+                        printf(get_attr(input_file_response, "err_msg", STRING));
+                        return -1;
+                    }
+                    free(file_client);
+                    file_client = new(Client, FILE_SERVER_LISTEN_PORT);
+                    cJSON *output_file_response = send_file(file_client, getToken(), output_file_path);
+                    if (((int) get_attr(output_file_response, "status", INTEGER)) != 201) {
+                        printf(get_attr(output_file_response, "err_msg", STRING));
+                        return -1;
+                    }
+                    free(file_client);
+                    char explanation[1024] = {};
+                    printf("Explanation: ");
+                    fgets(explanation, 1024, stdin);
+                    int input_file = (int) get_attr(input_file_response, "file_id", INTEGER);
+                    int output_file = (int) get_attr(output_file_response, "file_id", INTEGER);
+                    cJSON_AddNumberToObject(request, "problem_id", problem_id);
+                    cJSON_AddNumberToObject(request, "input_file_id", input_file);
+                    cJSON_AddNumberToObject(request, "output_file_id", output_file);
+                    cJSON_AddStringToObject(request, "explanation", explanation);
+                    cJSON *response = send_message(message_client, getToken(), CREATE_TEST_CASE, request);
+                    if ((int) get_attr(response, "status", INTEGER) != 201) {
+                        printf(get_attr(response, "err_msg", STRING));
+                        return 1;
+                    }
+                    printf("Test case is successfully created");
                 }
             }
             break;

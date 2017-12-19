@@ -34,4 +34,6 @@ cJSON *check_result(cJSON *request);
 
 cJSON *get_problems(cJSON *request);
 
+cJSON *create_test_case(cJSON *request);
+
 #endif //OS_PROJECT_METHODS_H
