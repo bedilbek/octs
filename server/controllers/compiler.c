@@ -6,6 +6,7 @@
 
 int temp_file_name = 0;
 int temp_is_locked = 0;
+pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
 
 int compare_outputs(FILE *actual, FILE *expected) {
     char a_buff;
@@ -29,16 +30,21 @@ int compare_outputs(FILE *actual, FILE *expected) {
 }
 
 char *get_temp_file_name() {
-    int test = temp_file_name;
-    while (1) {
-        if (temp_is_locked == 0) {
-            temp_is_locked = 1;
-            char temp[1000000];
-            sprintf(temp, "%d\0", ++temp_file_name);
-            temp_is_locked = 0;
-            return temp;
-        }
-    }
+//    int test = temp_file_name;
+//    while (1) {
+//        if (temp_is_locked == 0) {
+//            temp_is_locked = 1;
+//            char temp[1000000];
+//            sprintf(temp, "%d\0", ++temp_file_name);
+//            temp_is_locked = 0;
+//            return temp;
+//        }
+//    }
+    pthread_mutex_lock(&mutex);
+    char temp[1000000];
+    sprintf(temp, "%d\0", ++temp_file_name);
+    pthread_mutex_unlock(&mutex);
+    return temp;
 }
 
 char *get_temp_location() {

@@ -9,7 +9,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include "model.h"
-
+#include <pthread.h>
 #define TEST_CASE_OK 800
 #define COMPILATION_ERROR 801
 #define TEST_CASE_FAILED 802
