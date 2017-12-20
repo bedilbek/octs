@@ -190,5 +190,5 @@ void compile(char *code_path, int user_id, int contest_id, int problem_id) {
     if (status == TEST_CASES_UNDEFINED_ERROR)
         fprintf(stderr, "Test case map failed");
 
-//    cJSON *response = create_problem_result_char(user_id, contest_id, problem_id, points, status, test_case_fail_id);
+    cJSON *response = create_problem_result_char(user_id, contest_id, problem_id, points, status, test_case_fail_id);
 }
