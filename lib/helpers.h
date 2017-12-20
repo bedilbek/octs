@@ -124,5 +124,7 @@ void *get_attr(cJSON *data, char *value, int value_type);
 
 cJSON *error_input(char *input);
 
+char *rand_string(char *str, size_t size);
+
 
 #endif //POSTGRES_TEST_OOPDESIGNPATTERNS_H

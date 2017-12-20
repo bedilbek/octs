@@ -4,7 +4,7 @@
 
 #include "compiler.h"
 
-int temp_file_name = 0;
+char *temp_file_name = "XXXXXX";
 int temp_is_locked = 0;
 pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
 
@@ -30,27 +30,14 @@ int compare_outputs(FILE *actual, FILE *expected) {
 }
 
 char *get_temp_file_name() {
-//    int test = temp_file_name;
-//    while (1) {
-//        if (temp_is_locked == 0) {
-//            temp_is_locked = 1;
-//            char temp[1000000];
-//            sprintf(temp, "%d\0", ++temp_file_name);
-//            temp_is_locked = 0;
-//            return temp;
-//        }
-//    }
-    pthread_mutex_lock(&mutex);
-    char temp[1000000];
-    sprintf(temp, "%d\0", ++temp_file_name);
-    pthread_mutex_unlock(&mutex);
-    return temp;
+    char *file_name = (char *) malloc(10);
+    rand_string(file_name, 10);
+    return file_name;
 }
 
-char *get_temp_location() {
-    char path[1024] = TEMP_FILE_STORAGE;
-    strcat(path, "temp/");
-    return path;
+char *get_temp_location(char file_path[]) {
+    sprintf(file_path, "%s%s", TEMP_FILE_STORAGE, "temp/");
+    return file_path;
 }
 
 //1 if error otherwise 0
@@ -103,7 +90,8 @@ int execute(char *code_path, struct TestCase testCase, int time_limit) {
 
     int status; //execution status
     char command[100000];   //gcc command buffer
-    char *temp_location = get_temp_location();  //temporary location
+    char temp_file_location[1024] = {};
+    get_temp_location(temp_file_location);  //temporary location
     char *temp_file_name = get_temp_file_name(); //temporary file name for code
     char *input_file = testCase.input_file_path; //test case input file location
     char *output_file = testCase.output_file_path; //test case output file location
@@ -112,13 +100,13 @@ int execute(char *code_path, struct TestCase testCase, int time_limit) {
     char code_output[100000] = {}; //code object execution output location
 
     //prepare command and paths
-    strcat(error_file_path, temp_location);
+    strcat(error_file_path, temp_file_location);
     strcat(error_file_path, temp_file_name);
     strcat(error_file_path, "_error");
-    strcat(code_object, temp_location);
+    strcat(code_object, temp_file_location);
     strcat(code_object, temp_file_name);
     strcat(code_object, ".o");
-    strcat(code_output, temp_location);
+    strcat(code_output, temp_file_location);
     strcat(code_output, temp_file_name);
     strcat(code_output, "_out");
 
@@ -202,5 +190,5 @@ void compile(char *code_path, int user_id, int contest_id, int problem_id) {
     if (status == TEST_CASES_UNDEFINED_ERROR)
         fprintf(stderr, "Test case map failed");
 
-    cJSON *response = create_problem_result_char(user_id, contest_id, problem_id, points, status, test_case_fail_id);
+//    cJSON *response = create_problem_result_char(user_id, contest_id, problem_id, points, status, test_case_fail_id);
 }

@@ -10,6 +10,7 @@
 #include <time.h>
 #include "model.h"
 #include <pthread.h>
+
 #define TEST_CASE_OK 800
 #define COMPILATION_ERROR 801
 #define TEST_CASE_FAILED 802
@@ -18,10 +19,16 @@
 #define TEST_CASE_TIME_LIMIT 805
 
 int compare_outputs(FILE *actual, FILE *expected);
+
 char *get_temp_file_name();
-char *get_temp_location();
+
+char *get_temp_location(char *file_path);
+
 //1 if error otherwise 0
 int if_error(char *error_file);
+
 int execute(char *code_path, struct TestCase testCase, int time_limit);
+
 void compile(char *code_path, int user_id, int contest_id, int problem_id);
+
 #endif //OS_PROJECT_COMPILER_H
