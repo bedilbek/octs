@@ -9,6 +9,7 @@ cJSON *check_result(cJSON *request) {
     int contest_id = (int) get_attr(request, "contest_id", INTEGER);
     int problem_id = (int) get_attr(request, "problem_id", INTEGER);
     cJSON *response = get_successful_problem_results_in_contest(user_id, contest_id, problem_id);
+    printf(cJSON_Print(response));
     if ((int) get_attr(response, "status", INTEGER) == 700) {
         setStatus(response, 200);
     } else {

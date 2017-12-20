@@ -13,6 +13,7 @@ cJSON *get_contest_problems(cJSON *request) {
         return error_input("contest_id");
     }
     cJSON *response = get_problems_by_contest_id(contest_id, user_id, "ASC");
+    printf(cJSON_Print(response));
     if ((int) get_attr(response, "status", INTEGER) == 700) {
         setStatus(response, 200);
     } else {

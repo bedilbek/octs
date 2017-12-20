@@ -84,8 +84,13 @@ cJSON *validate_problem(int user_id, int problem_id) {
 
 cJSON *get_all_problems() {
     struct Database *db = new(Database);
-    cJSON *msg = select_query(db, "SELECT * FROM problem WHERE problem.id not in "
-            "(SELECT contest_problem.problem_id FROM contest_problem)");
+    cJSON *msg = select_query(db, "SELECT\n"
+            "  problem.*,\n"
+            "  category.name\n"
+            "FROM problem\n"
+            "  JOIN category ON problem.category_id = category.id\n"
+            "WHERE problem.id NOT IN (SELECT contest_problem.problem_id\n"
+            "                         FROM contest_problem)");
     delete(db);
     return msg;
 }

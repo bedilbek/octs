@@ -6,8 +6,8 @@
 #include "client.h"
 
 cJSON *client_listen(struct Client *client) {
-    char response[1024];
-    read(client->sock, response, 1024);
+    char response[4096];
+    read(client->sock, response, 4096);
     return cJSON_Parse(response);
 }
 

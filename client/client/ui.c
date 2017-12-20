@@ -181,9 +181,9 @@ void showContests(cJSON *contests, int size)// lists all the available contests
     char *starts_at = "Starts_at";
     char *ends_at = "Ends_at";
     char *reg_end_time = "Registration ends";
-    printf("--------------------------------------------------------------------------------------------------------------------------------------\n");
+    print_line(141);
     printf("%-12s|%-35s|%-30s|%-30s|%-30s|\n", id, title, starts_at, ends_at, reg_end_time);
-    printf("--------------------------------------------------------------------------------------------------------------------------------------\n");
+    print_line(141);
     for (i = 0; i < size; i++) {
         cJSON *contest = cJSON_GetArrayItem(contests, i);
         printf("   %-9d|", (int) get_attr(contest, "id", INTEGER));
@@ -192,7 +192,7 @@ void showContests(cJSON *contests, int size)// lists all the available contests
         printf("%-30s|", (char *) get_attr(contest, "ends_at", STRING));
         printf("%-30s|", (char *) get_attr(contest, "reg_end_time", STRING));
         printf("\n");
-        printf("--------------------------------------------------------------------------------------------------------------------------------------\n");
+        print_line(141);
     }
 }
 
