@@ -45,6 +45,7 @@ cJSON *submit_problem(cJSON *request) {
     }
     pthread_t tid;
     pthread_create(&tid, NULL, execute_solution, request);
+    printf("User with id %d submit solution to contest's (%d) problem with id %d", user_id, contest_id, problem_id);
     setStatus(response, 200);
     return response;
 }

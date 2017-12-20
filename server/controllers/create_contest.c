@@ -16,6 +16,7 @@ cJSON *create_contest(cJSON *request) {
     cJSON *response = create_contest_char(user_id, starts_at, ends_at, description, title, reg_start_time,
                                           reg_end_time);
     if ((int) get_attr(response, "status", INTEGER) == 700) {
+        printf("Contest is created by user %d", user_id);
         setStatus(response, 201);
     } else {
         setStatus(response, 400);

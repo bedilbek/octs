@@ -40,6 +40,7 @@ cJSON *signup(cJSON *request) {
     }
     cJSON *user = create_user_char(fname, lname, username, password, email, generate_token());
     if ((int) get_attr(user, "status", INTEGER) == 700) {
+        printf("User with username %s is created", username);
         setStatus(response, 201);
     } else {
         setStatus(response, 400);

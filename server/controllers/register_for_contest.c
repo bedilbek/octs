@@ -19,6 +19,7 @@ cJSON *register_for_contest(cJSON *data) {
     }
     response = create_user_contest_result_char(user_id, contest_id, 0);
     if ((int) get_attr(response, "status", INTEGER) == 701) {
+        printf("User with id %d is registered to contest with id %d", user_id, contest_id);
         setStatus(response, 201);
     } else {
         setStatus(response, 400);

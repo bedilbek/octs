@@ -17,6 +17,7 @@ cJSON *problem_creation(cJSON *request) {
     cJSON *response = create_problem_char(category_id, description, input_file_id, output_file_id, time_limit,
                                           memory_limit, max_points, title);
     if ((int) get_attr(response, "status", INTEGER) == 701) {
+        printf("New problem is created");
         setStatus(response, 201);
     } else {
         setStatus(response, 400);
