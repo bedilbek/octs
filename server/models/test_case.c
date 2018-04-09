@@ -8,14 +8,14 @@
 
 #define TEST_CASE_ID "id"
 #define TEST_CASE_PROBLEM_ID "problem_id"
-#define TEST_CASE_INPUT_FILE_NAME "input_file_name"
-#define TEST_CASE_OUTPUT_FILE_NAME "output_file_name"
+#define TEST_CASE_INPUT_FILE_ID "input_file_id"
+#define TEST_CASE_OUTPUT_FILE_ID "output_file_id"
 #define TEST_CASE_EXPLANATION "explanation"
 #define TEST_CASE_IS_SAMPLE "is_sample"
 #define TEST_CASE_CREATED_AT "created_at"
 #define TEST_CASE_UPDATED_AT "updated_at"
 
-cJSON *create_test_case_char(int problem_id, char *input_file_name, char *output_file_name,
+cJSON *create_test_case_char(int problem_id, int input_file_id, int output_file_id,
                              char *explanation, int is_sample) {
     struct Database *db = new(Database);
 
@@ -26,7 +26,7 @@ cJSON *create_test_case_char(int problem_id, char *input_file_name, char *output
     sprintf(insert_sql, "INSERT INTO test_case \n"
                     "VALUES (DEFAULT, %d, \'%s\', \'%s\', \'%s\', $1, DEFAULT, DEFAULT) \n"
                     "RETURNING id",
-            problem_id, input_file_name, output_file_name,
+            problem_id, input_file_id, output_file_id,
             explanation);
 
     cJSON *msg = insert_query_params(db, insert_sql, 1, param_values);
@@ -38,8 +38,8 @@ cJSON *create_test_case_char(int problem_id, char *input_file_name, char *output
 cJSON *create_test_case_cJSON(cJSON *data) {
     return create_test_case_char(
             (cJSON_GetObjectItem(data, TEST_CASE_PROBLEM_ID))->valueint,
-            (cJSON_GetObjectItem(data, TEST_CASE_INPUT_FILE_NAME))->valuestring,
-            (cJSON_GetObjectItem(data, TEST_CASE_OUTPUT_FILE_NAME))->valuestring,
+            (cJSON_GetObjectItem(data, TEST_CASE_INPUT_FILE_ID))->valueint,
+            (cJSON_GetObjectItem(data, TEST_CASE_OUTPUT_FILE_ID))->valueint,
             (cJSON_GetObjectItem(data, TEST_CASE_EXPLANATION))->valuestring,
             (cJSON_GetObjectItem(data, TEST_CASE_IS_SAMPLE))->valueint);
 }
@@ -104,7 +104,7 @@ static void *test_case_ctor(void *_self, va_list *arguments) {
 
     cJSON *create_tst_cs_msg = create_test_case_cJSON(self->data);
 
-    if ((cJSON_GetObjectItem(create_tst_cs_msg, "status"))->valueint != 200) {
+    if ((cJSON_GetObjectItem(create_tst_cs_msg, "status"))->valueint != DATABASE_TUPLES_OK) {
         fprintf(stderr, "%s", (cJSON_GetObjectItem(create_tst_cs_msg, "message"))->valuestring);
         delete(self);
         return NULL;
@@ -139,7 +139,7 @@ static void test_case_set(struct TestCase *_self, char *field, void *value) {
     sprintf(update_sql, "UPDATE test_case SET %s=$1 WHERE id=%d", field, test_case_id);
     cJSON *msg = update_query_params(db, update_sql, 1, values);
     delete(db);
-    if ((cJSON_GetObjectItem(msg, "status"))->valueint != 201) {
+    if ((cJSON_GetObjectItem(msg, "status"))->valueint != DATABASE_NO_TUPLES_OK) {
         fprintf(stderr, "%s", (cJSON_GetObjectItem(msg, "message"))->valuestring);
         return;
     }

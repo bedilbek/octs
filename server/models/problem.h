@@ -14,8 +14,8 @@ struct Problem {
     cJSON *data;
 };
 
-cJSON *create_problem_char(int category_id, char *description, char *input_format,
-                           char *output_format, int time_limit, int memory_limit,
+cJSON *create_problem_char(int category_id, char *description, int input_file_id,
+                           int output_file_id, int time_limit, int memory_limit,
                            int max_points);
 
 cJSON *create_problem_cJSON(cJSON *data);

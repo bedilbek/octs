@@ -40,3 +40,25 @@ Also if you look inside `CMakeLists.txt` file, there are two executable files fo
 If you want to better manipulate your database instances, install DataGrip by JetBrains.
 
 ##### Now your server-side app is ready to be compiled and executed ####
+
+#### 5. Generating token
+```
+char *token;
+token=generate_token();
+```
+
+#### 6. Send message and Send file
+* Send message
+```
+struct Client *file_client = new(Client, FILE_SERVER_LISTEN_PORT);
+cJSON *params = cJSON_CreateObject();
+//Add values to params json object
+cJSON *response = (cJSON *) send_message(client, method_id, params);
+```
+* Send file
+```
+struct Server *file_server = new(Server, FILE_SERVER_LISTEN_PORT);
+cJSON *response = (cJSON *) send_file(file_client,
+                                          "/Users/tom1/Documents/Subject files/OS/Project/octs/client/client/client.c",
+                                          "client.c");
+```

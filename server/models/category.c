@@ -90,7 +90,7 @@ static void *category_ctor(void *_self, va_list *arguments) {
 
     cJSON *create_ctgr_msg = create_category_cJSON(self->data);
 
-    if ((cJSON_GetObjectItem(create_ctgr_msg, "status"))->valueint != 200) {
+    if ((cJSON_GetObjectItem(create_ctgr_msg, "status"))->valueint != DATABASE_TUPLES_OK) {
         fprintf(stderr, "%s", (cJSON_GetObjectItem(create_ctgr_msg, "message"))->valuestring);
         delete(self);
         return NULL;
@@ -125,7 +125,7 @@ static void category_set(struct Category *_self, char *field, void *value) {
     sprintf(update_sql, "UPDATE category SET %s=$1 WHERE id=%d", field, category_id);
     cJSON *msg = update_query_params(db, update_sql, 1, values);
     delete(db);
-    if ((cJSON_GetObjectItem(msg, "status"))->valueint != 201) {
+    if ((cJSON_GetObjectItem(msg, "status"))->valueint != DATABASE_NO_TUPLES_OK) {
         fprintf(stderr, "%s", (cJSON_GetObjectItem(msg, "message"))->valuestring);
         return;
     }

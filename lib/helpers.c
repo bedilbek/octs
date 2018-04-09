@@ -3,6 +3,8 @@
 //
 
 #include "helpers.h"
+#include <uuid/uuid.h>
+
 
 int differ(const void *self, const void *b) {
     const struct Class *const *cp = self;
@@ -52,7 +54,6 @@ void *get(void *self, char *field) {
     return "";
 }
 
-
 char *toJson(void *self) {
     const struct Class *const *cp = self;
     if (self && *cp && (*cp)->toJson)
@@ -76,3 +77,61 @@ size_t sizeOf(const void *self) {
     return (*cp)->size;
 }
 
+void setStatus(cJSON *response, int status_code) {
+    cJSON_AddNumberToObject(response, "status", status_code);
+}
+
+void setErrMsg(cJSON *response, char *message) {
+    cJSON_AddStringToObject(response, "err_msg", message);
+}
+
+void setMessage(cJSON *response, char *message) {
+    cJSON_AddStringToObject(response, "message", message);
+}
+
+char *generate_token() {
+    uuid_t uuid = {};
+    char *str_uuid = calloc(37, sizeof(char));
+    uuid_generate(uuid);
+    uuid_unparse(uuid, str_uuid);
+    return str_uuid;
+}
+
+void *get_attr(cJSON *data, char *value, int value_type) {
+    cJSON *val;
+    switch (value_type) {
+        case STRING:
+            val = cJSON_GetObjectItem(data, value);
+            if (val) {
+                return val->valuestring;
+            }
+            break;
+        case DOUBLE:
+            val = cJSON_GetObjectItem(data, value);
+            if (val) {
+                return val;
+            }
+            break;
+        case INTEGER:
+            val = cJSON_GetObjectItem(data, value);
+            if (val) {
+                return (void *) val->valueint;
+            }
+            break;
+        case CJSON:
+            val = cJSON_GetObjectItem(data, value);
+            return val;
+        default:
+            return FALSE;
+    }
+    return FALSE;
+}
+
+cJSON *error_input(char *input) {
+    cJSON *response = cJSON_CreateObject();
+    char err_message[1024];
+    sprintf(err_message, "%s is required", input);
+    setStatus(response, 400);
+    setErrMsg(response, err_message);
+    return response;
+}

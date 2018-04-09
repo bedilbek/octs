@@ -7,9 +7,6 @@
 #include <pthread.h>
 #include "controllers.h"
 
-cJSON *get_attr(cJSON *data, char *field) {
-    return cJSON_GetObjectItem(data, field);
-}
 
 void return_response(int socket, cJSON *response) {
     char *response_message = cJSON_Print(response);
@@ -36,14 +33,15 @@ void receive_file(int peer_socket) {
 
     ////separate request into datum
     cJSON *message = cJSON_Parse(buffer);
-    cJSON *token = get_attr(message, "token");
-    cJSON *length = get_attr(message, "length");
-    cJSON *file_name = get_attr(message, "file_name");
+    char *token = get_attr(message, "token", STRING);
+    int length = (int) get_attr(message, "length", INTEGER);
+    char *file_name = get_attr(message, "file_name", STRING);
+    //TODO validate above values
     for (int i = 0; i < sizeof(buffer); ++i) {
         buffer[i] = '\0';
     }
-    file_size = length->valueint;
-    const char *absolute_file_path = get_full_path(file_name->valuestring);
+    file_size = length;
+    const char *absolute_file_path = get_full_path(file_name);
     received_file = fopen(absolute_file_path, "w");
     if (received_file == NULL) {
         return;

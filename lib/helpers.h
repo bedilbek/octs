@@ -15,8 +15,18 @@
 #include <sys/socket.h>
 #include <arpa/inet.h>
 #include <netinet/in.h>
+#include <stdbool.h>
 
 #include "vendor.h"
+
+#define CJSON 1
+#define STRING 2
+#define DOUBLE 3
+#define INTEGER 4
+
+#define TRUE 1
+#define FALSE 0
+
 
 #define typename(x) _Generic((x), \
     int:    "int", \
@@ -90,6 +100,34 @@ int differ(const void *self, const void *b);
 size_t sizeOf(const void *self);
 
 void *clone(const void *self);
+
+/*
+ * Sets status for response
+ *
+ * */
+void setStatus(cJSON *response, int status_code);
+
+/*
+ * Sets error message for response if any
+ *
+ * */
+void setErrMsg(cJSON *, char *);
+
+/*
+ * Sets message for response
+ *
+ * */
+void setMessage(cJSON *, char *);
+
+/*
+ * Generates token
+ *
+ * */
+char *generate_token();
+
+void *get_attr(cJSON *data, char *value, int value_type);
+
+cJSON *error_input(char *input);
 
 
 #endif //POSTGRES_TEST_OOPDESIGNPATTERNS_H
